@@ -1,8 +1,22 @@
 import datetime
 import time
+from types import UnionType
 
 
-class Base:
+class CheckMixin:
+    @staticmethod
+    def check_instance(value, type_, attr_name: str):
+        if not isinstance(value, type_):
+            raise TypeError(f'{attr_name} must be '
+                            f'{type_.__name__ if type(type_) is not UnionType else str(type_).replace("|", "or")}.')
+
+    @staticmethod
+    def check_empty_string(value, attr_name: str):
+        if value == '':
+            raise ValueError(f'{attr_name} cannot be empty string.')
+
+
+class Base(CheckMixin):
     def __init__(self, name: str, title: str, expiry: datetime.datetime):
         self.name = name
         self.title = title
@@ -36,13 +50,3 @@ class Base:
     def expiry(self, value):
         self.check_instance(value, datetime.datetime, 'Expiry')
         self._expiry = value
-
-    @staticmethod
-    def check_instance(value, type_, attr_name: str):
-        if not isinstance(value, type_):
-            raise TypeError(f'{attr_name} must be {type_.__name__}.')
-
-    @staticmethod
-    def check_empty_string(value, attr_name: str):
-        if value == '':
-            raise ValueError(f'{attr_name} cannot be empty string.')
