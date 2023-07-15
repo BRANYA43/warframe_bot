@@ -1,4 +1,5 @@
 import datetime
+import time
 
 
 class Base:
@@ -13,10 +14,8 @@ class Base:
 
     @name.setter
     def name(self, value: str):
-        if not isinstance(value, str):
-            raise TypeError('Name must be str.')
-        if value == '':
-            raise ValueError('Name cannot be empty string.')
+        self.check_instance(value, str, 'Name')
+        self.check_empty_string(value, 'Name')
         self._name = value
 
     @property
@@ -25,10 +24,8 @@ class Base:
 
     @title.setter
     def title(self, value):
-        if not isinstance(value, str):
-            raise TypeError('Title must be str.')
-        if value == '':
-            raise ValueError('Title cannot be empty string.')
+        self.check_instance(value, str, 'Title')
+        self.check_empty_string(value, 'Title')
         self._title = value
 
     @property
@@ -37,6 +34,15 @@ class Base:
 
     @expiry.setter
     def expiry(self, value):
-        if not isinstance(value, datetime.datetime):
-            raise TypeError('Expiry must be datetime.')
+        self.check_instance(value, datetime.datetime, 'Expiry')
         self._expiry = value
+
+    @staticmethod
+    def check_instance(value, type_, attr_name: str):
+        if not isinstance(value, type_):
+            raise TypeError(f'{attr_name} must be {type_.__name__}.')
+
+    @staticmethod
+    def check_empty_string(value, attr_name: str):
+        if value == '':
+            raise ValueError(f'{attr_name} cannot be empty string.')
