@@ -24,3 +24,7 @@ class TestConfig(unittest.TestCase):
         self.assertIsInstance(config.BOT_TOKEN, str)
         self.assertIsInstance(config.GUILD_ID, int)
         self.assertIsInstance(config.CHANNEL_ID, int)
+
+
+if __name__ == '__main__':
+    unittest.main()
