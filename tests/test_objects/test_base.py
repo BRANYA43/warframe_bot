@@ -1,10 +1,11 @@
 import datetime
 import unittest
 
+from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.base import Base
 
 
-class TestBase(unittest.TestCase):
+class TestBase(BaseTest):
     """Test Base"""
 
     def setUp(self) -> None:
@@ -27,27 +28,27 @@ class TestBase(unittest.TestCase):
         """Test: raise ValueError if name is empty string, raise TypeError if name isn't str."""
         with self.assertRaises(TypeError) as e:
             self.base.name = None
-        self.assertEqual(str(e.exception), 'Name must be str.')
+        self.check_error_message(e, 'Name must be str.')
 
         with self.assertRaises(ValueError) as e:
             self.base.name = ''
-        self.assertEqual(str(e.exception), 'Name cannot be empty string.')
+        self.check_error_message(e, 'Name cannot be empty string.')
 
     def test_raise_errors_of_title_property(self):
         """Test: raise ValueError if title is empty string, raise TypeError if title isn't str."""
         with self.assertRaises(TypeError) as e:
             self.base.title = None
-        self.assertEqual(str(e.exception), 'Title must be str.')
+        self.check_error_message(e, 'Title must be str.')
 
         with self.assertRaises(ValueError) as e:
             self.base.title = ''
-        self.assertEqual(str(e.exception), 'Title cannot be empty string.')
+        self.check_error_message(e, 'Title cannot be empty string.')
 
     def test_raise_errors_of_expiry_property(self):
         """Test: raise TypeError if expiry isn't datetime."""
         with self.assertRaises(TypeError) as e:
             self.base.expiry = None
-        self.assertEqual(str(e.exception), 'Expiry must be datetime.')
+        self.check_error_message(e, 'Expiry must be datetime.')
 
 
 if __name__ == '__main__':

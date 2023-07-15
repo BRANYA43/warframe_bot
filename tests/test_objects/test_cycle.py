@@ -1,10 +1,11 @@
 import datetime
 import unittest
 
+from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.cycle import Cycle
 
 
-class TestBase(unittest.TestCase):
+class TestBase(BaseTest):
 
     def setUp(self) -> None:
         self.expiry = datetime.datetime.utcnow()
@@ -44,15 +45,15 @@ class TestBase(unittest.TestCase):
         """
         with self.assertRaises(TypeError) as e:
             self.cycle.current_cycle = None
-        self.assertEqual(str(e.exception), 'Current cycle must be str.')
+        self.check_error_message(e, 'Current cycle must be str.')
 
         with self.assertRaises(ValueError) as e:
             self.cycle.current_cycle = ''
-        self.assertEqual(str(e.exception), 'Current cycle cannot be empty string.')
+        self.check_error_message(e, 'Current cycle cannot be empty string.')
 
         with self.assertRaises(ValueError) as e:
             self.cycle.current_cycle = 'None'
-        self.assertEqual(str(e.exception), 'Current cycle must be in list of cycles.')
+        self.check_error_message(e, 'Current cycle must be in list of cycles.')
 
     def test_raise_errors_of_cycles_property(self):
         """
@@ -61,22 +62,22 @@ class TestBase(unittest.TestCase):
         """
         with self.assertRaises(TypeError) as e:
             self.cycle.cycles = None
-        self.assertEqual(str(e.exception), 'Cycles must be list.')
+        self.check_error_message(e, 'Cycles must be list.')
 
         with self.assertRaises(ValueError) as e:
             self.cycle.cycles = []
             self.cycle.cycles = ['cycle_1']
-        self.assertEqual(str(e.exception), 'Cycles cannot have less 2 items.')
+        self.check_error_message(e, 'Cycles cannot have less 2 items.')
 
         with self.assertRaises(TypeError) as e:
             self.cycle.cycles = [None, None]
             self.cycle.cycles = ['cycle_1', None]
-        self.assertEqual(str(e.exception), 'Items of cycles must be str.')
+        self.check_error_message(e, 'Items of cycles must be str.')
 
         with self.assertRaises(ValueError) as e:
             self.cycle.cycles = ['', '']
             self.cycle.cycles = ['cycle_1', '']
-        self.assertEqual(str(e.exception), 'Items of cycles cannot be empty string.')
+        self.check_error_message(e, 'Items of cycles cannot be empty string.')
 
     def test_set_next_cycle_when_setting_current_cycle(self):
         """Test: set next_cycle when setting current_cycle."""

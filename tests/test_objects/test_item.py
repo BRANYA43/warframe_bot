@@ -1,9 +1,10 @@
 import unittest
 
+from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.item import Item
 
 
-class TestItem(unittest.TestCase):
+class TestItem(BaseTest):
     """Test Item"""
 
     def setUp(self) -> None:
@@ -23,20 +24,20 @@ class TestItem(unittest.TestCase):
     def test_raise_errors_of_title_property(self):
         with self.assertRaises(TypeError) as e:
             self.item.title = None
-        self.assertEqual(str(e.exception), 'Title must be str.')
+        self.check_error_message(e, 'Title must be str.')
 
         with self.assertRaises(ValueError) as e:
             self.item.title = ''
-        self.assertEqual(str(e.exception), 'Title cannot be empty string.')
+        self.check_error_message(e, 'Title cannot be empty string.')
 
     def test_raise_errors_of_cost_property(self):
         with self.assertRaises(TypeError) as e:
             self.item.cost = None
-        self.assertEqual(str(e.exception), 'Cost must be int.')
+        self.check_error_message(e, 'Cost must be int.')
 
         with self.assertRaises(ValueError) as e:
             self.item.cost = -1
-        self.assertEqual(str(e.exception), 'Cost cannot be negative.')
+        self.check_error_message(e, 'Cost cannot be negative.')
 
 
 if __name__ == '__main__':

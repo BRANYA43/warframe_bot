@@ -1,12 +1,13 @@
 import datetime
 import unittest
 
+from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.inventory import Inventory
 from warframe_bot.objects.item import Item
 from warframe_bot.objects.trader import Trader
 
 
-class TestTrader(unittest.TestCase):
+class TestTrader(BaseTest):
     """Test Trader"""
     def setUp(self) -> None:
         self.expiry = datetime.datetime.utcnow()
@@ -30,7 +31,7 @@ class TestTrader(unittest.TestCase):
         """Test: raise TypeError if inventory isn't Inventory"""
         with self.assertRaises(TypeError) as e:
             self.trader.inventory = None
-        self.assertEqual(str(e.exception), 'Inventory must be Inventory.')
+        self.check_error_message(e, 'Inventory must be Inventory.')
 
 
 if __name__ == '__main__':

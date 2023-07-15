@@ -1,11 +1,12 @@
 import unittest
 
+from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.item import Item
 
 from warframe_bot.objects.inventory import Inventory
 
 
-class TestInventory(unittest.TestCase):
+class TestInventory(BaseTest):
     """Test Inventory"""
 
     def setUp(self) -> None:
@@ -33,15 +34,15 @@ class TestInventory(unittest.TestCase):
         """
         with self.assertRaises(TypeError) as e:
             self.inventory.items = 1
-        self.assertEqual(str(e.exception), 'Items must be list or None.')
+        self.check_error_message(e, 'Items must be list or None.')
 
         with self.assertRaises(ValueError) as e:
             self.inventory.items = []
-        self.assertEqual(str(e.exception), 'Items cannot be empty.')
+        self.check_error_message(e, 'Items cannot be empty.')
 
         with self.assertRaises(TypeError) as e:
             self.inventory.items = [None]
-        self.assertEqual(str(e.exception), 'Items of items must be Item.')
+        self.check_error_message(e, 'Items of items must be Item.')
 
     def test_clear(self):
         """Test: clear all items"""
