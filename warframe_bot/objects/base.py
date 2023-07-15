@@ -14,6 +14,11 @@ class CheckMixin:
     def check_empty_string(value, attr_name: str):
         if value == '':
             raise ValueError(f'{attr_name} cannot be empty string.')
+        
+    @staticmethod
+    def check_negative(value, attr_name: str):
+        if value < 0:
+            raise ValueError(f'{attr_name} cannot be negative.')
 
 
 class Base(CheckMixin):
