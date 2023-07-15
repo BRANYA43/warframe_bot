@@ -22,17 +22,17 @@ class CheckMixin:
 
 
 class Base(CheckMixin):
-    def __init__(self, name: str, title: str, expiry: datetime.datetime):
-        self.name = name
+    def __init__(self, id: str, title: str, expiry: datetime.datetime):
+        self.id = id
         self.title = title
         self.expiry = expiry
 
     @property
-    def name(self) -> str:
+    def id(self) -> str:
         return self._name
 
-    @name.setter
-    def name(self, value: str):
+    @id.setter
+    def id(self, value: str):
         self.check_instance(value, str, 'Name')
         self.check_empty_string(value, 'Name')
         self._name = value

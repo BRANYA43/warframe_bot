@@ -7,8 +7,8 @@ from warframe_bot.objects.inventory import Inventory
 class Trader(Base):
     """Trader"""
 
-    def __init__(self, name: str, title: str, expiry: datetime.datetime, inventory: Inventory):
-        super().__init__(name, title, expiry)
+    def __init__(self, id: str, title: str, expiry: datetime.datetime, inventory: Inventory):
+        super().__init__(id, title, expiry)
         self.inventory = inventory
 
     @property

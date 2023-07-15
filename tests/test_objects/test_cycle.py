@@ -9,7 +9,7 @@ class TestBase(BaseTest):
 
     def setUp(self) -> None:
         self.expiry = datetime.datetime.utcnow()
-        self.cycle = Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry,
+        self.cycle = Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry,
                            current_cycle='cycle_1', cycles=['cycle_1', 'cycle_2'])
 
     def test_create_cycle_with_correct_values(self):
@@ -22,20 +22,20 @@ class TestBase(BaseTest):
     def test_not_create_cycle_with_incorrect_values(self):
         """Test: not create cycle with incorrect attrs"""
         with self.assertRaises((TypeError, ValueError)):
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle=None,
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle=None,
                   cycles=['cycle_1', 'cycle_2'])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='',
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='',
                   cycles=['cycle_1', 'cycle_2'])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='None',
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='None',
                   cycles=['cycle_1', 'cycle_2'])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1', cycles=[])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1', cycles=[None])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1', cycles=[''])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1',
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1', cycles=[])
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1', cycles=[None])
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1', cycles=[''])
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1',
                   cycles=['cycle_1'])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1',
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1',
                   cycles=[None, 'cycle_1'])
-            Cycle(name='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1',
+            Cycle(id='cycle_name', title='cycle_title', expiry=self.expiry, current_cycle='cycle_1',
                   cycles=['', 'cycle_1'])
 
     def test_raise_errors_of_current_cycle_property(self):

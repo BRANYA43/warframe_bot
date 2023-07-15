@@ -4,8 +4,8 @@ from warframe_bot.objects.base import Base
 
 
 class Cycle(Base):
-    def __init__(self, name: str, title: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
-        super().__init__(name, title, expiry)
+    def __init__(self, id: str, title: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
+        super().__init__(id, title, expiry)
         self.cycles = cycles
         self.current_cycle = current_cycle
 

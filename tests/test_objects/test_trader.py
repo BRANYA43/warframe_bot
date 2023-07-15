@@ -13,7 +13,7 @@ class TestTrader(BaseTest):
         self.expiry = datetime.datetime.utcnow()
         items = [Item(f'title-{i}', cost=10) for i in range(10)]
         self.inventory = Inventory(items)
-        self.trader = Trader(name='Name', title='Title', expiry=self.expiry, inventory=self.inventory)
+        self.trader = Trader(id='Name', title='Title', expiry=self.expiry, inventory=self.inventory)
 
     def test_create_trader_with_correct_values(self):
         """Test: create trader with correct values"""
