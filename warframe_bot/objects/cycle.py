@@ -31,10 +31,8 @@ class Cycle(Base):
 
     @current_cycle.setter
     def current_cycle(self, value):
-        if not isinstance(value, str):
-            raise TypeError('Current cycle must be str.')
-        if value == '':
-            raise ValueError('Current cycle cannot be empty string.')
+        self.check_instance(value, str, 'Current cycle')
+        self.check_empty_string(value, 'Current cycle')
         if not value in self.cycles:
             raise ValueError('Current cycle must be in list of cycles.')
         self._current_cycle = value
