@@ -1,4 +1,4 @@
-from warframe_bot.objects.base import CheckMixin
+from .base import CheckMixin
 
 
 class Item(CheckMixin):

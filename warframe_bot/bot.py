@@ -1,7 +1,7 @@
 import disnake
 from disnake.ext import commands
 
-from warframe_bot import config
+from . import config
 
 bot = commands.InteractionBot(intents=disnake.Intents.all())
 

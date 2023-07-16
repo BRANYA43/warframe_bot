@@ -1,6 +1,6 @@
 import datetime
 
-from warframe_bot.objects.base import Base
+from .base import Base
 
 
 class Cycle(Base):

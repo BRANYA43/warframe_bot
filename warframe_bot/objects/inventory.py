@@ -1,5 +1,5 @@
-from warframe_bot.objects.base import CheckMixin
-from warframe_bot.objects.item import Item
+from .base import CheckMixin
+from .item import Item
 
 
 class Inventory(CheckMixin):

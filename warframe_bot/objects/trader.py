@@ -1,7 +1,7 @@
 import datetime
 
-from warframe_bot.objects.base import Base
-from warframe_bot.objects.inventory import Inventory
+from .base import Base
+from .inventory import Inventory
 
 
 class Trader(Base):
