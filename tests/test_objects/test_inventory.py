@@ -10,7 +10,7 @@ class TestInventory(BaseTest):
     """Test Inventory"""
 
     def setUp(self) -> None:
-        self.items = [Item(title=f'title-{i}', cost=10) for i in range(10)]
+        self.items = [Item(name=f'title-{i}', cost=10) for i in range(10)]
         self.inventory = Inventory()
 
     def test_create_inventory_with_correct_values(self):
@@ -34,15 +34,15 @@ class TestInventory(BaseTest):
         """
         with self.assertRaises(TypeError) as e:
             self.inventory.items = 1
-        self.check_error_message(e, 'Items must be list or None.')
+        self.check_error_message(e, 'items must be list or None.')
 
         with self.assertRaises(ValueError) as e:
             self.inventory.items = []
-        self.check_error_message(e, 'Items cannot be empty.')
+        self.check_error_message(e, 'items cannot be empty.')
 
         with self.assertRaises(TypeError) as e:
             self.inventory.items = [None]
-        self.check_error_message(e, 'Items of items must be Item.')
+        self.check_error_message(e, 'items of items must be Item.')
 
     def test_clear(self):
         """Test: clear all items"""

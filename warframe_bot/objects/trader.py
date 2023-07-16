@@ -7,8 +7,8 @@ from .inventory import Inventory
 class Trader(Base):
     """Trader"""
 
-    def __init__(self, id: str, title: str, expiry: datetime.datetime, inventory: Inventory):
-        super().__init__(id, title, expiry)
+    def __init__(self, key: str, name: str, expiry: datetime.datetime, inventory: Inventory):
+        super().__init__(key, name, expiry)
         self.inventory = inventory
 
     @property
@@ -17,5 +17,5 @@ class Trader(Base):
 
     @inventory.setter
     def inventory(self, value):
-        self.check_instance(value, Inventory, 'Inventory')
+        self.check_instance(value, Inventory, 'inventory')
         self._inventory = value

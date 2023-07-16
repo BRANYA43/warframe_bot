@@ -14,10 +14,10 @@ class Inventory(CheckMixin):
 
     @items.setter
     def items(self, value: list[Item] | None):
-        self.check_instance(value, list | None, 'Items')
+        self.check_instance(value, list | None, 'items')
         if value is not None:
             if len(value) == 0:
-                raise ValueError('Items cannot be empty.')
+                raise ValueError('items cannot be empty.')
             if any(not isinstance(item, Item) for item in value):
-                raise TypeError('Items of items must be Item.')
+                raise TypeError('items of items must be Item.')
         self._items = value

@@ -4,19 +4,19 @@ from .base import CheckMixin
 class Item(CheckMixin):
     """Item of Inventory"""
 
-    def __init__(self, title: str, cost: int):
-        self.title = title
+    def __init__(self, name: str, cost: int):
+        self.name = name
         self.cost = cost
 
     @property
-    def title(self):
-        return self._title
+    def name(self):
+        return self._name
 
-    @title.setter
-    def title(self, value):
-        self.check_instance(value, str, 'Title')
-        self.check_empty_string(value, 'Title')
-        self._title = value
+    @name.setter
+    def name(self, value):
+        self.check_instance(value, str, 'name')
+        self.check_empty_string(value, 'name')
+        self._name = value
 
     @property
     def cost(self):
@@ -24,7 +24,7 @@ class Item(CheckMixin):
 
     @cost.setter
     def cost(self, value):
-        self.check_instance(value, int, 'Cost')
+        self.check_instance(value, int, 'cost')
         if value < 0:
-            raise ValueError('Cost cannot be negative.')
+            raise ValueError('cost cannot be negative.')
         self._cost = value

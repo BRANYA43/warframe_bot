@@ -21,30 +21,30 @@ class CheckMixin:
 
 
 class Base(CheckMixin):
-    def __init__(self, id: str, title: str, expiry: datetime.datetime):
-        self.id = id
-        self.title = title
+    def __init__(self, key: str, name: str, expiry: datetime.datetime):
+        self.key = key
+        self.name = name
         self.expiry = expiry
 
     @property
-    def id(self) -> str:
-        return self._name
+    def key(self) -> str:
+        return self._key
 
-    @id.setter
-    def id(self, value: str):
-        self.check_instance(value, str, 'Name')
-        self.check_empty_string(value, 'Name')
-        self._name = value
+    @key.setter
+    def key(self, value: str):
+        self.check_instance(value, str, 'key')
+        self.check_empty_string(value, 'key')
+        self._key = value
 
     @property
-    def title(self) -> str:
-        return self._title
+    def name(self) -> str:
+        return self._name
 
-    @title.setter
-    def title(self, value):
-        self.check_instance(value, str, 'Title')
-        self.check_empty_string(value, 'Title')
-        self._title = value
+    @name.setter
+    def name(self, value):
+        self.check_instance(value, str, 'name')
+        self.check_empty_string(value, 'name')
+        self._name = value
 
     @property
     def expiry(self) -> datetime.datetime:
@@ -52,5 +52,5 @@ class Base(CheckMixin):
 
     @expiry.setter
     def expiry(self, value):
-        self.check_instance(value, datetime.datetime, 'Expiry')
+        self.check_instance(value, datetime.datetime, 'expiry')
         self._expiry = value

@@ -4,8 +4,8 @@ from .base import Base
 
 
 class Cycle(Base):
-    def __init__(self, id: str, title: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
-        super().__init__(id, title, expiry)
+    def __init__(self, key: str, name: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
+        super().__init__(key, name, expiry)
         self.cycles = cycles
         self.current_cycle = current_cycle
 
@@ -16,13 +16,13 @@ class Cycle(Base):
     @cycles.setter
     def cycles(self, value: list[str]):
         if not isinstance(value, list):
-            raise TypeError('Cycles must be list.')
+            raise TypeError('cycles must be list.')
         if len(value) < 2:
-            raise ValueError('Cycles cannot have less 2 items.')
+            raise ValueError('cycles cannot have less 2 items.')
         if any(not isinstance(item, str) for item in value):
-            raise TypeError('Items of cycles must be str.')
+            raise TypeError('items of cycles must be str.')
         if any(item == '' for item in value):
-            raise ValueError('Items of cycles cannot be empty string.')
+            raise ValueError('items of cycles cannot be empty string.')
         self._cycles = value
 
     @property
@@ -31,10 +31,10 @@ class Cycle(Base):
 
     @current_cycle.setter
     def current_cycle(self, value):
-        self.check_instance(value, str, 'Current cycle')
-        self.check_empty_string(value, 'Current cycle')
+        self.check_instance(value, str, 'current_cycle')
+        self.check_empty_string(value, 'current_cycle')
         if not value in self.cycles:
-            raise ValueError('Current cycle must be in list of cycles.')
+            raise ValueError('current_cycle must be within in cycles.')
         self._current_cycle = value
         self._set_next_cycle()
 
