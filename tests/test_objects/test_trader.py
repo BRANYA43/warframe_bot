@@ -15,14 +15,17 @@ class TestTrader(BaseTest):
         self.expiry = datetime.datetime.utcnow()
         items = [Item(f'name-{i}', cost=10) for i in range(10)]
         self.inventory = Inventory(items)
-        self.trader = Trader(key=self.key, name=self.name, expiry=self.expiry, inventory=self.inventory)
+        self.trader = Trader(key=self.key, name=self.name, expiry=self.expiry)
 
     def test_create_trader_with_correct_values(self):
         """Test: create trader with correct values"""
         self.assertEqual(self.trader.key, self.key)
         self.assertEqual(self.trader.name, self.name)
         self.assertEqual(self.trader.expiry, self.expiry)
-        self.assertEqual(self.trader.inventory, self.inventory)
+        self.assertIsInstance(self.trader.inventory, Inventory)
+
+        trader = Trader(key=self.key, name=self.name, expiry=self.expiry, inventory=self.inventory)
+        self.assertEqual(trader.inventory, self.inventory)
 
     def test_create_trader_with_incorrect_values(self):
         """Test: not create trader with incorrect values"""

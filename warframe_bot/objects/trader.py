@@ -7,9 +7,12 @@ from .inventory import Inventory
 class Trader(Base):
     """Trader"""
 
-    def __init__(self, key: str, name: str, expiry: datetime.datetime, inventory: Inventory):
+    def __init__(self, key: str, name: str, expiry: datetime.datetime, inventory: Inventory = None):
         super().__init__(key, name, expiry)
-        self.inventory = inventory
+        if inventory is not None:
+            self.inventory = inventory
+        else:
+            self.inventory = Inventory()
 
     @property
     def inventory(self):
