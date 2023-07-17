@@ -22,9 +22,9 @@ class CheckMixin:
 
 
 class Base(CheckMixin, ABC):
-    def __init__(self, name: str, expiry: datetime.datetime):
+    def __init__(self, name: str, left_time: datetime.datetime):
         self.name = name
-        self.expiry = expiry
+        self.left_time = left_time
 
     @property
     def name(self) -> str:
@@ -37,13 +37,14 @@ class Base(CheckMixin, ABC):
         self._name = value
 
     @property
-    def expiry(self) -> datetime.datetime:
-        return self._expiry
+    def left_time(self) -> datetime.datetime:
+        return self._left_time
 
-    @expiry.setter
-    def expiry(self, value):
-        self.check_instance(value, datetime.datetime, 'expiry')
-        self._expiry = value
+    @left_time.setter
+    def left_time(self, value):
+        self.check_instance(value, str, 'left_time')
+        self.check_empty_string(value, 'left_time')
+        self._left_time = value
 
     @abstractmethod
     def get_info(self):

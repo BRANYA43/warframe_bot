@@ -4,8 +4,8 @@ from .base import Base
 
 
 class Cycle(Base):
-    def __init__(self, name: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
-        super().__init__(name, expiry)
+    def __init__(self, name: str, left_time: datetime.datetime, cycles: list['str'], current_cycle: str):
+        super().__init__(name, left_time)
         self.cycles = cycles
         self.current_cycle = current_cycle
 
@@ -50,4 +50,4 @@ class Cycle(Base):
         return f'Name: {self.name}\n' \
                f'Current cycle: {self.current_cycle}\n' \
                f'Next cycle: {self.next_cycle}\n' \
-               f'Left time: {self.expiry}\n'
+               f'Left time: {self.left_time}\n'
