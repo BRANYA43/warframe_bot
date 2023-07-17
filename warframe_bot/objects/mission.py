@@ -54,11 +54,12 @@ class Mission(NameMixin):
         'Volatile',
     )
 
-    def __init__(self, name: str, location: str, enemy: str, type_: str):
+    def __init__(self, name: str, location: str, enemy: str, type_: str, *, is_hard=False):
         super().__init__(name)
         self.location = location
         self.enemy = enemy
         self.type = type_
+        self.is_hard = is_hard
 
     @property
     def location(self) -> str:
@@ -90,7 +91,20 @@ class Mission(NameMixin):
         validate_not_empty_string(value, 'type')
         self._type = self.TYPES.index(value)
 
+    @property
+    def is_hard(self) -> bool:
+        return self._is_hard
+
+    @is_hard.setter
+    def is_hard(self, value: bool):
+        validate_type(value, bool, 'is_hard')
+        self._is_hard = value
+
     def get_info(self):
-        return f'Type: {self.type}\n' \
+        ret = ''
+        if self._is_hard:
+            ret += 'This is mission of steel path.\n'
+        ret += f'Type: {self.type}\n' \
                f'Location: {self.location}\n' \
                f'Name: {self.name}\n'
+        return ret

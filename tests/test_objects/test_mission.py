@@ -19,6 +19,7 @@ class TestMission(BaseTest):
         self.assertEqual(self.mission.location, Mission.LOCATIONS[0])
         self.assertEqual(self.mission.enemy, Mission.ENEMIES[0])
         self.assertEqual(self.mission.type, Mission.TYPES[0])
+        self.assertFalse(self.mission.is_hard)
 
     def test_not_create_mission_with_incorrect_values(self):
         """Test: not create mission with incorrect values."""
@@ -74,15 +75,28 @@ class TestMission(BaseTest):
         with self.assertRaises(ValueError):
             self.mission.type = 'incorrect'
 
+    def test_raise_errors_is_hard_property(self):
+        """
+        Test: raise TypeError if is_hard isn't bool
+        """
+        with self.assertRaises(TypeError) as e:
+            self.mission.is_hard = None
+        self.check_error_message(e, 'is_hard must be bool.')
+
     def test_get_info(self):
         """Test: get_info return correct info"""
-
         correct_info = f'Type: {self.mission.type}\n' \
                        f'Location: {self.mission.location}\n' \
                        f'Name: {self.mission.name}\n'
         info = self.mission.get_info()
 
         self.assertEqual(info, correct_info)
+
+        self.mission.is_hard = True
+        correct_info_with_is_hard = 'This is mission of steel path.\n'
+        correct_info_with_is_hard += correct_info
+
+        self.assertEqual(correct_info_with_is_hard, self.mission.get_info())
 
 
 if __name__ == '__main__':
