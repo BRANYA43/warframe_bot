@@ -45,3 +45,9 @@ class Cycle(Base):
     def _set_next_cycle(self):
         index = self.cycles.index(self._current_cycle)
         self._next_cycle = self.cycles[(index + 1) % len(self.cycles)]
+
+    def get_info(self):
+        return f'Name: {self.name}\n' \
+               f'Current cycle: {self.current_cycle}\n' \
+               f'Next cycle: {self.next_cycle}\n' \
+               f'Left time: {self.expiry}\n'

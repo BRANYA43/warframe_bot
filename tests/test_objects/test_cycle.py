@@ -91,6 +91,17 @@ class TestBase(BaseTest):
         self.cycle.current_cycle = 'cycle_2'
         self.assertEqual(self.cycle.next_cycle, 'cycle_1')
 
+    def test_get_info(self):
+        """Test: get_info return correct info"""
+
+        correct_info = f'Name: {self.cycle.name}\n' \
+                       f'Current cycle: {self.cycle.current_cycle}\n' \
+                       f'Next cycle: {self.cycle.next_cycle}\n' \
+                       f'Left time: {self.cycle.expiry}\n'
+        info = self.cycle.get_info()
+
+        self.assertEqual(info, correct_info)
+
 
 if __name__ == '__main__':
     unittest.main()
