@@ -51,8 +51,13 @@ class Manager:
 
     def get_timer(self, expiry: str) -> Timer:
         time = datetime.datetime.fromisoformat(expiry.replace('Z', ''))
-        delta = time - datetime.datetime.utcnow()
-        return Timer(int(delta.total_seconds()))
+        now = datetime.datetime.utcnow()
+        if now < time:
+            delta = time - datetime.datetime.utcnow()
+            raw_seconds = int(delta.total_seconds())
+        else:
+            raw_seconds = 0
+        return Timer(raw_seconds)
 
     def create_cycle(self, key: str, name: str, cycles: list[str]) -> Cycle:
         """Create Cycle"""
@@ -71,7 +76,9 @@ class Manager:
         response = self._response[key]
         cycle = self._cycles[key]
         cycle.current_cycle = response['state']
-        cycle.timer = self.get_timer(response['expiry'])
+        cycle.timer.update()
+        if cycle.timer.raw_seconds == 0:
+            cycle.timer = self.get_timer(response['expiry'])
 
     def get_cycles_info(self) -> str:
         """Get cycles info"""

@@ -17,7 +17,7 @@ class TestManager(BaseTest):
         self.manager = Manager()
         self.fake_response = {
             'earthCycle': {
-                'expiry': 	self.expiry_str,
+                'expiry': self.expiry_str,
                 'state': 'day',
             },
             'cetusCycle': {
@@ -42,6 +42,10 @@ class TestManager(BaseTest):
 
         self.assertIsInstance(timer, Timer)
         self.assertEqual(timer.days, 1)
+
+        expiry = datetime.datetime.utcnow().isoformat() + 'Z'
+        timer = self.manager.get_timer(expiry=expiry)
+        self.assertEqual(timer.raw_seconds, 0)
 
     def test_create_cycle(self):
         """Test: create cycle than add Cycle to cycles and return created Cycle."""
@@ -72,12 +76,14 @@ class TestManager(BaseTest):
         self.fake_response['earthCycle']['state'] = 'night'
         self.manager._response = self.fake_response
         cycle_response = self.fake_response['earthCycle']
+        cycle.timer.raw_seconds = 0
 
         self.manager.update_cycle(key='earthCycle')
 
         self.assertEqual(cycle.current_cycle, cycle_response['state'])
         self.assertEqual(cycle.next_cycle, 'day')
         self.assertEqual(cycle.timer.days, 2)
+
 
     def test_get_cycles_info(self):
         """Test: get_cycle_data"""
