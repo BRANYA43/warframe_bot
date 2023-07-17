@@ -1,8 +1,10 @@
 import datetime
 import unittest
+from pprint import pprint
 
 from objects.cycle import Cycle
 from objects.manager import Manager
+from objects.timer import Timer
 from test_objects.base_test import BaseTest
 
 
@@ -10,14 +12,16 @@ class TestManager(BaseTest):
     """Test Manager"""
 
     def setUp(self) -> None:
+        self.expiry_datetime = datetime.datetime.utcnow() + datetime.timedelta(hours=25)
+        self.expiry_str = self.expiry_datetime.isoformat() + 'Z'
         self.manager = Manager()
         self.fake_response = {
             'earthCycle': {
-                'timeLeft': '1d 1m',
+                'expiry': 	self.expiry_str,
                 'state': 'day',
             },
             'cetusCycle': {
-                'timeLeft': '1d 1m',
+                'expiry': self.expiry_str,
                 'state': 'day',
             },
         }
@@ -30,6 +34,14 @@ class TestManager(BaseTest):
         self.assertEqual(self.manager._url, 'https://api.warframestat.us/pc/')
         self.assertEqual(self.manager._cycle_keys, ('earthCycle', 'cetusCycle', 'vallisCycle', 'cambionCycle',
                                                     'zarimanCycle',))
+
+    def test_get_timer(self):
+        """Test: get_timer"""
+        expiry = self.fake_response['earthCycle']['expiry']
+        timer = self.manager.get_timer(expiry=expiry)
+
+        self.assertIsInstance(timer, Timer)
+        self.assertEqual(timer.days, 1)
 
     def test_create_cycle(self):
         """Test: create cycle than add Cycle to cycles and return created Cycle."""
@@ -47,14 +59,16 @@ class TestManager(BaseTest):
         self.assertEqual(cycle.cycles, ['day', 'night'])
         self.assertEqual(cycle.current_cycle, cycle_response['state'])
         self.assertEqual(cycle.next_cycle, 'night')
-        self.assertEqual(cycle.left_time, cycle_response['timeLeft'])
+        self.assertIsInstance(cycle.timer, Timer)
+        self.assertEqual(cycle.timer.days, 1)
 
     def test_update_cycle(self):
         """Test: update attributes of Cycle"""
         self.manager._response = self.fake_response
         cycle = self.manager.create_cycle(key='earthCycle', name='earth', cycles=['day', 'night'])
-
-        self.fake_response['earthCycle']['timeLeft'] = '2d 3m'
+        self.expiry_datetime = self.expiry_datetime + datetime.timedelta(days=1)
+        self.expiry_str = self.expiry_datetime.isoformat() + 'Z'
+        self.fake_response['earthCycle']['expiry'] = self.expiry_str
         self.fake_response['earthCycle']['state'] = 'night'
         self.manager._response = self.fake_response
         cycle_response = self.fake_response['earthCycle']
@@ -63,7 +77,7 @@ class TestManager(BaseTest):
 
         self.assertEqual(cycle.current_cycle, cycle_response['state'])
         self.assertEqual(cycle.next_cycle, 'day')
-        self.assertEqual(cycle.left_time, cycle_response['timeLeft'])
+        self.assertEqual(cycle.timer.days, 2)
 
     def test_get_cycles_info(self):
         """Test: get_cycle_data"""

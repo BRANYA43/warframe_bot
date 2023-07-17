@@ -1,6 +1,9 @@
+import datetime
+
 import requests
 
 from objects.cycle import Cycle
+from objects.timer import Timer
 
 
 class Manager:
@@ -46,12 +49,17 @@ class Manager:
         for cycle_key in self._cycle_keys:
             self.update_cycle(cycle_key)
 
+    def get_timer(self, expiry: str) -> Timer:
+        time = datetime.datetime.fromisoformat(expiry.replace('Z', ''))
+        delta = time - datetime.datetime.utcnow()
+        return Timer(int(delta.total_seconds()))
+
     def create_cycle(self, key: str, name: str, cycles: list[str]) -> Cycle:
         """Create Cycle"""
         response = self._response[key]
         cycle = Cycle(
             name=name,
-            left_time=response['timeLeft'],
+            timer=self.get_timer(response['expiry']),
             cycles=cycles,
             current_cycle=response['state'],
         )
@@ -63,7 +71,7 @@ class Manager:
         response = self._response[key]
         cycle = self._cycles[key]
         cycle.current_cycle = response['state']
-        cycle.left_time = response['timeLeft']
+        cycle.timer = self.get_timer(response['expiry'])
 
     def get_cycles_info(self) -> str:
         """Get cycles info"""
