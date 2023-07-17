@@ -1,9 +1,10 @@
 from objects.base import Base
+from objects.mixins import NameMixin
 from objects.timer import Timer
 from validators.validators import *
 
 
-class Mission(Base):
+class Mission(NameMixin):
     """Mission"""
 
     LOCATIONS = (
@@ -55,8 +56,8 @@ class Mission(Base):
         'Volatile',
     )
 
-    def __init__(self, name: str, location: str, enemy: str, type_: str, timer: Timer):
-        super().__init__(name, timer)
+    def __init__(self, name: str, location: str, enemy: str, type_: str):
+        super().__init__(name)
         self.location = location
         self.enemy = enemy
         self.type = type_

@@ -10,21 +10,21 @@ class TestMission(BaseTest):
 
     def setUp(self) -> None:
         self.name = 'name'
-        self.timer = Timer(Timer.DAY + Timer.HOUR + Timer.MINUTE)
         self.mission = Mission(name=self.name, location=Mission.LOCATIONS[0], enemy=Mission.ENEMIES[0],
-                               type_=Mission.TYPES[0], timer=self.timer)
+                               type_=Mission.TYPES[0])
 
     def test_create_mission_with_correct_values(self):
         """Test: create mission with correct values."""
         self.assertEqual(self.mission.name, self.name)
         self.assertEqual(self.mission.location, Mission.LOCATIONS[0])
         self.assertEqual(self.mission.enemy, Mission.ENEMIES[0])
+        self.assertEqual(self.mission.type, Mission.TYPES[0])
 
     def test_not_create_mission_with_incorrect_values(self):
         """Test: not create mission with incorrect values."""
         with self.assertRaises((TypeError, ValueError)):
             for incorrect_value in [None, '', 'incorrect']:
-                Mission(name=self.name, location=incorrect_value, enemy=incorrect_value)
+                Mission(name=self.name, location=incorrect_value, enemy=incorrect_value, type_=incorrect_value)
 
     def test_raise_errors_location_property(self):
         """
