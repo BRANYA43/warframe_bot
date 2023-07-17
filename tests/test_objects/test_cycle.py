@@ -12,12 +12,11 @@ class TestBase(BaseTest):
         self.cycle_name = 'name'
         self.current_cycle = 'cycle_1'
         self.expiry = datetime.datetime.utcnow()
-        self.cycle = Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry,
+        self.cycle = Cycle(name=self.cycle_name, expiry=self.expiry,
                            current_cycle=self.current_cycle, cycles=['cycle_1', 'cycle_2'])
 
     def test_create_cycle_with_correct_values(self):
         """Test: create cycle with correct attrs."""
-        self.assertEqual(self.cycle.key, self.cycle_key)
         self.assertEqual(self.cycle.name, self.cycle_name)
         self.assertEqual(self.cycle.current_cycle, self.current_cycle)
         self.assertEqual(self.cycle.cycles, ['cycle_1', 'cycle_2'])
@@ -25,16 +24,16 @@ class TestBase(BaseTest):
     def test_not_create_cycle_with_incorrect_values(self):
         """Test: not create cycle with incorrect attrs"""
         with self.assertRaises((TypeError, ValueError)):
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle=None,
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle=None,
                   cycles=['cycle_1', 'cycle_2'])
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='',
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle='',
                   cycles=['cycle_1', 'cycle_2'])
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='None',
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle='None',
                   cycles=['cycle_1', 'cycle_2'])
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1', cycles=[])
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1', cycles=[None])
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1', cycles=[''])
-            Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1',
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1', cycles=[])
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1', cycles=[None])
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1', cycles=[''])
+            Cycle(name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1',
                   cycles=['cycle_1'])
             Cycle(key=self.cycle_key, name=self.cycle_name, expiry=self.expiry, current_cycle='cycle_1',
                   cycles=[None, 'cycle_1'])

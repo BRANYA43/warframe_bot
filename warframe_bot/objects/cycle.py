@@ -4,8 +4,8 @@ from .base import Base
 
 
 class Cycle(Base):
-    def __init__(self, key: str, name: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
-        super().__init__(key, name, expiry)
+    def __init__(self, name: str, expiry: datetime.datetime, cycles: list['str'], current_cycle: str):
+        super().__init__(name, expiry)
         self.cycles = cycles
         self.current_cycle = current_cycle
 

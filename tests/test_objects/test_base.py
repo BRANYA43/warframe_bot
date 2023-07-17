@@ -13,32 +13,20 @@ class TestBase(BaseTest):
             def get_info(self):
                 raise NotImplementedError
 
-        self.key = 'key'
         self.name = 'name'
         self.expiry = datetime.datetime.utcnow()
-        self.base = BaseT(key=self.key, name=self.name, expiry=self.expiry)
+        self.base = BaseT(name=self.name, expiry=self.expiry)
 
     def test_create_base_with_correct_values(self):
         """Test: create base with correct attrs"""
-        self.assertEqual(self.base.key, self.key)
         self.assertEqual(self.base.name, self.name)
         self.assertEqual(self.base.expiry, self.expiry)
 
     def test_not_create_base_with_incorrect_values(self):
         """Test: not create base with incorrect attrs"""
         with self.assertRaises((TypeError, ValueError)):
-            Base(key=None, name=None, expiry=None)
-            Base(key='', name='', expiry=None)
-
-    def test_raise_errors_of_name_property(self):
-        """Test: raise ValueError if name is empty string, raise TypeError if name isn't str."""
-        with self.assertRaises(TypeError) as e:
-            self.base.key = None
-        self.check_error_message(e, 'key must be str.')
-
-        with self.assertRaises(ValueError) as e:
-            self.base.key = ''
-        self.check_error_message(e, 'key cannot be empty string.')
+            Base(name=None, expiry=None)
+            Base(name='', expiry=None)
 
     def test_raise_errors_of_title_property(self):
         """Test: raise ValueError if title is empty string, raise TypeError if title isn't str."""
