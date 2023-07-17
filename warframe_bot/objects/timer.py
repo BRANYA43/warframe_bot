@@ -1,6 +1,4 @@
-import setuptools.dist
-
-from objects.base import CheckMixin
+from objects.mixins import CheckMixin
 
 
 class Timer(CheckMixin):
