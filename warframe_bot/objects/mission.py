@@ -1,6 +1,4 @@
-from objects.base import Base
 from objects.mixins import NameMixin
-from objects.timer import Timer
 from validators.validators import *
 
 

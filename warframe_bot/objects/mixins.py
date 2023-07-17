@@ -1,3 +1,4 @@
+from objects.timer import Timer
 from validators.validators import *
 
 
@@ -14,3 +15,17 @@ class NameMixin:
         validate_type(value, str, 'name')
         validate_not_empty_string(value, 'name')
         self._name = value
+
+
+class TimerMixin:
+    def __init__(self, timer: Timer):
+        self.timer = timer
+
+    @property
+    def timer(self) -> Timer:
+        return self._timer
+
+    @timer.setter
+    def timer(self, value):
+        validate_type(value, Timer, 'timer')
+        self._timer = value
