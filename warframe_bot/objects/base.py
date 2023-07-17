@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 
 from objects.mixins import CheckMixin
+from objects.timer import Timer
 
 
 class Base(CheckMixin, ABC):
-    def __init__(self, name: str, left_time: datetime.datetime):
+    def __init__(self, name: str, timer: Timer):
         self.name = name
-        self.left_time = left_time
+        self.timer = timer
 
     @property
     def name(self) -> str:
@@ -19,14 +20,13 @@ class Base(CheckMixin, ABC):
         self._name = value
 
     @property
-    def left_time(self) -> datetime.datetime:
-        return self._left_time
+    def timer(self) -> Timer:
+        return self._timer
 
-    @left_time.setter
-    def left_time(self, value):
-        self.check_instance(value, str, 'left_time')
-        self.check_empty_string(value, 'left_time')
-        self._left_time = value
+    @timer.setter
+    def timer(self, value):
+        self.check_instance(value, Timer, 'timer')
+        self._timer = value
 
     @abstractmethod
     def get_info(self):

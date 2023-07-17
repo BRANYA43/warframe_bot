@@ -1,6 +1,6 @@
-import datetime
 import unittest
 
+from objects.timer import Timer
 from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.cycle import Cycle
 
@@ -10,8 +10,8 @@ class TestBase(BaseTest):
     def setUp(self) -> None:
         self.cycle_name = 'name'
         self.current_cycle = 'cycle_1'
-        self.left_time = '1d 1m'
-        self.cycle = Cycle(name=self.cycle_name, left_time=self.left_time,
+        self.timer = Timer(Timer.DAY+Timer.HOUR+Timer.MINUTE)
+        self.cycle = Cycle(name=self.cycle_name, timer=self.timer,
                            current_cycle=self.current_cycle, cycles=['cycle_1', 'cycle_2'])
 
     def test_create_cycle_with_correct_values(self):
@@ -23,21 +23,13 @@ class TestBase(BaseTest):
     def test_not_create_cycle_with_incorrect_values(self):
         """Test: not create cycle with incorrect attrs"""
         with self.assertRaises((TypeError, ValueError)):
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle=None,
-                  cycles=['cycle_1', 'cycle_2'])
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle='',
-                  cycles=['cycle_1', 'cycle_2'])
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle='None',
-                  cycles=['cycle_1', 'cycle_2'])
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle='cycle_1', cycles=[])
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle='cycle_1', cycles=[None])
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle='cycle_1', cycles=[''])
-            Cycle(name=self.cycle_name, left_time=self.left_time, current_cycle='cycle_1',
-                  cycles=['cycle_1'])
-            Cycle(key=self.cycle_key, name=self.cycle_name, left_time=self.left_time, current_cycle='cycle_1',
-                  cycles=[None, 'cycle_1'])
-            Cycle(key=self.cycle_key, name=self.cycle_name, left_time=self.left_time, current_cycle='cycle_1',
-                  cycles=['', 'cycle_1'])
+            for incorrect_current_cycle in [None, '', 'None']:
+                Cycle(name=self.cycle_name, timer=self.timer, current_cycle=incorrect_current_cycle,
+                      cycles=['cycle_1', 'cycle_2'])
+
+            for incorrect_cycles in [None, [], [None], [''], [None, 'cycle_2'], ['', 'cycle_2']]:
+                Cycle(name=self.cycle_name, timer=self.timer, current_cycle='cycle_1',
+                      cycles=incorrect_cycles)
 
     def test_raise_errors_of_current_cycle_property(self):
         """
@@ -95,7 +87,7 @@ class TestBase(BaseTest):
         correct_info = f'Name: {self.cycle.name}\n' \
                        f'Current cycle: {self.cycle.current_cycle}\n' \
                        f'Next cycle: {self.cycle.next_cycle}\n' \
-                       f'Left time: {self.cycle.left_time}\n'
+                       f'Left time: {self.cycle.timer}\n'
         info = self.cycle.get_info()
 
         self.assertEqual(info, correct_info)

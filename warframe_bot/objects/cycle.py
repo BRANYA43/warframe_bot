@@ -1,11 +1,10 @@
-import datetime
-
 from .base import Base
+from .timer import Timer
 
 
 class Cycle(Base):
-    def __init__(self, name: str, left_time: datetime.datetime, cycles: list['str'], current_cycle: str):
-        super().__init__(name, left_time)
+    def __init__(self, name: str, timer: Timer, cycles: list['str'], current_cycle: str):
+        super().__init__(name, timer)
         self.cycles = cycles
         self.current_cycle = current_cycle
 
@@ -50,4 +49,4 @@ class Cycle(Base):
         return f'Name: {self.name}\n' \
                f'Current cycle: {self.current_cycle}\n' \
                f'Next cycle: {self.next_cycle}\n' \
-               f'Left time: {self.left_time}\n'
+               f'Left time: {self.timer.get_str_time()}\n'

@@ -1,6 +1,6 @@
-import datetime
 import unittest
 
+from objects.timer import Timer
 from tests.test_objects.base_test import BaseTest
 from warframe_bot.objects.base import Base
 
@@ -14,22 +14,22 @@ class TestBase(BaseTest):
                 raise NotImplementedError
 
         self.name = 'name'
-        self.left_time = '1d 1m'
-        self.base = BaseT(name=self.name, left_time=self.left_time)
+        self.timer = Timer(Timer.DAY+Timer.HOUR+Timer.MINUTE)
+        self.base = BaseT(name=self.name, timer=self.timer)
 
     def test_create_base_with_correct_values(self):
         """Test: create base with correct attrs"""
         self.assertEqual(self.base.name, self.name)
-        self.assertEqual(self.base.left_time, self.left_time)
+        self.assertEqual(self.base.timer, self.timer)
 
     def test_not_create_base_with_incorrect_values(self):
         """Test: not create base with incorrect attrs"""
         with self.assertRaises((TypeError, ValueError)):
-            Base(name=None, left_time=None)
-            Base(name='', left_time=None)
+            Base(name=None, timer=None)
+            Base(name='', timer=None)
 
     def test_raise_errors_of_title_property(self):
-        """Test: raise ValueError if title is empty string, raise TypeError if title isn't str."""
+        """Test: raise ValueError if name is empty string, raise TypeError if name isn't str."""
         with self.assertRaises(TypeError) as e:
             self.base.name = None
         self.check_error_message(e, 'name must be str.')
@@ -38,15 +38,11 @@ class TestBase(BaseTest):
             self.base.name = ''
         self.check_error_message(e, 'name cannot be empty string.')
 
-    def test_raise_errors_of_expiry_property(self):
-        """Test: raise TypeError if expiry isn't datetime."""
+    def test_raise_errors_of_timer_property(self):
+        """Test: raise TypeError if timer isn't Timer."""
         with self.assertRaises(TypeError) as e:
-            self.base.left_time = None
-        self.check_error_message(e, 'left_time must be str.')
-
-        with self.assertRaises(ValueError) as e:
-            self.base.left_time = ''
-        self.check_error_message(e, 'left_time cannot be empty string.')
+            self.base.timer = None
+        self.check_error_message(e, 'timer must be Timer.')
 
 
 if __name__ == '__main__':
