@@ -56,23 +56,30 @@ class TestTimer(BaseTest):
 
     def test_get_str_time(self):
         """Test get_str_time returns string and correct time."""
+        raw_seconds_ = [
+            Timer.DAY + Timer.MINUTE,
+            Timer.HOUR + Timer.MINUTE,
+            Timer.DAY + Timer.HOUR,
+            Timer.DAY,
+            Timer.HOUR,
+            Timer.MINUTE,
+            0,
+            ]
+        str_time_ = [
+            '1d 1m',
+            '1h 1m',
+            '1d 1h ',
+            '1d ',
+            '1h ',
+            '1m',
+            '0m',
+        ]
         self.assertEqual(self.timer.get_str_time(), '1d 1h 1m')
+        for raw_seconds, str_time in zip(raw_seconds_, str_time_):
+            self.timer.raw_seconds = raw_seconds
+            self.assertEqual(self.timer.get_str_time(), str_time)
 
-        self.timer.raw_seconds = Timer.DAY + Timer.MINUTE
-        self.assertEqual(self.timer.get_str_time(), '1d 1m')
-        self.timer.raw_seconds = Timer.HOUR + Timer.MINUTE
-        self.assertEqual(self.timer.get_str_time(), '1h 1m')
-        self.timer.raw_seconds = Timer.DAY + Timer.HOUR
-        self.assertEqual(self.timer.get_str_time(), '1d 1h ')
 
-        self.timer.raw_seconds = Timer.DAY
-        self.assertEqual(self.timer.get_str_time(), '1d ')
-        self.timer.raw_seconds = Timer.HOUR
-        self.assertEqual(self.timer.get_str_time(), '1h ')
-        self.timer.raw_seconds = Timer.MINUTE
-        self.assertEqual(self.timer.get_str_time(), '1m')
-        self.timer.raw_seconds = 0
-        self.assertEqual(self.timer.get_str_time(), '0m')
 
     def test_update(self):
         """Test: update time. Every call decreases raw_seconds on 60 sec."""
