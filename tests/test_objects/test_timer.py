@@ -64,7 +64,7 @@ class TestTimer(BaseTest):
             Timer.HOUR,
             Timer.MINUTE,
             0,
-            ]
+        ]
         str_time_ = [
             '1d 1m',
             '1h 1m',
@@ -78,8 +78,6 @@ class TestTimer(BaseTest):
         for raw_seconds, str_time in zip(raw_seconds_, str_time_):
             self.timer.raw_seconds = raw_seconds
             self.assertEqual(self.timer.get_str_time(), str_time)
-
-
 
     def test_update(self):
         """Test: update time. Every call decreases raw_seconds on 60 sec."""

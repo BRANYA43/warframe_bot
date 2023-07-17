@@ -87,7 +87,7 @@ class TestBase(BaseTest):
         correct_info = f'Name: {self.cycle.name}\n' \
                        f'Current cycle: {self.cycle.current_cycle}\n' \
                        f'Next cycle: {self.cycle.next_cycle}\n' \
-                       f'Left time: {self.cycle.timer}\n'
+                       f'Left time: {self.cycle.timer.get_str_time()}\n'
         info = self.cycle.get_info()
 
         self.assertEqual(info, correct_info)

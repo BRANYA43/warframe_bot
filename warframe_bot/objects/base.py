@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
-from objects.mixins import CheckMixin
 from objects.timer import Timer
+from validators.validators import *
 
 
-class Base(CheckMixin, ABC):
+class Base(ABC):
     def __init__(self, name: str, timer: Timer):
         self.name = name
         self.timer = timer
@@ -15,8 +15,8 @@ class Base(CheckMixin, ABC):
 
     @name.setter
     def name(self, value):
-        self.check_instance(value, str, 'name')
-        self.check_empty_string(value, 'name')
+        validate_type(value, str, 'name')
+        validate_not_empty_string(value, 'name')
         self._name = value
 
     @property
@@ -25,7 +25,7 @@ class Base(CheckMixin, ABC):
 
     @timer.setter
     def timer(self, value):
-        self.check_instance(value, Timer, 'timer')
+        validate_type(value, Timer, 'timer')
         self._timer = value
 
     @abstractmethod

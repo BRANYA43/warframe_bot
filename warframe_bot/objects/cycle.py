@@ -1,3 +1,4 @@
+from validators.validators import *
 from .base import Base
 from .timer import Timer
 
@@ -14,8 +15,7 @@ class Cycle(Base):
 
     @cycles.setter
     def cycles(self, value: list[str]):
-        if not isinstance(value, list):
-            raise TypeError('cycles must be list.')
+        validate_type(value, list, 'cycles')
         if len(value) < 2:
             raise ValueError('cycles cannot have less 2 items.')
         if any(not isinstance(item, str) for item in value):
@@ -30,8 +30,8 @@ class Cycle(Base):
 
     @current_cycle.setter
     def current_cycle(self, value):
-        self.check_instance(value, str, 'current_cycle')
-        self.check_empty_string(value, 'current_cycle')
+        validate_type(value, str, 'current_cycle')
+        validate_not_empty_string(value, 'current_cycle')
         if not value in self.cycles:
             raise ValueError('current_cycle must be within in cycles.')
         self._current_cycle = value

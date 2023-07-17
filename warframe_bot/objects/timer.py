@@ -1,7 +1,7 @@
-from objects.mixins import CheckMixin
+from validators.validators import *
 
 
-class Timer(CheckMixin):
+class Timer:
     """Timer"""
 
     DAY = 86400
@@ -12,13 +12,13 @@ class Timer(CheckMixin):
         self.raw_seconds = raw_seconds
 
     @property
-    def raw_seconds(self) -> str:
+    def raw_seconds(self) -> int:
         return self._raw_seconds
 
     @raw_seconds.setter
     def raw_seconds(self, value: int):
-        self.check_instance(value, int, 'raw_seconds')
-        self.check_negative(value, 'raw_seconds')
+        validate_type(value, int, 'raw_seconds')
+        validate_not_negative(value, 'raw_seconds')
         self._raw_seconds = value
 
     @property

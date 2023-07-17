@@ -1,5 +1,6 @@
 from objects.base import Base
 from objects.timer import Timer
+from validators.validators import *
 
 
 class Mission(Base):
@@ -66,8 +67,8 @@ class Mission(Base):
 
     @location.setter
     def location(self, value: str):
-        self.check_instance(value, str, 'location')
-        self.check_empty_string(value, 'location')
+        validate_type(value, str, 'location')
+        validate_not_empty_string(value, 'location')
         self._location = self.LOCATIONS.index(value)
 
     @property
@@ -76,8 +77,8 @@ class Mission(Base):
 
     @enemy.setter
     def enemy(self, value: str):
-        self.check_instance(value, str, 'enemy')
-        self.check_empty_string(value, 'enemy')
+        validate_type(value, str, 'enemy')
+        validate_not_empty_string(value, 'enemy')
         self._enemy = self.ENEMIES.index(value)
 
     @property
@@ -86,8 +87,8 @@ class Mission(Base):
 
     @type.setter
     def type(self, value: str):
-        self.check_instance(value, str, 'type')
-        self.check_empty_string(value, 'type')
+        validate_type(value, str, 'type')
+        validate_not_empty_string(value, 'type')
         self._type = self.TYPES.index(value)
 
     def get_info(self):
