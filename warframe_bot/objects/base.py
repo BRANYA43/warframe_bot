@@ -1,4 +1,5 @@
 import datetime
+from abc import ABC, abstractmethod
 from types import UnionType
 
 
@@ -20,7 +21,7 @@ class CheckMixin:
             raise ValueError(f'{attr_name} cannot be negative.')
 
 
-class Base(CheckMixin):
+class Base(CheckMixin, ABC):
     def __init__(self, key: str, name: str, expiry: datetime.datetime):
         self.key = key
         self.name = name
@@ -54,3 +55,7 @@ class Base(CheckMixin):
     def expiry(self, value):
         self.check_instance(value, datetime.datetime, 'expiry')
         self._expiry = value
+
+    @abstractmethod
+    def get_info(self):
+        raise NotImplementedError

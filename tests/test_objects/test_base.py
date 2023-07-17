@@ -9,10 +9,14 @@ class TestBase(BaseTest):
     """Test Base"""
 
     def setUp(self) -> None:
+        class BaseT(Base):
+            def get_info(self):
+                raise NotImplementedError
+
         self.key = 'key'
         self.name = 'name'
         self.expiry = datetime.datetime.utcnow()
-        self.base = Base(key=self.key, name=self.name, expiry=self.expiry)
+        self.base = BaseT(key=self.key, name=self.name, expiry=self.expiry)
 
     def test_create_base_with_correct_values(self):
         """Test: create base with correct attrs"""
