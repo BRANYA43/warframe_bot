@@ -3,6 +3,7 @@ import datetime
 import requests
 
 from objects.cycle import Cycle
+from objects.fissure import Fissure
 from objects.mission import Mission
 from objects.timer import Timer
 
@@ -15,6 +16,7 @@ class Manager:
         self._url = 'https://api.warframestat.us/pc/'
         self._response = None
         self._cycles = {}
+        self._fissures = {}
         self._cycle_keys = (
             'earthCycle',
             'cetusCycle',
@@ -29,6 +31,8 @@ class Manager:
 
     def prepare(self):
         """Prepare manager for start work."""
+        self.set_response()
+
         cycle_names = ['Earth', 'Cetus', 'Fortune', 'Cambion Drift', 'Zariman']
         cycle_cycles = [
             ['day', 'night'],
@@ -37,9 +41,11 @@ class Manager:
             ['vome', 'fass'],
             ['corpus', 'grineer'],
         ]
-        self.set_response()
         for cycle_key, cycle_name, cycles in zip(self._cycle_keys, cycle_names, cycle_cycles):
             self.create_cycle(cycle_key, cycle_name, cycles)
+
+        for index, _ in enumerate(self._response['fissures']):
+            self.create_fissure(index)
 
         self.is_ready = True
 
@@ -49,6 +55,9 @@ class Manager:
 
         for cycle_key in self._cycle_keys:
             self.update_cycle(cycle_key)
+
+        for fissure_id in self._fissures.keys():
+            self.update_fissure(fissure_id)
 
     def get_timer(self, expiry: str) -> Timer:
         time = datetime.datetime.fromisoformat(expiry.replace('Z', ''))
@@ -90,10 +99,60 @@ class Manager:
 
     def create_mission(self, node: str, type: str, enemy: str, is_storm: bool, is_hard: bool):
         """Create Mission"""
-        name, location = node.split()
-        location = location[1:-1]
+        name, location = node.split(' (', maxsplit=1)
+        location = location[:-1]
         if is_storm:
             location += ' Proxima'
 
         mission = Mission(name=name, location=location, type=type, enemy=enemy, is_storm=is_storm, is_hard=is_hard)
         return mission
+
+    def create_fissure(self, index: int):
+        """Create Fissure"""
+        response = self._response['fissures'][index]
+        mission = self.create_mission(
+            node=response['node'],
+            type=response['missionType'],
+            enemy=response['enemy'],
+            is_storm=response['isStorm'],
+            is_hard=response['isHard'],
+        )
+        timer = self.get_timer(response['expiry'])
+        fissure = Fissure(
+            id=response['id'],
+            mission=mission,
+            tier=response['tier'],
+            timer=timer,
+        )
+        self._fissures.setdefault(fissure.id, fissure)
+        return fissure
+
+    def delete_fissure(self, id: str):
+        """Delete Fissure from fissures"""
+        del self._fissures[id]
+
+    def update_fissure(self, id: str):
+        """Update fissure timer"""
+        fissure = self._fissures[id]
+        fissure.timer.update()
+        if fissure.timer.raw_seconds == 0:
+            ids = [fissure_['id'] for fissure_ in self._response['fissures']]
+            if not fissure.id in ids:
+                self.delete_fissure(id)
+
+    def get_fissures_info(self) -> str:
+        simple = 'Missions of Simple\n'
+        storm = 'Missions of Railjack\n'
+        hard = 'Missions of Steel Path\n'
+
+        for fissure in self._fissures.values():
+            if not fissure.mission.is_storm and not fissure.mission.is_hard:
+                simple += fissure.get_info() + '\n'
+
+            if fissure.mission.is_storm:
+                storm += fissure.get_info() + '\n'
+
+            if fissure.mission.is_hard:
+                hard += fissure.get_info() + '\n'
+
+        return simple + storm + hard

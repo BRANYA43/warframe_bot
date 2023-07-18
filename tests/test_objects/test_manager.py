@@ -1,6 +1,5 @@
 import datetime
 import unittest
-from pprint import pprint
 
 from objects.cycle import Cycle
 from objects.fissure import Fissure
@@ -185,15 +184,79 @@ class TestManager(BaseTest):
 
     def test_create_fissure(self):
         """Test: create Fissure than add Fissure to fissures and return created Fissure."""
+        self.manager._response = self.fake_response
+        fissure = self.manager.create_fissure(index=0)
+        managers_fissure = self.manager._fissures.get(fissure.id)
 
-    def test_update_fissure(self):
-        """Test: update fissures timers."""
+        self.assertIsNotNone(managers_fissure)
+        self.assertIsInstance(managers_fissure, Fissure)
+        self.assertIs(fissure, managers_fissure)
+        self.assertEqual(fissure.mission.name, 'name')
+        self.assertEqual(fissure.mission.location, Mission.LOCATIONS[0])
+        self.assertEqual(fissure.mission.type, Mission.TYPES[0])
+        self.assertEqual(fissure.mission.enemy, Mission.ENEMIES[0])
+        self.assertFalse(fissure.mission.is_hard)
+        self.assertEqual(fissure.timer.days, 1)
+
+    def test_after_update_fissure_the_timer_time_is_less(self):
+        """Test: update fissure after that the timer time must be less."""
+        self.manager._response = self.fake_response
+        fissure = self.manager.create_fissure(index=0)
+        old_raw_seconds = fissure.timer.raw_seconds
+
+        self.manager.update_fissure(id=fissure.id)
+
+        self.assertLess(fissure.timer.raw_seconds, old_raw_seconds)
+
+    def test_delete_fissure_with_timer_equal_0_and_fissure_id_not_found_after_update(self):
+        """Test: delete Fissure with timer.raw_seconds = 0 and fissure id not found after update."""
+        self.manager._response = self.fake_response
+        fissure = self.manager.create_fissure(index=0)
+        id_ = fissure.id
+        self.assertIsNotNone(self.manager._fissures.get(id_))
+
+        fissure.timer.raw_seconds = 0
+        self.manager.update_fissure(id_)
+
+        self.assertIsNotNone(self.manager._fissures.get(id_))
+
+        del self.manager._response['fissures'][0]
+        self.manager.update_fissure(id_)
+
+        self.assertIsNone(self.manager._fissures.get(id_))
 
     def test_delete_fissure(self):
         """Test: delete Fissure of fissures."""
+        self.manager._response = self.fake_response
+        fissure = self.manager.create_fissure(index=0)
+
+        self.assertIsNotNone(self.manager._fissures.get(fissure.id))
+
+        self.manager.delete_fissure(fissure.id)
+
+        self.assertIsNone(self.manager._fissures.get(fissure.id))
 
     def test_get_fissures_info(self):
         """Test: get_fissures_info returns correct info"""
+        self.manager._response = self.fake_response
+        fissure_0 = self.manager.create_fissure(index=0)
+        fissure_1 = self.manager.create_fissure(index=1)
+        fissure_2 = self.manager.create_fissure(index=2)
+
+        info = self.manager.get_fissures_info()
+
+        self.assertIn(
+            'Missions of Simple\n' + fissure_0.get_info(),
+            info,
+        )
+        self.assertIn(
+            'Missions of Railjack\n' + fissure_1.get_info(),
+            info,
+        )
+        self.assertIn(
+            'Missions of Steel Path\n' + fissure_2.get_info(),
+            info,
+        )
 
     def test_set_response(self):
         """Test: set response by url"""
@@ -209,6 +272,7 @@ class TestManager(BaseTest):
         self.assertFalse(self.manager.is_ready)
         self.assertIsNone(self.manager._response)
         self.assertEqual(len(self.manager._cycles), 0)
+        self.assertEqual(len(self.manager._fissures), 0)
 
         self.manager.prepare()
 
@@ -220,12 +284,18 @@ class TestManager(BaseTest):
         for cycle in self.manager._cycles.values():
             self.assertIsInstance(cycle, Cycle)
 
+        self.assertNotEqual(len(self.manager._fissures), 0)
+        for fissure in self.manager._fissures.values():
+            self.assertIsInstance(fissure, Fissure)
+
     def test_update(self):
         """Test: update values of manager attributes."""
         self.manager.set_response()
         old_response = self.manager._response
+        self.manager.prepare()
+        self.manager.update()
 
-        self.test_create_cycle()
+        # TODO придумать как проверить обновленны ли циклы и тд
 
         self.assertIsNot(self.manager._response, old_response)
 
