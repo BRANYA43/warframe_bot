@@ -17,8 +17,7 @@ class UserCog(commands.Cog):
         buttons = [
             disnake.ui.Button(label='Full', style=disnake.ButtonStyle.primary, custom_id='full'),
             disnake.ui.Button(label='Cycles', style=disnake.ButtonStyle.primary, custom_id='cycles'),
-            # disnake.ui.Button(label='Baro Ki\'teer', style=disnake.ButtonStyle.primary, custom_id='void_trader'),
-            # disnake.ui.Button(label='Fissures of Void', style=disnake.ButtonStyle.primary, custom_id='fissures'),
+            disnake.ui.Button(label='Fissures of Void', style=disnake.ButtonStyle.primary, custom_id='fissures'),
         ]
         return buttons
 
@@ -39,14 +38,10 @@ class UserCog(commands.Cog):
                 name='Location with cycles',
                 value=self.manager.get_cycles_info(),
             )
-            # embed.add_field(
-            #     name='Baro Ki\'teer',
-            #     value='Location, left time',
-            # )
-            # embed.add_field(
-            #     name='Fissures of Void',
-            #     value='mission_location, mission_name, mission_type, mission_enemy, tier'
-            # )
+            embed.add_field(
+                name='Fissures of Void',
+                value=self.manager.get_fissures_info()
+            )
             await inter.send(embed=embed, ephemeral=True)
         elif inter.component.custom_id == 'cycles':
             embed = disnake.Embed(
@@ -54,17 +49,11 @@ class UserCog(commands.Cog):
                 description=self.manager.get_cycles_info()
             )
             await inter.send(embed=embed, ephemeral=True)
-        # elif inter.component.custom_id == 'void_trader':
-        #     embed = disnake.Embed(
-        #         title='Baro Ki\'teer',
-        #         description='Location, left time'
-        #     )
-        #     await inter.send(embed=embed, ephemeral=True)
-        # elif inter.component.custom_id == 'fissures':
-        #     embed = disnake.Embed(
-        #         title='Fissures of Void',
-        #         description='mission_location, mission_name, mission_type, mission_enemy, tier'
-        #     )
+        elif inter.component.custom_id == 'fissures':
+            embed = disnake.Embed(
+                title='Fissures of Void',
+                description=self.manager.get_fissures_info()
+            )
             await inter.send(embed=embed, ephemeral=True)
 
     @tasks.loop(minutes=1.0)
