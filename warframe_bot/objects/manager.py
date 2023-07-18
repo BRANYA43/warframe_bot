@@ -95,5 +95,5 @@ class Manager:
         if is_storm:
             location += ' Proxima'
 
-        mission = Mission(name=name, location=location, type_=type, enemy=enemy, is_hard=is_hard)
+        mission = Mission(name=name, location=location, type=type, enemy=enemy, is_storm=is_storm, is_hard=is_hard)
         return mission

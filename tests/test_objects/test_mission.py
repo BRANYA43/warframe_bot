@@ -1,6 +1,5 @@
 import unittest
 
-from objects.timer import Timer
 from objects.mission import Mission
 from test_objects.base_test import BaseTest
 
@@ -11,7 +10,7 @@ class TestMission(BaseTest):
     def setUp(self) -> None:
         self.name = 'name'
         self.mission = Mission(name=self.name, location=Mission.LOCATIONS[0], enemy=Mission.ENEMIES[0],
-                               type_=Mission.TYPES[0], is_hard=False)
+                               type=Mission.TYPES[0], is_storm=False, is_hard=False)
 
     def test_create_mission_with_correct_values(self):
         """Test: create mission with correct values."""
@@ -19,13 +18,15 @@ class TestMission(BaseTest):
         self.assertEqual(self.mission.location, Mission.LOCATIONS[0])
         self.assertEqual(self.mission.enemy, Mission.ENEMIES[0])
         self.assertEqual(self.mission.type, Mission.TYPES[0])
+        self.assertFalse(self.mission.is_storm)
         self.assertFalse(self.mission.is_hard)
 
     def test_not_create_mission_with_incorrect_values(self):
         """Test: not create mission with incorrect values."""
         with self.assertRaises((TypeError, ValueError)):
             for incorrect_value in [None, '', 'incorrect']:
-                Mission(name=self.name, location=incorrect_value, enemy=incorrect_value, type_=incorrect_value)
+                Mission(name=self.name, location=incorrect_value, enemy=incorrect_value, type=incorrect_value,
+                        is_storm=False, is_hard=False)
 
     def test_raise_errors_location_property(self):
         """
@@ -75,6 +76,14 @@ class TestMission(BaseTest):
         with self.assertRaises(ValueError):
             self.mission.type = 'incorrect'
 
+    def test_raise_errors_is_storm_property(self):
+        """
+        Test: raise TypeError if is_storm isn't bool
+        """
+        with self.assertRaises(TypeError) as e:
+            self.mission.is_storm = None
+        self.check_error_message(e, 'is_storm must be bool.')
+
     def test_raise_errors_is_hard_property(self):
         """
         Test: raise TypeError if is_hard isn't bool
@@ -92,11 +101,11 @@ class TestMission(BaseTest):
 
         self.assertEqual(info, correct_info)
 
-        self.mission.is_hard = True
-        correct_info_with_is_hard = 'This is mission of steel path.\n'
-        correct_info_with_is_hard += correct_info
+        self.mission.is_storm = True
+        self.assertIn('This is mission of railjack.', self.mission.get_info())
 
-        self.assertEqual(correct_info_with_is_hard, self.mission.get_info())
+        self.mission.is_hard = True
+        self.assertIn('This is mission of steel path.', self.mission.get_info())
 
 
 if __name__ == '__main__':

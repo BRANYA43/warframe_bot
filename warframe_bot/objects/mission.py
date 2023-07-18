@@ -54,11 +54,12 @@ class Mission(NameMixin):
         'Volatile',
     )
 
-    def __init__(self, name: str, location: str, enemy: str, type_: str, is_hard: bool):
+    def __init__(self, name: str, location: str, enemy: str, type: str, is_storm: bool, is_hard: bool):
         super().__init__(name)
         self.location = location
         self.enemy = enemy
-        self.type = type_
+        self.type = type
+        self.is_storm = is_storm
         self.is_hard = is_hard
 
     @property
@@ -92,6 +93,15 @@ class Mission(NameMixin):
         self._type = self.TYPES.index(value)
 
     @property
+    def is_storm(self) -> bool:
+        return self._is_hard
+
+    @is_storm.setter
+    def is_storm(self, value: bool):
+        validate_type(value, bool, 'is_storm')
+        self._is_storm = value
+
+    @property
     def is_hard(self) -> bool:
         return self._is_hard
 
@@ -102,6 +112,8 @@ class Mission(NameMixin):
 
     def get_info(self):
         ret = ''
+        if self._is_storm:
+            ret += 'This is mission of railjack.\n'
         if self._is_hard:
             ret += 'This is mission of steel path.\n'
         ret += f'Type: {self.type}\n' \

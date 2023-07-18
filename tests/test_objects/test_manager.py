@@ -164,6 +164,7 @@ class TestManager(BaseTest):
         mission = self.manager.create_mission(**data)
 
         self.assertEqual(mission.location, Mission.LOCATIONS[19])
+        self.assertIn('This is mission of railjack.', mission.get_info())
 
     def test_create_mission_with_is_hard_is_true(self):
         """Test: create Mission and return Mission where get_info return 'This is mission of steel path'"""
@@ -172,7 +173,7 @@ class TestManager(BaseTest):
         mission = self.manager.create_mission(**data)
 
         self.assertTrue(mission.is_hard)
-        self.assertIn('This is mission of steel path', mission.get_info())
+        self.assertIn('This is mission of steel path.', mission.get_info())
 
     def test_create_fissure(self):
         """Test: create Fissure than add Fissure to fissures and return created Fissure."""

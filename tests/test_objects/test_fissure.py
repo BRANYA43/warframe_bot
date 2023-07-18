@@ -13,7 +13,7 @@ class TestFissure(BaseTest):
         self.id_ = 'id'
         self.timer = Timer(Timer.DAY + Timer.HOUR + Timer.MINUTE)
         self.mission = Mission(name='name', location=Mission.LOCATIONS[0], enemy=Mission.ENEMIES[0],
-                               type_=Mission.TYPES[0])
+                               type=Mission.TYPES[0], is_storm=False, is_hard=False)
         self.data = {
             'id': self.id_,
             'mission': self.mission,
