@@ -113,23 +113,27 @@ class TestManager(BaseTest):
         self.assertIsInstance(cycle.timer, Timer)
         self.assertEqual(cycle.timer.days, 1)
 
-    def test_update_cycle(self):
-        """Test: update attributes of Cycle"""
+    def test_after_update_cycle_the_timer_time_is_less(self):
+        """Test: update cycle after that the timer time must be less."""
         self.manager._response = self.fake_response
         cycle = self.manager.create_cycle(key='earthCycle', name='earth', cycles=['day', 'night'])
-        self.expiry_datetime = self.expiry_datetime + datetime.timedelta(days=1)
-        self.expiry_str = self.expiry_datetime.isoformat() + 'Z'
-        self.fake_response['earthCycle']['expiry'] = self.expiry_str
-        self.fake_response['earthCycle']['state'] = 'night'
-        self.manager._response = self.fake_response
-        cycle_response = self.fake_response['earthCycle']
-        cycle.timer.raw_seconds = 0
+        old_raw_seconds = cycle.timer.raw_seconds
 
         self.manager.update_cycle(key='earthCycle')
 
-        self.assertEqual(cycle.current_cycle, cycle_response['state'])
-        self.assertEqual(cycle.next_cycle, 'day')
-        self.assertEqual(cycle.timer.days, 2)
+        self.assertLess(cycle.timer.raw_seconds, old_raw_seconds)
+
+    def test_after_update_cycle_the_timer_must_have_new_time(self):
+        """Test: update cycle after that the timer time that equal 0 must have new time."""
+        self.manager._response = self.fake_response
+        cycle = self.manager.create_cycle(key='earthCycle', name='earth', cycles=['day', 'night'])
+        cycle.timer.raw_seconds = 0
+
+        self.manager._response = self.fake_response
+
+        self.manager.update_cycle(key='earthCycle')
+
+        self.assertEqual(cycle.timer.days, 1)
 
     def test_get_cycles_info(self):
         """Test: get_cycle_data"""
