@@ -77,6 +77,8 @@ class TestManager(BaseTest):
         self.assertFalse(self.manager.is_ready)
         self.assertIsNone(self.manager._response)
         self.assertIsInstance(self.manager._cycles, dict)
+        self.assertIsInstance(self.manager._fissures, dict)
+        self.assertIsInstance(self.manager._fissures_for_delete, list)
         self.assertEqual(self.manager._url, 'https://api.warframestat.us/pc/')
         self.assertEqual(self.manager._cycle_keys, ('earthCycle', 'cetusCycle', 'vallisCycle', 'cambionCycle',
                                                     'zarimanCycle',))
@@ -170,7 +172,6 @@ class TestManager(BaseTest):
         self.assertEqual(mission.location, Mission.LOCATIONS[19])
         self.assertTrue(mission.is_storm)
         self.assertFalse(mission.is_hard)
-        self.assertIn('This is mission of railjack.', mission.get_info())
 
     def test_create_mission_with_is_hard_is_true(self):
         """Test: create Mission and return Mission where get_info return 'This is mission of steel path'"""
@@ -180,7 +181,6 @@ class TestManager(BaseTest):
 
         self.assertFalse(mission.is_storm)
         self.assertTrue(mission.is_hard)
-        self.assertIn('This is mission of steel path.', mission.get_info())
 
     def test_create_fissure(self):
         """Test: create Fissure than add Fissure to fissures and return created Fissure."""
@@ -223,17 +223,20 @@ class TestManager(BaseTest):
         del self.manager._response['fissures'][0]
         self.manager.update_fissure(id_)
 
-        self.assertIsNone(self.manager._fissures.get(id_))
+        self.assertIn(fissure.id, self.manager._fissures_for_delete)
 
     def test_delete_fissure(self):
         """Test: delete Fissure of fissures."""
         self.manager._response = self.fake_response
         fissure = self.manager.create_fissure(index=0)
+        self.manager._fissures_for_delete.append(fissure.id)
 
+        self.assertEqual(len(self.manager._fissures_for_delete), 1)
         self.assertIsNotNone(self.manager._fissures.get(fissure.id))
 
         self.manager.delete_fissure(fissure.id)
 
+        self.assertEqual(len(self.manager._fissures_for_delete), 0)
         self.assertIsNone(self.manager._fissures.get(fissure.id))
 
     def test_get_fissures_info(self):

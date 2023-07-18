@@ -17,6 +17,7 @@ class Manager:
         self._response = None
         self._cycles = {}
         self._fissures = {}
+        self._fissures_for_delete = []
         self._cycle_keys = (
             'earthCycle',
             'cetusCycle',
@@ -58,6 +59,9 @@ class Manager:
 
         for fissure_id in self._fissures.keys():
             self.update_fissure(fissure_id)
+
+        for fissure_id in self._fissures_for_delete:
+            self.delete_fissure(fissure_id)
 
     def get_timer(self, expiry: str) -> Timer:
         time = datetime.datetime.fromisoformat(expiry.replace('Z', ''))
@@ -130,6 +134,7 @@ class Manager:
     def delete_fissure(self, id: str):
         """Delete Fissure from fissures"""
         del self._fissures[id]
+        self._fissures_for_delete.remove(id)
 
     def update_fissure(self, id: str):
         """Update fissure timer"""
@@ -138,7 +143,7 @@ class Manager:
         if fissure.timer.raw_seconds == 0:
             ids = [fissure_['id'] for fissure_ in self._response['fissures']]
             if not fissure.id in ids:
-                self.delete_fissure(id)
+                self._fissures_for_delete.append(fissure.id)
 
     def get_fissures_info(self) -> str:
         simple = 'Missions of Simple\n'
