@@ -3,6 +3,7 @@ import datetime
 import requests
 
 from objects.cycle import Cycle
+from objects.mission import Mission
 from objects.timer import Timer
 
 
@@ -86,3 +87,13 @@ class Manager:
         for cycle in self._cycles.values():
             ret += cycle.get_info() + '\n'
         return ret
+
+    def create_mission(self, node: str, type: str, enemy: str, is_storm: bool, is_hard: bool):
+        """Create Mission"""
+        name, location = node.split()
+        location = location[1:-1]
+        if is_storm:
+            location += ' Proxima'
+
+        mission = Mission(name=name, location=location, type_=type, enemy=enemy, is_hard=is_hard)
+        return mission
