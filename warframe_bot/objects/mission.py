@@ -130,10 +130,6 @@ class Mission(NameMixin):
 
     def get_info(self):
         ret = ''
-        if self._is_storm:
-            ret += 'This is mission of railjack.\n'
-        if self._is_hard:
-            ret += 'This is mission of steel path.\n'
         ret += f'Type: {self.type}\n' \
                f'Location: {self.location}\n' \
                f'Name: {self.name}\n'

@@ -92,12 +92,6 @@ class TestMission(BaseTest):
 
         self.assertEqual(info, correct_info)
 
-        self.mission.is_storm = True
-        self.assertIn('This is mission of railjack.', self.mission.get_info())
-
-        self.mission.is_hard = True
-        self.assertIn('This is mission of steel path.', self.mission.get_info())
-
 
 if __name__ == '__main__':
     unittest.main()
