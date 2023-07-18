@@ -94,7 +94,7 @@ class Mission(NameMixin):
 
     @property
     def is_storm(self) -> bool:
-        return self._is_hard
+        return self._is_storm
 
     @is_storm.setter
     def is_storm(self, value: bool):

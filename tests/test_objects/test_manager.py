@@ -26,8 +26,8 @@ class TestManager(BaseTest):
                 'expiry': self.expiry_str,
                 'state': 'day',
             },
-            'fissures': {
-                0: {
+            'fissures': [
+                {
                     'id': 'id_0',
                     'expiry': self.expiry_str,
                     'node': f'name ({Mission.LOCATIONS[0]})',
@@ -38,7 +38,7 @@ class TestManager(BaseTest):
                     'isHard': False,
 
                 },
-                1: {
+                {
                     'id': 'id_1',
                     'expiry': self.expiry_str,
                     'node': f'name ({Mission.LOCATIONS[2]})',
@@ -49,7 +49,7 @@ class TestManager(BaseTest):
                     'isHard': False,
 
                 },
-                2: {
+                {
                     'id': 'id_2',
                     'expiry': self.expiry_str,
                     'node': f'name ({Mission.LOCATIONS[0]})',
@@ -60,7 +60,7 @@ class TestManager(BaseTest):
                     'isHard': True,
 
                 },
-            }
+            ]
         }
 
     @staticmethod
@@ -159,6 +159,7 @@ class TestManager(BaseTest):
         self.assertEqual(mission.location, Mission.LOCATIONS[0])
         self.assertEqual(mission.type, Mission.TYPES[0])
         self.assertEqual(mission.enemy, Mission.ENEMIES[0])
+        self.assertFalse(mission.is_storm)
         self.assertFalse(mission.is_hard)
 
     def test_create_mission_with_is_storm_is_true(self):
@@ -168,6 +169,8 @@ class TestManager(BaseTest):
         mission = self.manager.create_mission(**data)
 
         self.assertEqual(mission.location, Mission.LOCATIONS[19])
+        self.assertTrue(mission.is_storm)
+        self.assertFalse(mission.is_hard)
         self.assertIn('This is mission of railjack.', mission.get_info())
 
     def test_create_mission_with_is_hard_is_true(self):
@@ -176,6 +179,7 @@ class TestManager(BaseTest):
         data = self.get_mission_data(fissure_response)
         mission = self.manager.create_mission(**data)
 
+        self.assertFalse(mission.is_storm)
         self.assertTrue(mission.is_hard)
         self.assertIn('This is mission of steel path.', mission.get_info())
 
