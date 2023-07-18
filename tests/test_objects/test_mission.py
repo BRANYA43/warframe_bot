@@ -11,7 +11,7 @@ class TestMission(BaseTest):
     def setUp(self) -> None:
         self.name = 'name'
         self.mission = Mission(name=self.name, location=Mission.LOCATIONS[0], enemy=Mission.ENEMIES[0],
-                               type_=Mission.TYPES[0])
+                               type_=Mission.TYPES[0], is_hard=False)
 
     def test_create_mission_with_correct_values(self):
         """Test: create mission with correct values."""

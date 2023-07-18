@@ -54,7 +54,7 @@ class Mission(NameMixin):
         'Volatile',
     )
 
-    def __init__(self, name: str, location: str, enemy: str, type_: str, *, is_hard=False):
+    def __init__(self, name: str, location: str, enemy: str, type_: str, is_hard: bool):
         super().__init__(name)
         self.location = location
         self.enemy = enemy
