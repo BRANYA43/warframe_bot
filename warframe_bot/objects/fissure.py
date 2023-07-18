@@ -53,6 +53,7 @@ class Fissure(TimerMixin):
 
     def get_info(self):
         ret = f'{self._mission.get_info()}' \
-               f'Relic Tier: {self.tier}\n'
+              f'Relic Tier: {self.tier}\n' \
+              f'Left time: {self.timer.get_str_time()}\n'
         return ret
 

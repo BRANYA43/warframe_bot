@@ -60,7 +60,8 @@ class TestFissure(BaseTest):
     def test_get_info(self):
         """Test: get correct info get_info"""
         correct_info = f'{self.mission.get_info()}' \
-                       f'Relic Tier: {Fissure.TIERS[0]}\n'
+                       f'Relic Tier: {Fissure.TIERS[0]}\n' \
+                       f'Left time: {self.timer.get_str_time()}\n'
         self.assertEqual(self.fissure.get_info(), correct_info)
 
 
