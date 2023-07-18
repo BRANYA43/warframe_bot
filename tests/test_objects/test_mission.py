@@ -41,9 +41,6 @@ class TestMission(BaseTest):
             self.mission.location = ''
         self.check_error_message(e, 'location cannot be empty string.')
 
-        with self.assertRaises(ValueError):
-            self.mission.location = 'incorrect'
-
     def test_raise_errors_enemy_property(self):
         """
         Test: raise TypeError if enemy isn't str, raise ValueError if enemy is empty string, raise ValueError if enemy
@@ -57,9 +54,6 @@ class TestMission(BaseTest):
             self.mission.enemy = ''
         self.check_error_message(e, 'enemy cannot be empty string.')
 
-        with self.assertRaises(ValueError):
-            self.mission.enemy = 'incorrect'
-
     def test_raise_errors_type_property(self):
         """
         Test: raise TypeError if type isn't str, raise ValueError if type is empty string, raise ValueError if type
@@ -72,9 +66,6 @@ class TestMission(BaseTest):
         with self.assertRaises(ValueError) as e:
             self.mission.type = ''
         self.check_error_message(e, 'type cannot be empty string.')
-
-        with self.assertRaises(ValueError):
-            self.mission.type = 'incorrect'
 
     def test_raise_errors_is_storm_property(self):
         """

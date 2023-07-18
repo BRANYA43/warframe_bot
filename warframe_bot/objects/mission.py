@@ -5,7 +5,7 @@ from validators.validators import *
 class Mission(NameMixin):
     """Mission"""
 
-    LOCATIONS = (
+    LOCATIONS = [
         'Mercury',
         'Venus',
         'Earth',
@@ -31,28 +31,31 @@ class Mission(NameMixin):
         'Neptune Proxima',
         'Pluto Proxima',
         'Veil Proxima',
-    )
-    ENEMIES = (
+    ]
+    ENEMIES = [
         'Corpus',
         'Grineer',
         'Orokin',
-    )
+        'Infested',
+    ]
 
-    TYPES = (
+    TYPES = [
+        'Assault',
         'Capture',
-        'Defence',
+        'Defense',
         'Disruption',
         'Excavation',
         'Extermination',
         'Interception',
-        'Mobile Defence',
+        'Mobile Defense',
         'Rescue',
         'Sabotage',
         'Skirmish',
         'Spy',
         'Survival',
         'Volatile',
-    )
+        'Orphix',
+    ]
 
     def __init__(self, name: str, location: str, enemy: str, type: str, is_storm: bool, is_hard: bool):
         super().__init__(name)
@@ -70,7 +73,12 @@ class Mission(NameMixin):
     def location(self, value: str):
         validate_type(value, str, 'location')
         validate_not_empty_string(value, 'location')
-        self._location = self.LOCATIONS.index(value)
+        try:
+            self._location = self.LOCATIONS.index(value)
+        except ValueError:  # TODO fix it. When value isn't within LOCATIONS
+            self.LOCATIONS.append(value)
+            self._location = self.LOCATIONS.index(value)
+            print('Location:', value)
 
     @property
     def enemy(self) -> str:
@@ -80,7 +88,12 @@ class Mission(NameMixin):
     def enemy(self, value: str):
         validate_type(value, str, 'enemy')
         validate_not_empty_string(value, 'enemy')
-        self._enemy = self.ENEMIES.index(value)
+        try:
+            self._enemy = self.ENEMIES.index(value)
+        except ValueError:  # TODO fix it. When value isn't within ENEMIES
+            self.ENEMIES.append(value)
+            self._enemy = self.ENEMIES.index(value)
+            print('Enemy:', value)
 
     @property
     def type(self) -> str:
@@ -90,7 +103,12 @@ class Mission(NameMixin):
     def type(self, value: str):
         validate_type(value, str, 'type')
         validate_not_empty_string(value, 'type')
-        self._type = self.TYPES.index(value)
+        try:
+            self._type = self.TYPES.index(value)
+        except ValueError:  # TODO fix it. When value isn't within TYPES
+            self.TYPES.append(value)
+            self._type = self.TYPES.index(value)
+            print('Type:', value)
 
     @property
     def is_storm(self) -> bool:
