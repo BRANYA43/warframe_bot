@@ -13,37 +13,21 @@ class UserCog(commands.Cog):
 
         self.update_manager.start()
 
-    async def get_buttons(self):
-        buttons = [
-            disnake.ui.Button(label='Full', style=disnake.ButtonStyle.primary, custom_id='full'),
-            disnake.ui.Button(label='Cycles', style=disnake.ButtonStyle.primary, custom_id='cycles'),
-            disnake.ui.Button(label='Fissures of Void', style=disnake.ButtonStyle.primary, custom_id='fissures'),
-        ]
-        return buttons
-
     @commands.slash_command(
         name='get_info',
         description='Get short info about world of Warframe.',
     )
     async def get_info(self, inter: disnake.ApplicationCommandInteraction):
         """Get short info about world of Warframe."""
-        components = await self.get_buttons()
+        components = [
+            disnake.ui.Button(label='Cycles', style=disnake.ButtonStyle.primary, custom_id='cycles'),
+            disnake.ui.Button(label='Fissures of Void', style=disnake.ButtonStyle.primary, custom_id='fissures'),
+        ]
         await inter.send(ephemeral=True, components=components)
 
     @commands.Cog.listener('on_button_click')
     async def answer_on_button_click(self, inter: disnake.MessageInteraction):
-        if inter.component.custom_id == 'full':
-            embed = disnake.Embed(title='All info about world of Warframe')
-            embed.add_field(
-                name='Location with cycles',
-                value=self.manager.get_cycles_info(),
-            )
-            embed.add_field(
-                name='Fissures of Void',
-                value=self.manager.get_fissures_info()
-            )
-            await inter.send(embed=embed, ephemeral=True)
-        elif inter.component.custom_id == 'cycles':
+        if inter.component.custom_id == 'cycles':
             embed = disnake.Embed(
                 title='Cycles of Warframe',
                 description=self.manager.get_cycles_info()
