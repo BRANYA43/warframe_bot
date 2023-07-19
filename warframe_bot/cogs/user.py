@@ -61,9 +61,10 @@ class UserCog(commands.Cog):
         """Update manager"""
         if self.manager.is_ready:
             self.manager.update()
+            print('Update... DONE')
         else:
             self.manager.prepare()
-        print('Update')
+            print('Prepare... DONE')
 
 
 def setup(bot: commands.InteractionBot):
