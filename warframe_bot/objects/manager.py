@@ -142,7 +142,7 @@ class Manager:
         fissure.timer.update()
         if fissure.timer.raw_seconds == 0:
             ids = [fissure_['id'] for fissure_ in self._response['fissures']]
-            if not fissure.id in ids:
+            if not fissure.id in ids and not fissure.id in self._fissures_for_delete:
                 self._fissures_for_delete.append(fissure.id)
 
     def get_fissures_info(self) -> str:

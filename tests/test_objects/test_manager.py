@@ -198,8 +198,8 @@ class TestManager(BaseTest):
         self.assertFalse(fissure.mission.is_hard)
         self.assertEqual(fissure.timer.days, 1)
 
-    def test_after_update_fissure_the_timer_time_is_less(self):
-        """Test: update fissure after that the timer time must be less."""
+    def test_timer_is_less_after_update_fissure(self):
+        """Test: timer is less after update_fissure."""
         self.manager._response = self.fake_response
         fissure = self.manager.create_fissure(index=0)
         old_raw_seconds = fissure.timer.raw_seconds
@@ -208,21 +208,58 @@ class TestManager(BaseTest):
 
         self.assertLess(fissure.timer.raw_seconds, old_raw_seconds)
 
-    def test_delete_fissure_with_timer_equal_0_and_fissure_id_not_found_after_update(self):
-        """Test: delete Fissure with timer.raw_seconds = 0 and fissure id not found after update."""
+    def test_not_append_fissure_id_in_the_fissures_for_delete_after_update_fissure(self):
+        """Test: not append Fissure.id in fissures_for_delete after update_fissure if timer is 0 and fissure.id is in response."""
         self.manager._response = self.fake_response
         fissure = self.manager.create_fissure(index=0)
         id_ = fissure.id
+
         self.assertIsNotNone(self.manager._fissures.get(id_))
+        self.assertEqual(len(self.manager._fissures_for_delete), 0)
 
         fissure.timer.raw_seconds = 0
         self.manager.update_fissure(id_)
 
         self.assertIsNotNone(self.manager._fissures.get(id_))
+        self.assertEqual(len(self.manager._fissures_for_delete), 0)
+
+    def test_append_fissure_id_in_the_fissures_for_delete_after_update(self):
+        """
+        Test: append Fissure.id in fissures_for_delete after update_fissure if timer is 0 and if id isn't in response.
+        """
+        self.manager._response = self.fake_response
+        fissure = self.manager.create_fissure(index=0)
+        id_ = fissure.id
+
+        self.assertIsNotNone(self.manager._fissures.get(id_))
+        self.assertEqual(len(self.manager._fissures_for_delete), 0)
 
         del self.manager._response['fissures'][0]
+        fissure.timer.raw_seconds = 0
         self.manager.update_fissure(id_)
 
+        self.assertEqual(len(self.manager._fissures_for_delete), 1)
+        self.assertIn(fissure.id, self.manager._fissures_for_delete)
+
+    def test_not_append_fissure_id_in_fissures_for_delete_after_update_if_id_is_in_this_list(self):
+        """Test: not append Fissure.id in fissures_for_delete after update_fissure if id is in fissures_for_delete."""
+        self.manager._response = self.fake_response
+        fissure = self.manager.create_fissure(index=0)
+        id_ = fissure.id
+
+        self.assertIsNotNone(self.manager._fissures.get(id_))
+        self.assertEqual(len(self.manager._fissures_for_delete), 0)
+
+        del self.manager._response['fissures'][0]
+        fissure.timer.raw_seconds = 0
+        self.manager.update_fissure(id_)
+
+        self.assertEqual(len(self.manager._fissures_for_delete), 1)
+        self.assertIn(fissure.id, self.manager._fissures_for_delete)
+
+        self.manager.update_fissure(id_)
+
+        self.assertEqual(len(self.manager._fissures_for_delete), 1)
         self.assertIn(fissure.id, self.manager._fissures_for_delete)
 
     def test_delete_fissure(self):
