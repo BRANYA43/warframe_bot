@@ -1,4 +1,5 @@
 from validators.validators import *
+from translater import get_text as _
 
 
 class Timer:
@@ -40,13 +41,13 @@ class Timer:
         minutes = self.minutes
 
         if days:
-            ret += f'{self.days}d '
+            ret += _('{}d ').format(self.days)
         if hours:
-            ret += f'{self.hours}h '
+            ret += _('{}h ').format(self.hours)
         if minutes:
-            ret += f'{self.minutes}m'
+            ret += _('{}m').format(self.minutes)
         if ret == '':
-            ret = '0m'
+            ret = _('0m')
         return ret
 
     def update(self):

@@ -1,6 +1,8 @@
+from data import *
 from validators.validators import *
 from .base import Base
 from .timer import Timer
+from translater import get_text as _
 
 
 class Cycle(Base):
@@ -46,7 +48,8 @@ class Cycle(Base):
         self._next_cycle = self.cycles[(index + 1) % len(self.cycles)]
 
     def get_info(self):
-        return f'Name: {self.name}\n' \
-               f'Current cycle: {self.current_cycle}\n' \
-               f'Next cycle: {self.next_cycle}\n' \
-               f'Left time: {self.timer.get_str_time()}\n'
+        ret = _('Name: {}\n').format(LOCATIONS[self.name]) + \
+              _('Current cycle: {}\n').format(CYCLES[self.current_cycle]) + \
+              _('Next cycle: {}\n').format(CYCLES[self.next_cycle]) + \
+              _('Left time: {}\n').format(self.timer.get_str_time())
+        return ret

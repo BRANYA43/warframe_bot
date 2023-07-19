@@ -1,19 +1,15 @@
+from data import TIERS
 from objects.mission import Mission
 from objects.mixins import TimerMixin
 from objects.timer import Timer
 from validators.validators import *
+from translater import get_text as _
 
 
 class Fissure(TimerMixin):
     """Fissure"""
 
-    TIERS = (
-        'Lith',
-        'Meso',
-        'Neo',
-        'Axi',
-        'Requiem',
-    )
+    tiers = list(TIERS.keys())
 
     def __init__(self, id: str, timer: Timer, mission: Mission, tier: str):
         super().__init__(timer)
@@ -44,16 +40,15 @@ class Fissure(TimerMixin):
 
     @property
     def tier(self) -> str:
-        return self.TIERS[self._tier]
+        return self.tiers[self._tier]
 
     def _set_tier(self, value: str):
         validate_type(value, str, 'tier')
         validate_not_empty_string(value, 'tier')
-        self._tier = self.TIERS.index(value)
+        self._tier = self.tiers.index(value)
 
     def get_info(self):
-        ret = f'{self._mission.get_info()}' \
-              f'Relic Tier: {self.tier}\n' \
-              f'Left time: {self.timer.get_str_time()}\n'
+        ret = f'{self._mission.get_info()}' + \
+              _('Relic Tier: {}\n').format(TIERS[self.tier]) + \
+              _('Left time: {}\n').format(self.timer.get_str_time())
         return ret
-

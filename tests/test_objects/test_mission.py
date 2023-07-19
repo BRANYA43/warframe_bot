@@ -9,15 +9,15 @@ class TestMission(BaseTest):
 
     def setUp(self) -> None:
         self.name = 'name'
-        self.mission = Mission(name=self.name, location=Mission.LOCATIONS[0], enemy=Mission.ENEMIES[0],
-                               type=Mission.TYPES[0], is_storm=False, is_hard=False)
+        self.mission = Mission(name=self.name, location=Mission.locations[0], enemy=Mission.enemies[0],
+                               type=Mission.types[0], is_storm=False, is_hard=False)
 
     def test_create_mission_with_correct_values(self):
         """Test: create mission with correct values."""
         self.assertEqual(self.mission.name, self.name)
-        self.assertEqual(self.mission.location, Mission.LOCATIONS[0])
-        self.assertEqual(self.mission.enemy, Mission.ENEMIES[0])
-        self.assertEqual(self.mission.type, Mission.TYPES[0])
+        self.assertEqual(self.mission.location, Mission.locations[0])
+        self.assertEqual(self.mission.enemy, Mission.enemies[0])
+        self.assertEqual(self.mission.type, Mission.types[0])
         self.assertFalse(self.mission.is_storm)
         self.assertFalse(self.mission.is_hard)
 
@@ -85,9 +85,10 @@ class TestMission(BaseTest):
 
     def test_get_info(self):
         """Test: get_info return correct info"""
-        correct_info = f'Type: {self.mission.type}\n' \
-                       f'Location: {self.mission.location}\n' \
-                       f'Name: {self.mission.name}\n'
+        correct_info = f'Name: {self.mission.name}\n' \
+                       f'Type: {self.mission.type}\n' \
+                       f'Location: {self.mission.location}\n'
+
         info = self.mission.get_info()
 
         self.assertEqual(info, correct_info)

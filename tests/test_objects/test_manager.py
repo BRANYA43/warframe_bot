@@ -29,10 +29,10 @@ class TestManager(BaseTest):
                 {
                     'id': 'id_0',
                     'expiry': self.expiry_str,
-                    'node': f'name ({Mission.LOCATIONS[0]})',
-                    'missionType': Mission.TYPES[0],
-                    'enemy': Mission.ENEMIES[0],
-                    'tier': Fissure.TIERS[0],
+                    'node': f'name ({Mission.locations[0]})',
+                    'missionType': Mission.types[0],
+                    'enemy': Mission.enemies[0],
+                    'tier': Fissure.tiers[0],
                     'isStorm': False,
                     'isHard': False,
 
@@ -40,10 +40,10 @@ class TestManager(BaseTest):
                 {
                     'id': 'id_1',
                     'expiry': self.expiry_str,
-                    'node': f'name ({Mission.LOCATIONS[2]})',
-                    'missionType': Mission.TYPES[0],
-                    'enemy': Mission.ENEMIES[0],
-                    'tier': Fissure.TIERS[0],
+                    'node': f'name ({Mission.locations[3]})',
+                    'missionType': Mission.types[0],
+                    'enemy': Mission.enemies[0],
+                    'tier': Fissure.tiers[0],
                     'isStorm': True,
                     'isHard': False,
 
@@ -51,10 +51,10 @@ class TestManager(BaseTest):
                 {
                     'id': 'id_2',
                     'expiry': self.expiry_str,
-                    'node': f'name ({Mission.LOCATIONS[0]})',
-                    'missionType': Mission.TYPES[0],
-                    'enemy': Mission.ENEMIES[0],
-                    'tier': Fissure.TIERS[0],
+                    'node': f'name ({Mission.locations[0]})',
+                    'missionType': Mission.types[0],
+                    'enemy': Mission.enemies[0],
+                    'tier': Fissure.tiers[0],
                     'isStorm': False,
                     'isHard': True,
 
@@ -157,9 +157,9 @@ class TestManager(BaseTest):
         mission = self.manager.create_mission(**data)
 
         self.assertEqual(mission.name, 'name')
-        self.assertEqual(mission.location, Mission.LOCATIONS[0])
-        self.assertEqual(mission.type, Mission.TYPES[0])
-        self.assertEqual(mission.enemy, Mission.ENEMIES[0])
+        self.assertEqual(mission.location, Mission.locations[0])
+        self.assertEqual(mission.type, Mission.types[0])
+        self.assertEqual(mission.enemy, Mission.enemies[0])
         self.assertFalse(mission.is_storm)
         self.assertFalse(mission.is_hard)
 
@@ -169,7 +169,7 @@ class TestManager(BaseTest):
         data = self.get_mission_data(fissure_response)
         mission = self.manager.create_mission(**data)
 
-        self.assertEqual(mission.location, Mission.LOCATIONS[19])
+        self.assertEqual(mission.location, Mission.locations[22])
         self.assertTrue(mission.is_storm)
         self.assertFalse(mission.is_hard)
 
@@ -192,9 +192,9 @@ class TestManager(BaseTest):
         self.assertIsInstance(managers_fissure, Fissure)
         self.assertIs(fissure, managers_fissure)
         self.assertEqual(fissure.mission.name, 'name')
-        self.assertEqual(fissure.mission.location, Mission.LOCATIONS[0])
-        self.assertEqual(fissure.mission.type, Mission.TYPES[0])
-        self.assertEqual(fissure.mission.enemy, Mission.ENEMIES[0])
+        self.assertEqual(fissure.mission.location, Mission.locations[0])
+        self.assertEqual(fissure.mission.type, Mission.types[0])
+        self.assertEqual(fissure.mission.enemy, Mission.enemies[0])
         self.assertFalse(fissure.mission.is_hard)
         self.assertEqual(fissure.timer.days, 1)
 

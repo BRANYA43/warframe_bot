@@ -12,12 +12,12 @@ class TestFissure(BaseTest):
     def setUp(self) -> None:
         self.id_ = 'id'
         self.timer = Timer(Timer.DAY + Timer.HOUR + Timer.MINUTE)
-        self.mission = Mission(name='name', location=Mission.LOCATIONS[0], enemy=Mission.ENEMIES[0],
-                               type=Mission.TYPES[0], is_storm=False, is_hard=False)
+        self.mission = Mission(name='name', location=Mission.locations[0], enemy=Mission.enemies[0],
+                               type=Mission.types[0], is_storm=False, is_hard=False)
         self.data = {
             'id': self.id_,
             'mission': self.mission,
-            'tier': Fissure.TIERS[0],
+            'tier': Fissure.tiers[0],
             'timer': self.timer,
         }
         self.fissure = Fissure(**self.data)
@@ -26,7 +26,7 @@ class TestFissure(BaseTest):
         """Test: create fissure with correct values."""
         self.assertEqual(self.fissure.id, self.id_)
         self.assertIsInstance(self.fissure.mission, Mission)
-        self.assertEqual(self.fissure.tier, Fissure.TIERS[0])
+        self.assertEqual(self.fissure.tier, Fissure.tiers[0])
         self.assertIsInstance(self.fissure.timer, Timer)
 
     def test_raise_error_id_property(self):
@@ -50,7 +50,7 @@ class TestFissure(BaseTest):
         """Test: raise TyperError if tier isn't str, raise ValueError if tier is empty string, raise ValueError if type
         isn't within TIERS."""
         del self.data['tier']
-        error_msgs = ['tier must be str.', 'tier cannot be empty string.', 'tuple.index(x): x not in tuple']
+        error_msgs = ['tier must be str.', 'tier cannot be empty string.', "'incorrect' is not in list"]
         incorrect_values = [None, '', 'incorrect']
         for value, error_msg in zip(incorrect_values, error_msgs):
             with self.assertRaises((TypeError, ValueError)) as e:
@@ -60,7 +60,7 @@ class TestFissure(BaseTest):
     def test_get_info(self):
         """Test: get correct info get_info"""
         correct_info = f'{self.mission.get_info()}' \
-                       f'Relic Tier: {Fissure.TIERS[0]}\n' \
+                       f'Relic Tier: {Fissure.tiers[0]}\n' \
                        f'Left time: {self.timer.get_str_time()}\n'
         self.assertEqual(self.fissure.get_info(), correct_info)
 

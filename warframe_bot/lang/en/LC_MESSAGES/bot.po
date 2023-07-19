@@ -1,0 +1,294 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-19 18:37+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: warframe_bot/objects/cycle.py:51 warframe_bot/objects/mission.py:86
+msgid "Name: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/cycle.py:52
+msgid "Current cycle: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/cycle.py:53
+msgid "Next cycle: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/cycle.py:54 warframe_bot/objects/fissure.py:53
+msgid "Left time: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/mission.py:87
+msgid "Type: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/mission.py:88
+msgid "Location: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/fissure.py:52
+msgid "Relic Tier: {}\n"
+msgstr ""
+
+#: warframe_bot/objects/timer.py:44
+msgid "{}d "
+msgstr ""
+
+#: warframe_bot/objects/timer.py:46
+msgid "{}h "
+msgstr ""
+
+#: warframe_bot/objects/timer.py:48
+msgid "{}m"
+msgstr ""
+
+#: warframe_bot/objects/timer.py:50
+msgid "0m"
+msgstr ""
+
+#: warframe_bot/data.py:4
+msgid "Mercury"
+msgstr ""
+
+#: warframe_bot/data.py:5
+msgid "Venus"
+msgstr ""
+
+#: warframe_bot/data.py:6
+msgid "Fortune"
+msgstr ""
+
+#: warframe_bot/data.py:7
+msgid "Earth"
+msgstr ""
+
+#: warframe_bot/data.py:8
+msgid "Cetus"
+msgstr ""
+
+#: warframe_bot/data.py:9
+msgid "Mars"
+msgstr ""
+
+#: warframe_bot/data.py:10
+msgid "Phobos"
+msgstr ""
+
+#: warframe_bot/data.py:11
+msgid "Deimos"
+msgstr ""
+
+#: warframe_bot/data.py:12
+msgid "Cambion Drift"
+msgstr ""
+
+#: warframe_bot/data.py:13
+msgid "Ceres"
+msgstr ""
+
+#: warframe_bot/data.py:14
+msgid "Jupiter"
+msgstr ""
+
+#: warframe_bot/data.py:15
+msgid "Europa"
+msgstr ""
+
+#: warframe_bot/data.py:16
+msgid "Saturn"
+msgstr ""
+
+#: warframe_bot/data.py:17
+msgid "Uranus"
+msgstr ""
+
+#: warframe_bot/data.py:18
+msgid "Neptune"
+msgstr ""
+
+#: warframe_bot/data.py:19
+msgid "Pluto"
+msgstr ""
+
+#: warframe_bot/data.py:20
+msgid "Sedna"
+msgstr ""
+
+#: warframe_bot/data.py:21
+msgid "Eris"
+msgstr ""
+
+#: warframe_bot/data.py:22
+msgid "Void"
+msgstr ""
+
+#: warframe_bot/data.py:23
+msgid "Lua"
+msgstr ""
+
+#: warframe_bot/data.py:24
+msgid "Kuva Fortress"
+msgstr ""
+
+#: warframe_bot/data.py:25
+msgid "Zariman"
+msgstr ""
+
+#: warframe_bot/data.py:26
+msgid "Earth Proxima"
+msgstr ""
+
+#: warframe_bot/data.py:27
+msgid "Venus Proxima"
+msgstr ""
+
+#: warframe_bot/data.py:28
+msgid "Saturn Proxima"
+msgstr ""
+
+#: warframe_bot/data.py:29
+msgid "Neptune Proxima"
+msgstr ""
+
+#: warframe_bot/data.py:30
+msgid "Pluto Proxima"
+msgstr ""
+
+#: warframe_bot/data.py:31
+msgid "Veil Proxima"
+msgstr ""
+
+#: warframe_bot/data.py:34 warframe_bot/data.py:72
+msgid "Corpus"
+msgstr ""
+
+#: warframe_bot/data.py:35 warframe_bot/data.py:73
+msgid "Grineer"
+msgstr ""
+
+#: warframe_bot/data.py:36
+msgid "Orokin"
+msgstr ""
+
+#: warframe_bot/data.py:37
+msgid "Infested"
+msgstr ""
+
+#: warframe_bot/data.py:38
+msgid "Crossfire"
+msgstr ""
+
+#: warframe_bot/data.py:41
+msgid "Assault"
+msgstr ""
+
+#: warframe_bot/data.py:42
+msgid "Capture"
+msgstr ""
+
+#: warframe_bot/data.py:43
+msgid "Defense"
+msgstr ""
+
+#: warframe_bot/data.py:44
+msgid "Disruption"
+msgstr ""
+
+#: warframe_bot/data.py:45
+msgid "Excavation"
+msgstr ""
+
+#: warframe_bot/data.py:46
+msgid "Extermination"
+msgstr ""
+
+#: warframe_bot/data.py:47
+msgid "Interception"
+msgstr ""
+
+#: warframe_bot/data.py:48
+msgid "Mobile Defense"
+msgstr ""
+
+#: warframe_bot/data.py:49
+msgid "Rescue"
+msgstr ""
+
+#: warframe_bot/data.py:50
+msgid "Sabotage"
+msgstr ""
+
+#: warframe_bot/data.py:51
+msgid "Skirmish"
+msgstr ""
+
+#: warframe_bot/data.py:52
+msgid "Spy"
+msgstr ""
+
+#: warframe_bot/data.py:53
+msgid "Survival"
+msgstr ""
+
+#: warframe_bot/data.py:54
+msgid "Volatile"
+msgstr ""
+
+#: warframe_bot/data.py:55
+msgid "Orphix"
+msgstr ""
+
+#: warframe_bot/data.py:56
+msgid "Hive"
+msgstr ""
+
+#: warframe_bot/data.py:59
+msgid "Lith"
+msgstr ""
+
+#: warframe_bot/data.py:60
+msgid "Meso"
+msgstr ""
+
+#: warframe_bot/data.py:61
+msgid "Neo"
+msgstr ""
+
+#: warframe_bot/data.py:62
+msgid "Axi"
+msgstr ""
+
+#: warframe_bot/data.py:63
+msgid "Requiem"
+msgstr ""
+
+#: warframe_bot/data.py:66
+msgid "Day"
+msgstr ""
+
+#: warframe_bot/data.py:67 warframe_bot/data.py:68 warframe_bot/data.py:69
+msgid "Nigth"
+msgstr ""
+
+#: warframe_bot/data.py:70
+msgid "Vome"
+msgstr ""
+
+#: warframe_bot/data.py:71
+msgid "Fass"
+msgstr ""

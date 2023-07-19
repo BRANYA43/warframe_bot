@@ -6,6 +6,7 @@ from objects.cycle import Cycle
 from objects.fissure import Fissure
 from objects.mission import Mission
 from objects.timer import Timer
+from translater import get_text as _
 
 
 class Manager:
@@ -146,9 +147,9 @@ class Manager:
                 self._fissures_for_delete.append(fissure.id)
 
     def get_fissures_info(self) -> str:
-        simple = 'Missions of Simple\n'
-        storm = 'Missions of Railjack\n'
-        hard = 'Missions of Steel Path\n'
+        simple = _('Missions of Simple\n')
+        storm = _('Missions of Railjack\n')
+        hard = _('Missions of Steel Path\n')
 
         for fissure in self._fissures.values():
             if not fissure.mission.is_storm and not fissure.mission.is_hard:

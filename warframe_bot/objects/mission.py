@@ -1,63 +1,15 @@
+from data import *
 from objects.mixins import NameMixin
 from validators.validators import *
+from translater import get_text as _
 
 
 class Mission(NameMixin):
     """Mission"""
 
-    LOCATIONS = [
-        'Mercury',
-        'Venus',
-        'Earth',
-        'Mars',
-        'Phobos',
-        'Deimos',
-        'Ceres',
-        'Jupiter',
-        'Europa',
-        'Saturn',
-        'Uranus',
-        'Neptune',
-        'Pluto',
-        'Pluto',
-        'Sedna',
-        'Eris',
-        'Void',
-        'Lua',
-        'Kuva Fortress',
-        'Earth Proxima',
-        'Venus Proxima',
-        'Saturn Proxima',
-        'Neptune Proxima',
-        'Pluto Proxima',
-        'Veil Proxima',
-    ]
-    ENEMIES = [
-        'Corpus',
-        'Grineer',
-        'Orokin',
-        'Infested',
-        'Crossfire',
-    ]
-
-    TYPES = [
-        'Assault',
-        'Capture',
-        'Defense',
-        'Disruption',
-        'Excavation',
-        'Extermination',
-        'Interception',
-        'Mobile Defense',
-        'Rescue',
-        'Sabotage',
-        'Skirmish',
-        'Spy',
-        'Survival',
-        'Volatile',
-        'Orphix',
-        'Hive',
-    ]
+    locations = list(LOCATIONS.keys())
+    enemies = list(ENEMIES.keys())
+    types = list(TYPES.keys())
 
     def __init__(self, name: str, location: str, enemy: str, type: str, is_storm: bool, is_hard: bool):
         super().__init__(name)
@@ -69,47 +21,47 @@ class Mission(NameMixin):
 
     @property
     def location(self) -> str:
-        return self.LOCATIONS[self._location]
+        return self.locations[self._location]
 
     @location.setter
     def location(self, value: str):
         validate_type(value, str, 'location')
         validate_not_empty_string(value, 'location')
         try:
-            self._location = self.LOCATIONS.index(value)
+            self._location = self.locations.index(value)
         except ValueError:  # TODO fix it. When value isn't within LOCATIONS
-            self.LOCATIONS.append(value)
-            self._location = self.LOCATIONS.index(value)
+            self.locations.append(value)
+            self._location = self.locations.index(value)
             print('Location:', value)
 
     @property
     def enemy(self) -> str:
-        return self.ENEMIES[self._enemy]
+        return self.enemies[self._enemy]
 
     @enemy.setter
     def enemy(self, value: str):
         validate_type(value, str, 'enemy')
         validate_not_empty_string(value, 'enemy')
         try:
-            self._enemy = self.ENEMIES.index(value)
+            self._enemy = self.enemies.index(value)
         except ValueError:  # TODO fix it. When value isn't within ENEMIES
-            self.ENEMIES.append(value)
-            self._enemy = self.ENEMIES.index(value)
+            self.enemies.append(value)
+            self._enemy = self.enemies.index(value)
             print('Enemy:', value)
 
     @property
     def type(self) -> str:
-        return self.TYPES[self._type]
+        return self.types[self._type]
 
     @type.setter
     def type(self, value: str):
         validate_type(value, str, 'type')
         validate_not_empty_string(value, 'type')
         try:
-            self._type = self.TYPES.index(value)
+            self._type = self.types.index(value)
         except ValueError:  # TODO fix it. When value isn't within TYPES
-            self.TYPES.append(value)
-            self._type = self.TYPES.index(value)
+            self.types.append(value)
+            self._type = self.types.index(value)
             print('Type:', value)
 
     @property
@@ -131,8 +83,8 @@ class Mission(NameMixin):
         self._is_hard = value
 
     def get_info(self):
-        ret = ''
-        ret += f'Type: {self.type}\n' \
-               f'Location: {self.location}\n' \
-               f'Name: {self.name}\n'
+        ret = _('Name: {}\n').format(self.name) + \
+              _('Type: {}\n').format(TYPES[self.type]) + \
+              _('Location: {}\n').format(LOCATIONS[self.location])
+
         return ret
