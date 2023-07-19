@@ -56,6 +56,7 @@ class Mission(NameMixin):
         'Survival',
         'Volatile',
         'Orphix',
+        'Hive',
     ]
 
     def __init__(self, name: str, location: str, enemy: str, type: str, is_storm: bool, is_hard: bool):
