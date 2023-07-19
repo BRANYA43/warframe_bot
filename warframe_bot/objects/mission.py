@@ -37,6 +37,7 @@ class Mission(NameMixin):
         'Grineer',
         'Orokin',
         'Infested',
+        'Crossfire',
     ]
 
     TYPES = [
