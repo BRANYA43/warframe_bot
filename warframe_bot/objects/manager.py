@@ -51,6 +51,18 @@ class Manager:
 
         self.is_ready = True
 
+    def update_fissures(self):
+        """Update all fissures and create new fissures"""
+        for fissure_id in self._fissures.keys():
+            self.update_fissure(fissure_id)
+
+        for fissure_id in self._fissures_for_delete:
+            self.delete_fissure(fissure_id)
+
+        for fissure_response in self._response['fissures']:
+            if not fissure_response['id'] in self._fissures.keys():
+                fissure = self.create_fissure(fissure_response)
+
     def update(self):
         """Update values of manager attributes."""
         self.set_response()
@@ -58,11 +70,7 @@ class Manager:
         for cycle_key in self._cycle_keys:
             self.update_cycle(cycle_key)
 
-        for fissure_id in self._fissures.keys():
-            self.update_fissure(fissure_id)
-
-        for fissure_id in self._fissures_for_delete:
-            self.delete_fissure(fissure_id)
+        self.update_fissures()
 
     def get_timer(self, expiry: str) -> Timer:
         time = datetime.datetime.fromisoformat(expiry.replace('Z', ''))
