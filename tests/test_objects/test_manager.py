@@ -139,8 +139,8 @@ class TestManager(BaseTest):
     def test_get_cycles_info(self):
         """Test: get_cycle_data"""
         self.manager._response = self.fake_response
-        self.manager.create_cycle(key='earthCycle', name='earth', cycles=['day', 'night'])
-        self.manager.create_cycle(key='cetusCycle', name='cetus', cycles=['day', 'night'])
+        self.manager.create_cycle(key='earthCycle', name='Earth', cycles=['day', 'night'])
+        self.manager.create_cycle(key='cetusCycle', name='Cetus', cycles=['day', 'night'])
         earth = self.manager._cycles['earthCycle']
         cetus = self.manager._cycles['cetusCycle']
         correct_cycle_info = earth.get_info() + '\n' + cetus.get_info() + '\n'
@@ -185,7 +185,8 @@ class TestManager(BaseTest):
     def test_create_fissure(self):
         """Test: create Fissure than add Fissure to fissures and return created Fissure."""
         self.manager._response = self.fake_response
-        fissure = self.manager.create_fissure(index=0)
+        fissure_response = self.manager._response['fissures'][0]
+        fissure = self.manager.create_fissure(fissure_response)
         managers_fissure = self.manager._fissures.get(fissure.id)
 
         self.assertIsNotNone(managers_fissure)
@@ -201,7 +202,8 @@ class TestManager(BaseTest):
     def test_timer_is_less_after_update_fissure(self):
         """Test: timer is less after update_fissure."""
         self.manager._response = self.fake_response
-        fissure = self.manager.create_fissure(index=0)
+        fissure_response = self.manager._response['fissures'][0]
+        fissure = self.manager.create_fissure(fissure_response)
         old_raw_seconds = fissure.timer.raw_seconds
 
         self.manager.update_fissure(id=fissure.id)
@@ -211,7 +213,8 @@ class TestManager(BaseTest):
     def test_not_append_fissure_id_in_the_fissures_for_delete_after_update_fissure(self):
         """Test: not append Fissure.id in fissures_for_delete after update_fissure if timer is 0 and fissure.id is in response."""
         self.manager._response = self.fake_response
-        fissure = self.manager.create_fissure(index=0)
+        fissure_response = self.manager._response['fissures'][0]
+        fissure = self.manager.create_fissure(fissure_response)
         id_ = fissure.id
 
         self.assertIsNotNone(self.manager._fissures.get(id_))
@@ -228,7 +231,8 @@ class TestManager(BaseTest):
         Test: append Fissure.id in fissures_for_delete after update_fissure if timer is 0 and if id isn't in response.
         """
         self.manager._response = self.fake_response
-        fissure = self.manager.create_fissure(index=0)
+        fissure_response = self.manager._response['fissures'][0]
+        fissure = self.manager.create_fissure(fissure_response)
         id_ = fissure.id
 
         self.assertIsNotNone(self.manager._fissures.get(id_))
@@ -244,7 +248,8 @@ class TestManager(BaseTest):
     def test_not_append_fissure_id_in_fissures_for_delete_after_update_if_id_is_in_this_list(self):
         """Test: not append Fissure.id in fissures_for_delete after update_fissure if id is in fissures_for_delete."""
         self.manager._response = self.fake_response
-        fissure = self.manager.create_fissure(index=0)
+        fissure_response = self.manager._response['fissures'][0]
+        fissure = self.manager.create_fissure(fissure_response)
         id_ = fissure.id
 
         self.assertIsNotNone(self.manager._fissures.get(id_))
@@ -265,7 +270,8 @@ class TestManager(BaseTest):
     def test_delete_fissure(self):
         """Test: delete Fissure of fissures."""
         self.manager._response = self.fake_response
-        fissure = self.manager.create_fissure(index=0)
+        fissure_response = self.manager._response['fissures'][0]
+        fissure = self.manager.create_fissure(fissure_response)
         self.manager._fissures_for_delete.append(fissure.id)
 
         self.assertEqual(len(self.manager._fissures_for_delete), 1)
@@ -279,9 +285,10 @@ class TestManager(BaseTest):
     def test_get_fissures_info(self):
         """Test: get_fissures_info returns correct info"""
         self.manager._response = self.fake_response
-        fissure_0 = self.manager.create_fissure(index=0)
-        fissure_1 = self.manager.create_fissure(index=1)
-        fissure_2 = self.manager.create_fissure(index=2)
+        fissures_response = self.manager._response['fissures']
+        fissure_0 = self.manager.create_fissure(fissures_response[0])
+        fissure_1 = self.manager.create_fissure(fissures_response[1])
+        fissure_2 = self.manager.create_fissure(fissures_response[2])
 
         info = self.manager.get_fissures_info()
 

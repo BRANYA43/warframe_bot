@@ -16,5 +16,5 @@ GUILD_ID = int(os.getenv('GUILD_ID'))
 CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
 
 # Lang
-CURRENT_LANG = 'uk'
+CURRENT_LANG = 'en'
 LANGS = ('en', 'uk')

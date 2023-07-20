@@ -46,8 +46,8 @@ class Manager:
         for cycle_key, cycle_name, cycles in zip(self._cycle_keys, cycle_names, cycle_cycles):
             self.create_cycle(cycle_key, cycle_name, cycles)
 
-        for index, _ in enumerate(self._response['fissures']):
-            self.create_fissure(index)
+        for fissure_response in self._response['fissures']:
+            self.create_fissure(fissure_response)
 
         self.is_ready = True
 
@@ -112,21 +112,20 @@ class Manager:
         mission = Mission(name=name, location=location, type=type, enemy=enemy, is_storm=is_storm, is_hard=is_hard)
         return mission
 
-    def create_fissure(self, index: int):
+    def create_fissure(self, fissure_response: dict):
         """Create Fissure"""
-        response = self._response['fissures'][index]
         mission = self.create_mission(
-            node=response['node'],
-            type=response['missionType'],
-            enemy=response['enemy'],
-            is_storm=response['isStorm'],
-            is_hard=response['isHard'],
+            node=fissure_response['node'],
+            type=fissure_response['missionType'],
+            enemy=fissure_response['enemy'],
+            is_storm=fissure_response['isStorm'],
+            is_hard=fissure_response['isHard'],
         )
-        timer = self.get_timer(response['expiry'])
+        timer = self.get_timer(fissure_response['expiry'])
         fissure = Fissure(
-            id=response['id'],
+            id=fissure_response['id'],
             mission=mission,
-            tier=response['tier'],
+            tier=fissure_response['tier'],
             timer=timer,
         )
         self._fissures.setdefault(fissure.id, fissure)
