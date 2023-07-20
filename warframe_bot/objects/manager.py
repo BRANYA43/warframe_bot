@@ -76,7 +76,7 @@ class Manager:
         time = datetime.datetime.fromisoformat(expiry.replace('Z', ''))
         now = datetime.datetime.utcnow()
         if now < time:
-            delta = time - datetime.datetime.utcnow()
+            delta = time - now
             raw_seconds = int(delta.total_seconds())
         else:
             raw_seconds = 0
