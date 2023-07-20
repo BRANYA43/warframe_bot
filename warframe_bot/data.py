@@ -65,8 +65,8 @@ TIERS = {
 CYCLES = {
     'day': _('Day'),
     'night': _('Nigth'),
-    'cold': _('Nigth'),
-    'warm': _('Nigth'),
+    'cold': _('Cold'),
+    'warm': _('Warm'),
     'vome': _('Vome'),
     'fass': _('Fass'),
     'corpus': _('Corpus'),

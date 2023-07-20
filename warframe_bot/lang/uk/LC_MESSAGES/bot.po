@@ -193,7 +193,7 @@ msgstr "Захист"
 
 #: warframe_bot/data.py:44
 msgid "Disruption"
-msgstr ""
+msgstr "Сбій"
 
 #: warframe_bot/data.py:45
 msgid "Excavation"
@@ -233,11 +233,11 @@ msgstr "Виживання"
 
 #: warframe_bot/data.py:54
 msgid "Volatile"
-msgstr ""
+msgstr "Наліт"
 
 #: warframe_bot/data.py:55
 msgid "Orphix"
-msgstr ""
+msgstr "Шпигунство"
 
 #: warframe_bot/data.py:56
 msgid "Hive"
@@ -267,9 +267,17 @@ msgstr "Реквієм"
 msgid "Day"
 msgstr "День"
 
-#: warframe_bot/data.py:67 warframe_bot/data.py:68 warframe_bot/data.py:69
+#: warframe_bot/data.py:67
 msgid "Nigth"
 msgstr "Ніч"
+
+#: warframe_bot/data.py:68
+msgid "Cold"
+msgstr "Холод"
+
+#: warframe_bot/data.py:69
+msgid "Warm"
+msgstr "Тепло"
 
 #: warframe_bot/data.py:70
 msgid "Vome"
