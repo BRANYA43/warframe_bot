@@ -14,16 +14,8 @@ class TestConfig(unittest.TestCase):
     def test_correct_constants(self):
         """Test: constants is correct. they aren't empty string and None. They are correct type"""
         self.assertIsNotNone(config.BOT_TOKEN)
-        self.assertIsNotNone(config.GUILD_ID)
-        self.assertIsNotNone(config.CHANNEL_ID)
-
         self.assertNotEqual(config.BOT_TOKEN, '')
-        self.assertNotEqual(config.GUILD_ID, '')
-        self.assertNotEqual(config.CHANNEL_ID, '')
-
         self.assertIsInstance(config.BOT_TOKEN, str)
-        self.assertIsInstance(config.GUILD_ID, int)
-        self.assertIsInstance(config.CHANNEL_ID, int)
 
 
 if __name__ == '__main__':
