@@ -80,8 +80,6 @@ class TestManager(BaseTest):
         self.assertIsInstance(self.manager._fissures, dict)
         self.assertIsInstance(self.manager._fissures_for_delete, list)
         self.assertEqual(self.manager._url, 'https://api.warframestat.us/pc/')
-        self.assertEqual(self.manager._cycle_keys, ('earthCycle', 'cetusCycle', 'vallisCycle', 'cambionCycle',
-                                                    'zarimanCycle',))
 
     def test_get_timer(self):
         """Test: get_timer"""

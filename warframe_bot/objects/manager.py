@@ -19,13 +19,6 @@ class Manager:
         self._cycles = {}
         self._fissures = {}
         self._fissures_for_delete = []
-        self._cycle_keys = (
-            'earthCycle',
-            'cetusCycle',
-            'vallisCycle',
-            'cambionCycle',
-            'zarimanCycle',
-        )
 
     def set_response(self):
         """Set response by url"""
@@ -34,7 +27,7 @@ class Manager:
     def prepare(self):
         """Prepare manager for start work."""
         self.set_response()
-
+        cycle_keys = ('earthCycle', 'cetusCycle', 'vallisCycle', 'cambionCycle', 'zarimanCycle')
         cycle_names = ['Earth', 'Cetus', 'Fortune', 'Cambion Drift', 'Zariman']
         cycle_cycles = [
             ['day', 'night'],
@@ -43,7 +36,7 @@ class Manager:
             ['vome', 'fass'],
             ['corpus', 'grineer'],
         ]
-        for cycle_key, cycle_name, cycles in zip(self._cycle_keys, cycle_names, cycle_cycles):
+        for cycle_key, cycle_name, cycles in zip(cycle_keys, cycle_names, cycle_cycles):
             self.create_cycle(cycle_key, cycle_name, cycles)
 
         for fissure_response in self._response['fissures']:
@@ -67,7 +60,7 @@ class Manager:
         """Update values of manager attributes."""
         self.set_response()
 
-        for cycle_key in self._cycle_keys:
+        for cycle_key in self._cycles.keys():
             self.update_cycle(cycle_key)
 
         self.update_fissures()
