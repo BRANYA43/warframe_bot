@@ -3,7 +3,7 @@ import unittest
 from objects.fissure import Fissure
 from objects.mission import Mission
 from objects.timer import Timer
-from tests.test_objects.base_test import BaseTest
+from test_objects.base_test import BaseTest
 
 
 class TestFissure(BaseTest):

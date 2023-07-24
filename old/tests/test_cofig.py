@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from warframe_bot import config
+from old.warframe_bot import config
 
 
 class TestConfig(unittest.TestCase):

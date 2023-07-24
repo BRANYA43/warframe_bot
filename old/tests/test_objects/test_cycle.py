@@ -1,8 +1,8 @@
 import unittest
 
 from objects.timer import Timer
-from tests.test_objects.base_test import BaseTest
-from warframe_bot.objects.cycle import Cycle
+from test_objects.base_test import BaseTest
+from objects.cycle import Cycle
 
 
 class TestBase(BaseTest):
