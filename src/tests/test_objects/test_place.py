@@ -49,7 +49,7 @@ class TestPlace(unittest.TestCase):
         self.assertRaisesRegex(TypeError, r'Each item in cycles tuple must be Cycle.', Place, cycles=(None, None),
                                **self.data)
         self.assertRaisesRegex(TypeError, r'Each item in cycles tuple must be Cycle.', Place,
-                               cycles=(data.CYCLES['earth'][0], None), **self.data)
+                               cycles=(data.CYCLES['earthCycle'][0], None), **self.data)
 
     def test_not_create_place_with_incorrect_current_cycle(self):
         """Test: not create Place with incorrect current_cycle."""
@@ -91,8 +91,8 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.current_cycle, 'night')
         self.assertEqual(place.next_cycle, 'day')
         self.assertNotEqual(place.timer.expiry, old_expiry)
-        self.assertEqual(place.timer.expiry, old_expiry + data.CYCLES['earth'][1].duration)
-        self.assertAlmostEqual(place.timer.total_seconds, int(data.CYCLES['earth'][1].duration.total_seconds()),
+        self.assertEqual(place.timer.expiry, old_expiry + data.CYCLES['earthCycle'][1].duration)
+        self.assertAlmostEqual(place.timer.total_seconds, int(data.CYCLES['earthCycle'][1].duration.total_seconds()),
                                delta=5)
 
     def test_not_update_if_timer_is_not_0(self):
