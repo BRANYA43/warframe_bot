@@ -19,6 +19,14 @@ class Place(NameMixin, TimerMixin):
         self._set_current_cycle_for_init(current_cycle)
         self._set_next_cycle()
 
+    @property
+    def current_cycle(self) -> str:
+        return self._cycles[self._current_cycle].name
+
+    @property
+    def next_cycle(self) -> str:
+        return self._cycles[self._next_cycle].name
+
     def _set_cycles(self, value: tuple[Cycle]):
         validate_type(value, tuple)
         if len(value) < 2:

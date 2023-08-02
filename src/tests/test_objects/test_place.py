@@ -37,6 +37,8 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place._cycles[1].duration, timedelta(hours=4))
         self.assertEqual(place._current_cycle, 0)  # index item of place._cycles
         self.assertEqual(place._next_cycle, 1)  # index item of place._cycles
+        self.assertEqual(place.current_cycle, 'day')
+        self.assertEqual(place.next_cycle, 'night')
 
     def test_not_create_place_with_incorrect_cycles(self):
         """Test: not create Place with incorrect cycles."""
@@ -61,33 +63,33 @@ class TestPlace(unittest.TestCase):
         """Test: set next_current as index of next item of tuple cycles that different from current_cycle."""
         place = Place(**self.data)
 
-        self.assertEqual(place._current_cycle, 0)
-        self.assertEqual(place._next_cycle, 1)
+        self.assertEqual(place.current_cycle, 'day')
+        self.assertEqual(place.next_cycle, 'night')
 
         self.data['current_cycle'] = 'night'
         place = Place(**self.data)
 
-        self.assertEqual(place._current_cycle, 1)
-        self.assertEqual(place._next_cycle, 0)
+        self.assertEqual(place.current_cycle, 'night')
+        self.assertEqual(place.next_cycle, 'day')
 
     def test_update_if_timer_is_0(self):
         """Test: change current and next cycles when timer is 0, and update timer expiry."""
         place = Place(**self.data)
 
-        self.assertEqual(place._current_cycle, 0)
-        self.assertEqual(place._next_cycle, 1)
+        self.assertEqual(place.current_cycle, 'day')
+        self.assertEqual(place.next_cycle, 'night')
 
         place.timer.expiry = datetime.now() + timedelta(milliseconds=500)
 
         self.assertEqual(place.timer.total_seconds, 0)
-        self.assertEqual(place._current_cycle, 0)
-        self.assertEqual(place._next_cycle, 1)
+        self.assertEqual(place.current_cycle, 'day')
+        self.assertEqual(place.next_cycle, 'night')
 
         old_expiry = place.timer.expiry
         place.update()
 
-        self.assertEqual(place._current_cycle, 1)
-        self.assertEqual(place._next_cycle, 0)
+        self.assertEqual(place.current_cycle, 'night')
+        self.assertEqual(place.next_cycle, 'day')
         self.assertNotEqual(place.timer.expiry, old_expiry)
         self.assertEqual(place.timer.expiry, old_expiry + data.CYCLES['earth'][1].duration)
         self.assertAlmostEqual(place.timer.total_seconds, int(data.CYCLES['earth'][1].duration.total_seconds()),
@@ -98,14 +100,14 @@ class TestPlace(unittest.TestCase):
         place = Place(**self.data)
 
         self.assertIs(place.timer.expiry, self.expiry)
-        self.assertEqual(place._current_cycle, 0)
-        self.assertEqual(place._next_cycle, 1)
+        self.assertEqual(place.current_cycle, 'day')
+        self.assertEqual(place.next_cycle, 'night')
 
         place.update()
 
         self.assertIs(place.timer.expiry, self.expiry)
-        self.assertEqual(place._current_cycle, 0)
-        self.assertEqual(place._next_cycle, 1)
+        self.assertEqual(place.current_cycle, 'day')
+        self.assertEqual(place.next_cycle, 'night')
 
     def test_get_info(self):
         """Test: get_info return correct info."""
