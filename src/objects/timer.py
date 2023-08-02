@@ -17,7 +17,7 @@ class Timer:
     @expiry.setter
     def expiry(self, value: datetime):
         validate_type(value, datetime)
-        if value < datetime.now():
+        if value < datetime.utcnow():
             raise ValueError('Expiry cannot be past datetime.')
         self._expiry = value
         self._set_total_seconds()
@@ -27,7 +27,7 @@ class Timer:
         return self._total_seconds
 
     def _set_total_seconds(self):
-        time_delta = self.expiry - datetime.now()
+        time_delta = self.expiry - datetime.utcnow()
         self._total_seconds = int(time_delta.total_seconds())
 
     def reduce(self, sec: int):

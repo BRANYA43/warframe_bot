@@ -10,7 +10,7 @@ class TestPlace(unittest.TestCase):
     """Test Place"""
 
     def setUp(self) -> None:
-        self.expiry = datetime.now() + timedelta(days=1)
+        self.expiry = datetime.utcnow() + timedelta(days=1)
         self.data = {
             'name': 'name',
             'expiry': self.expiry,
@@ -79,7 +79,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.current_cycle, 'day')
         self.assertEqual(place.next_cycle, 'night')
 
-        place.timer.expiry = datetime.now() + timedelta(milliseconds=500)
+        place.timer.expiry = datetime.utcnow() + timedelta(milliseconds=500)
 
         self.assertEqual(place.timer.total_seconds, 0)
         self.assertEqual(place.current_cycle, 'day')
