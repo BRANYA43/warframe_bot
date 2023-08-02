@@ -11,7 +11,7 @@ CYCLES = {
         Cycle('day', timedelta(hours=1, minutes=40)),
         Cycle('night', timedelta(minutes=50))
     ),
-    'villasCycle': (
+    'vallisCycle': (
             Cycle('cold', timedelta(minutes=20)),
             Cycle('warm', timedelta(minutes=6, seconds=40))
         ),
@@ -31,3 +31,22 @@ CYCLES = {
     #     Cycle('sorrow', timedelta(hours=2)),
     # ),
 }
+
+MAIN_URL = 'https://api.warframestat.us/pc/'
+CYCLE_URLS = (
+    MAIN_URL + 'earthCycle/',
+    MAIN_URL + 'cetusCycle/',
+    MAIN_URL + 'vallisCycle/',
+    MAIN_URL + 'cambionCycle/',
+    MAIN_URL + 'zarimanCycle/',
+    # MAIN_URL + 'duviriCycle/',
+)
+
+CYCLE_NAMES = (
+    'Earth',
+    'Cetus',
+    'Fortune',
+    'Cambion Drift',
+    'Zariman',
+    # 'Duviri',
+)
