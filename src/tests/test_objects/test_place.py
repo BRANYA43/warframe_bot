@@ -14,7 +14,7 @@ class TestPlace(unittest.TestCase):
         self.data = {
             'name': 'name',
             'expiry': self.expiry,
-            'cycles': data.CYCLES['earth'],
+            'cycles': data.CYCLES['earthCycle'],
             'current_cycle': 'day',
         }
 
