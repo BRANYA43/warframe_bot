@@ -8,7 +8,7 @@ class TestTimer(unittest.TestCase):
 
     def setUp(self) -> None:
         self.time_delta = timedelta(days=1)
-        self.expiry = datetime.utcnow() + self.time_delta
+        self.expiry = datetime.now() + self.time_delta
 
     def test_create_timer_with_correct_values(self):
         """Test: create timer with correct values."""
@@ -21,7 +21,7 @@ class TestTimer(unittest.TestCase):
 
     def test_not_create_timer_with_incorrect_expiry(self):
         """Test: not create timer with incorrect expiry."""
-        past_datetime = datetime.utcnow() - self.time_delta
+        past_datetime = datetime.now() - self.time_delta
 
         self.assertRaisesRegex(TypeError, r'Expected datetime, but got (.+).', Timer, None)
         self.assertRaisesRegex(ValueError, r'Expiry cannot be past datetime.', Timer, past_datetime)
@@ -34,7 +34,7 @@ class TestTimer(unittest.TestCase):
         self.assertAlmostEqual(timer.total_seconds, int(self.time_delta.total_seconds()), delta=5)
 
         time_delta = timedelta(days=10)
-        timer.expiry = datetime.utcnow() + time_delta
+        timer.expiry = datetime.now() + time_delta
 
         self.assertIsInstance(timer.expiry, datetime)
         self.assertAlmostEqual(timer.total_seconds, int(time_delta.total_seconds()), delta=5)
@@ -45,7 +45,7 @@ class TestTimer(unittest.TestCase):
         self.assertIs(timer.expiry, self.expiry)
         self.assertAlmostEqual(timer.total_seconds, int(self.time_delta.total_seconds()), delta=5)
 
-        timer.expiry = datetime.utcnow() + timedelta(milliseconds=500)
+        timer.expiry = datetime.now() + timedelta(milliseconds=500)
 
         self.assertIsInstance(timer.expiry, datetime)
         self.assertAlmostEqual(timer.total_seconds, 0, delta=5)
@@ -57,7 +57,7 @@ class TestTimer(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, r'Expected datetime, but got (.+).'):
             timer.expiry = None
 
-        past_datetime = datetime.utcnow() - self.time_delta
+        past_datetime = datetime.now() - self.time_delta
 
         with self.assertRaisesRegex(ValueError, r'Expiry cannot be past datetime.'):
             timer.expiry = past_datetime
@@ -77,7 +77,7 @@ class TestTimer(unittest.TestCase):
     def test_if_total_seconds_equal_0_reduce_dont_change_total_seconds(self):
         """Test: if total_seconds = 0, reduce don't change total_seconds."""
         timer = Timer(self.expiry)
-        timer.expiry = datetime.utcnow() + timedelta(milliseconds=500)
+        timer.expiry = datetime.now() + timedelta(milliseconds=500)
 
         self.assertEqual(timer.total_seconds, 0)
 
@@ -88,7 +88,7 @@ class TestTimer(unittest.TestCase):
 
     def test_get_str_time(self):
         """Test: get_str_time returns correct time."""
-        now = datetime.utcnow()
+        now = datetime.now()
         timer = Timer(self.expiry)
         correct_times = (
             '[1d 1h 1m]',
@@ -111,7 +111,7 @@ class TestTimer(unittest.TestCase):
             timedelta(seconds=1),
         )
         for time_delta, correct_time in zip(time_deltas, correct_times):
-            timer.expiry = datetime.utcnow() + time_delta
+            timer.expiry = datetime.now() + time_delta
             self.assertEqual(timer.get_str_time(), correct_time)
 
 
