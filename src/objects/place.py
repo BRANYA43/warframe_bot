@@ -51,9 +51,9 @@ class Place(NameMixin, TimerMixin):
 
     def update(self):
         if self.timer.total_seconds == 0:
+            self.timer.expiry += self._cycles[self._next_cycle].duration
             self._set_current_cycle()
             self._set_next_cycle()
-            self.timer.expiry += self._cycles[self._next_cycle].duration
 
     def get_info(self) -> str:
         str_current_cycle = self._cycles[self._current_cycle].name.capitalize()
