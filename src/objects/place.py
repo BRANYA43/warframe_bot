@@ -10,7 +10,6 @@ class Place(NameMixin, TimerMixin):
 
     def __init__(self, name: str, expiry: datetime, cycles: tuple[Cycle], current_cycle: str):
         NameMixin.__init__(self, name)
-        TimerMixin.__init__(self, expiry)
         self._cycles = None
         self._current_cycle = None
         self._next_cycle = None
@@ -18,6 +17,10 @@ class Place(NameMixin, TimerMixin):
         self._set_cycles(cycles)
         self._set_current_cycle_for_init(current_cycle)
         self._set_next_cycle()
+
+        if expiry < datetime.utcnow():
+            expiry += self._cycles[self._next_cycle].duration
+        TimerMixin.__init__(self, expiry)
 
     @property
     def current_cycle(self) -> str:

@@ -40,6 +40,13 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.current_cycle, 'day')
         self.assertEqual(place.next_cycle, 'night')
 
+    def test_set_new_expiry_while_creating_place_if_expiry_is_past(self):
+        """Test: set new expiry while creating Place if expiry is past."""
+        self.data['expiry'] -= timedelta(days=1, minutes=1)
+        place = Place(**self.data)
+
+        self.assertLess(datetime.utcnow(), place.timer.expiry)
+
     def test_not_create_place_with_incorrect_cycles(self):
         """Test: not create Place with incorrect cycles."""
         del self.data['cycles']
