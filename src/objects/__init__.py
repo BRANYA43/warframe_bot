@@ -3,4 +3,5 @@ from .cycle import Cycle
 from .place import Place
 from .item import Item
 from .inventory import Inventory
+from .trader import Trader
 from .manager import Manager
