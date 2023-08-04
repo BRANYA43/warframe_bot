@@ -13,7 +13,7 @@ class TestManager(unittest.TestCase):
 
     def test_manager_have_response_dict(self):
         """Test: Manager have response."""
-        self.assertIsNone(self.manager._response)
+        self.assertFalse(self.manager._is_ready)
 
     def test_format_expiry(self):
         """Test: format_expiry returns datetime."""
@@ -28,6 +28,14 @@ class TestManager(unittest.TestCase):
         """Test: get_response returns response dict by url."""
         response = self.manager.get_response(data.MAIN_URL)
         self.assertIsInstance(response, dict)
+
+    def test_after_prepare_is_ready_is_true(self):
+        """Test: after prepare is_ready is True."""
+        self.assertFalse(self.manager.is_ready)
+
+        self.manager.prepare()
+
+        self.assertTrue(self.manager.is_ready)
 
 
 class TestManagerWorkWithPlaces(unittest.TestCase):

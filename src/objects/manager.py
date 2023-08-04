@@ -12,8 +12,12 @@ class Manager:
     SEC_FOR_REDUCE = 60
 
     def __init__(self):
-        self._response = None
+        self._is_ready = False
         self._places = {}
+
+    @property
+    def is_ready(self) -> bool:
+        return self._is_ready
 
     @staticmethod
     def format_expiry(value: str) -> datetime:
@@ -23,6 +27,13 @@ class Manager:
     @staticmethod
     def get_response(url: str):
         return requests.get(url).json()
+
+    def prepare(self):
+        self.prepare_places()
+        self._is_ready = True
+
+    def update(self):
+        self.update_places()
 
     def create_place(self, response: dict, name: str, key: str) -> Place:
         place = Place(
@@ -43,3 +54,9 @@ class Manager:
         for place in self._places.values():
             place.timer.reduce(self.SEC_FOR_REDUCE)
             place.update()
+
+    def get_info_places(self):
+        ret = ''
+        for place in self._places.values():
+            ret += place.get_info() + '\n'
+        return ret
