@@ -58,10 +58,10 @@ class Place(NameMixin, TimerMixin):
             self._set_current_cycle()
             self._set_next_cycle()
 
-    def get_info(self) -> str:
-        str_current_cycle = self._cycles[self._current_cycle].name.capitalize()
-        str_next_cycle = self._cycles[self._next_cycle].name.capitalize()
-        return f'Name: {self.name}\n' \
-               f'Current cycle: {str_current_cycle}\n' \
-               f'Next cycle: {str_next_cycle}\n' \
-               f'Left time: {self.timer.get_str_time()}\n'
+    def get_info(self) -> tuple[str, ...]:
+        return (
+            f'Name: {self.name}',
+            f'Current cycle: {self.current_cycle.capitalize()}',
+            f'Next cycle: {self.next_cycle.capitalize()}',
+            f'Left time: {self.timer.get_str_time()}',
+        )

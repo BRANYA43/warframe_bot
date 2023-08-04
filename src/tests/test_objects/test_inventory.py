@@ -49,6 +49,14 @@ class TestInventory(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, 'Each item of items must be Item type.'):
             inventory.items = [None]
 
+    def test_get_info(self):
+        """Test: get_info return correct info."""
+        inventory = Inventory(self.items)
+        correct_info = tuple([item.get_info() for item in self.items])
+
+        self.assertIsInstance(inventory.get_info(), tuple)
+        self.assertEqual(inventory.get_info(), correct_info)
+
 
 if __name__ == '__main__':
     unittest.main()

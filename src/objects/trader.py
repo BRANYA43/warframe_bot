@@ -22,6 +22,12 @@ class Item(NameMixin):
             raise ValueError('Cost cannot be less 0.')
         self._cost = value
 
+    def get_info(self) -> tuple[str, ...]:
+        return (
+            f'Name: {self.name}',
+            f'Cost: {self.cost}',
+        )
+
 
 class Inventory:
     """Inventory"""
@@ -41,6 +47,9 @@ class Inventory:
         if any(not isinstance(item, Item) for item in value):
             raise TypeError('Each item of items must be Item type.')
         self._items = value
+
+    def get_info(self) -> tuple[tuple[str, ...]]:
+        return tuple([item.get_info() for item in self.items])
 
 
 class Trader(NameMixin, TimerMixin):
@@ -65,3 +74,10 @@ class Trader(NameMixin, TimerMixin):
     def active(self, value: bool):
         validate_type(value, bool)
         self._active = value
+
+    def get_info(self) -> tuple[str, ...]:
+        return (
+            f'Name: {self.name}',
+            f'Location: {"Relay" if self.active else "Void"}',
+            f'Left Time: {self.timer.get_str_time()}',
+        )

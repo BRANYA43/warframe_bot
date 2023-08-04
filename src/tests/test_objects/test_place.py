@@ -119,12 +119,15 @@ class TestPlace(unittest.TestCase):
     def test_get_info(self):
         """Test: get_info return correct info."""
         place = Place(**self.data)
-        expected_info = 'Name: name\n' \
-                        'Current cycle: Day\n' \
-                        'Next cycle: Night\n' \
-                        'Left time: [23h 59m]\n'
+        correct_info = (
+            f'Name: {place.name}',
+            f'Current cycle: {place.current_cycle.capitalize()}',
+            f'Next cycle: {place.next_cycle.capitalize()}',
+            f'Left time: {place.timer.get_str_time()}'
+        )
 
-        self.assertIn(expected_info, place.get_info())
+        self.assertIsInstance(place.get_info(), tuple)
+        self.assertEqual(place.get_info(), correct_info)
 
 
 if __name__ == '__main__':

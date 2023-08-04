@@ -55,6 +55,18 @@ class TestTrader(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, r'Expected bool, but got (.+).'):
             trader.active = None
 
+    def test_get_info(self):
+        """Test: get_info return correct info."""
+        trader = Trader(**self.data)
+        correct_info = (
+            f'Name: {trader.name}',
+            f'Location: {"Relay" if trader.active else "Void"}',
+            f'Left Time: {trader.timer.get_str_time()}',
+        )
+
+        self.assertIsInstance(trader.get_info(), tuple)
+        self.assertEqual(trader.get_info(), correct_info)
+
 
 if __name__ == '__main__':
     unittest.main()
