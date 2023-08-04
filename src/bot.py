@@ -10,6 +10,7 @@ bot = commands.InteractionBot(intents=disnake.Intents.all())
 async def on_ready():
     print('Bot is ready!')
 
+bot.load_extensions('cogs')
 
 if __name__ == '__main__':
     bot.run(settings.BOT_TOKEN)
