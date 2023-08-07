@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands, tasks
 
 from objects import Manager
+from utils.formatter import get_table
 
 
 class UserCog(commands.Cog):
@@ -29,8 +30,8 @@ class UserCog(commands.Cog):
         match inter.component.custom_id:
             case 'places':
                 embed = disnake.Embed(
-                    title='Places with cycles',
-                    description=self.manager.get_info_places(),
+                    title='',
+                    description=get_table('Places with cycles', self.manager.get_info_places()),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 

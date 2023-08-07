@@ -56,7 +56,5 @@ class Manager:
             place.update()
 
     def get_info_places(self):
-        ret = ''
-        for place in self._places.values():
-            ret += place.get_info() + '\n'
-        return ret
+        return [place .get_info() for place in self._places.values()]
+
