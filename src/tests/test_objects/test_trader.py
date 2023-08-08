@@ -9,10 +9,9 @@ class TestTrader(unittest.TestCase):
     """Test Trader"""
 
     def setUp(self) -> None:
-        inventory = Inventory([Item(f'{i}', i * 10) for i in range(1, 11)])
+        self.items = [Item(name=f'name-{i}', cost=i*10) for i in range(1, 11)]
         self.data = {
             'name': 'name',
-            'inventory': inventory,
             'expiry': datetime.utcnow() + timedelta(days=1)
         }
 
@@ -26,41 +25,13 @@ class TestTrader(unittest.TestCase):
         trader = Trader(**self.data)
 
         self.assertEqual(trader.name, self.data['name'])
-        self.assertIs(trader.inventory, self.data['inventory'])
-        self.assertFalse(trader.active)
-
-    def test_not_create_trader_with_incorrect_inventory(self):
-        """Test: not create Trader with incorrect Inventory."""
-        del self.data['inventory']
-        self.assertRaisesRegex(TypeError, r'Expected Inventory, but got (.+).', Trader, inventory=None, **self.data)
-
-    def test_not_create_trader_with_incorrect_active(self):
-        """Test: not create Trader with incorrect active."""
-        self.assertRaisesRegex(TypeError, r'Expected bool, but got (.+).', Trader, active=None, **self.data)
-
-    def test_set_active_correct_value(self):
-        """Test: set active correct value."""
-        trader = Trader(**self.data)
-
-        self.assertFalse(trader.active)
-
-        trader.active = True
-
-        self.assertTrue(trader.active)
-
-    def test_not_set_active_incorrect_value(self):
-        """Test: not set active incorrect value."""
-        trader = Trader(**self.data)
-
-        with self.assertRaisesRegex(TypeError, r'Expected bool, but got (.+).'):
-            trader.active = None
+        self.assertIsInstance(trader.inventory, Inventory)
 
     def test_get_info(self):
         """Test: get_info return correct info."""
         trader = Trader(**self.data)
         correct_info = (
             f'Name: {trader.name}',
-            f'Location: {"Relay" if trader.active else "Void"}',
             f'Left Time: {trader.timer.get_str_time()}',
         )
 

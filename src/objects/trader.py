@@ -63,29 +63,17 @@ class Inventory:
 class Trader(NameMixin, TimerMixin):
     """Trader"""
 
-    def __init__(self, name: str, expiry: datetime, inventory: Inventory, *, active=False):
+    def __init__(self, name: str, expiry: datetime):
         NameMixin.__init__(self, name)
         TimerMixin.__init__(self, expiry)
-        validate_type(inventory, Inventory)
-        self._inventory = inventory
-        self.active = active
+        self._inventory = Inventory()
 
     @property
     def inventory(self) -> Inventory:
         return self._inventory
 
-    @property
-    def active(self) -> bool:
-        return self._active
-
-    @active.setter
-    def active(self, value: bool):
-        validate_type(value, bool)
-        self._active = value
-
     def get_info(self) -> tuple[str, ...]:
         return (
             f'Name: {self.name}',
-            f'Location: {"Relay" if self.active else "Void"}',
             f'Left Time: {self.timer.get_str_time()}',
         )
