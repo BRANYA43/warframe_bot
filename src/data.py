@@ -50,3 +50,14 @@ CYCLE_NAMES = (
     'Zariman',
     # 'Duviri',
 )
+
+TRADER_NAMES = (
+    'Baro Ki\'teer',
+)
+
+RELAY_NAMES = (
+    'Larunda (Mercury)',
+    'Strata (Earth)',
+    'Kronia (Saturn)',
+    'Orcus (Pluto)',
+)

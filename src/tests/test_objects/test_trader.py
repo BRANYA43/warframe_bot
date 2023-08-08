@@ -32,7 +32,7 @@ class TestTrader(unittest.TestCase):
         trader = Trader(**self.data)
         correct_info = (
             f'Name: {trader.name}',
-            f'Left Time: {trader.timer.get_str_time()}',
+            f'Left time: {trader.timer.get_str_time()}',
         )
 
         self.assertIsInstance(trader.get_info(), tuple)

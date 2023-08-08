@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import data
 from objects.mixins import TimerMixin, NameMixin
 from validators import validate_type, validate_types, validate_is_not_empty_string, validate_is_not_negative_number
 
@@ -75,5 +76,42 @@ class Trader(NameMixin, TimerMixin):
     def get_info(self) -> tuple[str, ...]:
         return (
             f'Name: {self.name}',
-            f'Left Time: {self.timer.get_str_time()}',
+            f'Left time: {self.timer.get_str_time()}',
         )
+
+
+class VoidTrader(Trader):
+    """Void Trader"""
+
+    def __init__(self, expiry: datetime, relay: str, *, active: bool = False):
+        super().__init__(name=data.TRADER_NAMES[0], expiry=expiry)
+        self.relay = relay
+        self.active = active
+
+    @property
+    def relay(self) -> str:
+        return self._relay
+
+    @relay.setter
+    def relay(self, value: str):
+        validate_is_not_empty_string(value)
+        if value not in data.RELAY_NAMES:
+            raise ValueError('No such a relay name in data.')
+        self._relay = value
+
+    @property
+    def active(self) -> bool:
+        return self._active
+
+    @active.setter
+    def active(self, value: bool):
+        validate_type(value, bool)
+        self._active = value
+
+    def get_info(self):
+        name, left_time = super().get_info()
+        if self.active:
+            ret = (name, f'Relay: {self.relay}', left_time)
+        else:
+            ret = (name, 'Location: Void', left_time)
+        return ret
