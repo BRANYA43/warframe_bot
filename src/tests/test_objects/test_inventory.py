@@ -7,52 +7,84 @@ from objects import Item
 class TestInventory(unittest.TestCase):
     """Test Item"""
 
-    def setUp(self) -> None:
-        self.items = [Item(f'{i}', i * 10) for i in range(1, 11)]
-
     def test_create_inventory_by_default(self):
         """Test: create empty Inventory."""
         inventory = Inventory()
 
+        self.assertIsInstance(inventory.items, list)
         self.assertEqual(len(inventory.items), 0)
 
-    def test_create_inventory_with_correct_items(self):
-        """Test: create Item with correct cost."""
-        inventory = Inventory(self.items)
+    def test_add_item_to_items(self):
+        """Test: add_item add Item to items."""
+        inventory = Inventory()
+        item = Item('name', 100)
 
-        self.assertNotEqual(len(inventory.items), 0)
-        self.assertIsNot(inventory.items, self.items)
-        self.assertEqual(inventory.items, self.items)
+        self.assertEqual(len(inventory.items), 0)
 
-    def test_not_create_inventory_with_incorrect_items(self):
-        """Test: not create Item with incorrect cost."""
-        self.assertRaisesRegex(TypeError, r'Expected list or tuple, but got (.+).', Inventory, 'None')
-        self.assertRaisesRegex(TypeError, 'Each item of items must be Item type.', Inventory, [None])
+        inventory.add_item(item=item)
 
-    def test_set_items_correct_value(self):
-        """Test: set items correct value."""
-        inventory = Inventory(self.items)
-        old_items = inventory.items
-        new_items = [Item('name', 100)]
-        inventory.items = new_items
+        self.assertEqual(len(inventory.items), 1)
+        self.assertIs(inventory.items[0], item)
 
-        self.assertNotEqual(inventory.items, old_items)
-        self.assertEqual(inventory.items, new_items)
+    def test_create_item_from_values_and_add_item_to_items(self):
+        """Test: add_item create Item from values and add it to items."""
+        inventory = Inventory()
 
-    def test_not_set_items_incorrect_value(self):
-        """Test: not set items incorrect value."""
-        inventory = Inventory(self.items)
+        self.assertEqual(len(inventory.items), 0)
 
-        with self.assertRaisesRegex(TypeError, r'Expected list or tuple, but got (.+).'):
-            inventory.items = 'None'
+        inventory.add_item_from_values('name', 100)
 
-        with self.assertRaisesRegex(TypeError, 'Each item of items must be Item type.'):
-            inventory.items = [None]
+        self.assertEqual(len(inventory.items), 1)
+        self.assertIsInstance(inventory.items[0], Item)
+        self.assertEqual(inventory.items[0].name, 'name')
+        self.assertEqual(inventory.items[0].cost, 100)
+
+    def test_add_items_to_items(self):
+        """Test: add_items add items to items."""
+        inventory = Inventory()
+        items = [Item(f'name-{i}', cost=i*10) for i in range(1, 11)]
+
+        self.assertEqual(len(inventory.items), 0)
+
+        inventory.add_items(items)
+
+        self.assertEqual(len(inventory.items), 10)
+        for inv_item, item in zip(inventory.items, items):
+            self.assertIs(inv_item, item)
+
+    def test_create_items_from_values_and_add_items_to_items(self):
+        """Test: add_items create Item from item_values and add items to items."""
+        inventory = Inventory()
+        items = [(f'name-{i}', i * 10) for i in range(1, 11)]
+
+        self.assertEqual(len(inventory.items), 0)
+
+        inventory.add_items_from_values(items)
+
+        self.assertEqual(len(inventory.items), 10)
+        for inv_item, item in zip(inventory.items, items):
+            self.assertIsInstance(inv_item, Item)
+            self.assertEqual(inv_item.name, item[0])
+            self.assertEqual(inv_item.cost, item[1])
+
+    def test_clear(self):
+        """Test: clear items."""
+        inventory = Inventory()
+        items = [Item(f'name-{i}', cost=i * 10) for i in range(1, 11)]
+        inventory.add_items(items)
+
+        self.assertEqual(len(inventory.items), 10)
+
+        inventory.clear()
+
+        self.assertEqual(len(inventory.items), 0)
 
     def test_get_info(self):
         """Test: get_info return correct info."""
-        inventory = Inventory(self.items)
-        correct_info = tuple([item.get_info() for item in self.items])
+        inventory = Inventory()
+        items = [Item(f'name-{i}', cost=i * 10) for i in range(1, 11)]
+        inventory.add_items(items)
+        correct_info = tuple([item.get_info() for item in items])
 
         self.assertIsInstance(inventory.get_info(), tuple)
         self.assertEqual(inventory.get_info(), correct_info)

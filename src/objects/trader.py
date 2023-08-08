@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from objects.mixins import TimerMixin, NameMixin
-from validators import validate_type, validate_types
+from validators import validate_type, validate_types, validate_is_not_empty_string, validate_is_not_negative_number
 
 
 class Item(NameMixin):
@@ -29,21 +29,32 @@ class Item(NameMixin):
 class Inventory:
     """Inventory"""
 
-    def __init__(self, items: list[Item] | tuple[Item] = None):
-        if items is None:
-            items = []
-        self.items = items
+    def __init__(self):
+        self._items = []
 
     @property
-    def items(self) -> list[Item] | tuple[Item]:
+    def items(self) -> list[Item]:
         return self._items.copy()
 
-    @items.setter
-    def items(self, value: list | tuple):
-        validate_types(value, list | tuple)
-        if any(not isinstance(item, Item) for item in value):
-            raise TypeError('Each item of items must be Item type.')
-        self._items = value
+    def add_item(self, item: Item):
+        validate_type(item, Item)
+        self._items.append(item)
+
+    def add_item_from_values(self, name: str, cost: int):
+        item = Item(name, cost)
+        self._items.append(item)
+
+    def add_items(self, items: list[Item, ...]):
+        validate_type(items, list)
+        self._items += items
+
+    def add_items_from_values(self, items_values: list[tuple[str, int]]):
+        validate_type(items_values, list)
+        items = [Item(*values) for values in items_values]
+        self._items += items
+
+    def clear(self):
+        self._items.clear()
 
     def get_info(self) -> tuple[tuple[str, ...]]:
         return tuple([item.get_info() for item in self.items])
