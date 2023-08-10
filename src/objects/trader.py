@@ -41,17 +41,12 @@ class Inventory:
         validate_type(item, Item)
         self._items.append(item)
 
-    def add_item_from_values(self, name: str, cost: int):
-        item = Item(name, cost)
-        self._items.append(item)
-
     def add_items(self, items: list[Item, ...]):
         validate_type(items, list)
-        self._items += items
-
-    def add_items_from_values(self, items_values: list[tuple[str, int]]):
-        validate_type(items_values, list)
-        items = [Item(*values) for values in items_values]
+        if len(items) == 0:
+            raise ValueError('Items cannot be empty list.')
+        if any(not isinstance(item, Item) for item in items):
+            raise TypeError('Each item in items list must be Item.')
         self._items += items
 
     def clear(self):

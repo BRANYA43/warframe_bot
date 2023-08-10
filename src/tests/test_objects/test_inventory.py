@@ -14,8 +14,8 @@ class TestInventory(unittest.TestCase):
         self.assertIsInstance(inventory.items, list)
         self.assertEqual(len(inventory.items), 0)
 
-    def test_add_item_to_items(self):
-        """Test: add_item add Item to items."""
+    def test_add_correct_item_to_items(self):
+        """Test: add_item add correct item to items."""
         inventory = Inventory()
         item = Item('name', 100)
 
@@ -26,21 +26,18 @@ class TestInventory(unittest.TestCase):
         self.assertEqual(len(inventory.items), 1)
         self.assertIs(inventory.items[0], item)
 
-    def test_create_item_from_values_and_add_item_to_items(self):
-        """Test: add_item create Item from values and add it to items."""
+    def test_not_add_incorrect_item_to_items(self):
+        """Test: add_item not add incorrect item to items."""
         inventory = Inventory()
 
         self.assertEqual(len(inventory.items), 0)
 
-        inventory.add_item_from_values('name', 100)
+        self.assertRaisesRegex(TypeError, r'Expected Item, but got (.+).', inventory.add_item, None)
 
-        self.assertEqual(len(inventory.items), 1)
-        self.assertIsInstance(inventory.items[0], Item)
-        self.assertEqual(inventory.items[0].name, 'name')
-        self.assertEqual(inventory.items[0].cost, 100)
+        self.assertEqual(len(inventory.items), 0)
 
-    def test_add_items_to_items(self):
-        """Test: add_items add items to items."""
+    def test_add_correct_items_to_items(self):
+        """Test: add_items add correct items to items."""
         inventory = Inventory()
         items = [Item(f'name-{i}', cost=i*10) for i in range(1, 11)]
 
@@ -52,20 +49,17 @@ class TestInventory(unittest.TestCase):
         for inv_item, item in zip(inventory.items, items):
             self.assertIs(inv_item, item)
 
-    def test_create_items_from_values_and_add_items_to_items(self):
-        """Test: add_items create Item from item_values and add items to items."""
+    def test_not_add_incorrect_items_to_items(self):
+        """Test: add_items not add incorrect items to items."""
         inventory = Inventory()
-        items = [(f'name-{i}', i * 10) for i in range(1, 11)]
 
         self.assertEqual(len(inventory.items), 0)
 
-        inventory.add_items_from_values(items)
+        self.assertRaisesRegex(TypeError, r'Expected list, but got (.+).', inventory.add_items, None)
+        self.assertRaisesRegex(ValueError, r'Items cannot be empty list.', inventory.add_items, [])
+        self.assertRaisesRegex(TypeError, r'Each item in items list must be Item.', inventory.add_items, [None])
 
-        self.assertEqual(len(inventory.items), 10)
-        for inv_item, item in zip(inventory.items, items):
-            self.assertIsInstance(inv_item, Item)
-            self.assertEqual(inv_item.name, item[0])
-            self.assertEqual(inv_item.cost, item[1])
+        self.assertEqual(len(inventory.items), 0)
 
     def test_clear(self):
         """Test: clear items."""
