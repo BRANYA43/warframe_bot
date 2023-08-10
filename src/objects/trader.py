@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import data
 from objects.mixins import TimerMixin, NameMixin
@@ -78,6 +78,9 @@ class Trader(NameMixin, TimerMixin):
 class VoidTrader(Trader):
     """Void Trader"""
 
+    TIME_TO_ARRIVING = timedelta(weeks=2)
+    TIME_TO_DEPARTING = timedelta(days=2)
+
     def __init__(self, expiry: datetime, relay: str, *, active: bool = False):
         super().__init__(name=data.TRADER_NAMES[0], expiry=expiry)
         self.relay = relay
@@ -110,3 +113,12 @@ class VoidTrader(Trader):
         else:
             ret = (name, 'Location: Void', left_time)
         return ret
+
+    def update(self):
+        self.timer.reduce(60)
+        if self.timer.total_seconds <= 0:
+            if self.active:
+                self.timer.expiry += self.TIME_TO_ARRIVING
+            else:
+                self.timer.expiry += self.TIME_TO_DEPARTING
+            self.active = not self.active

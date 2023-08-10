@@ -99,6 +99,32 @@ class TestVoidTrader(unittest.TestCase):
 
         self.assertEqual(correct_info, trader.get_info())
 
+    def test_not_change_active_and_timer_after_update(self):
+        """Test: not change active and timer if timer is not equal 0 after update."""
+        trader = VoidTrader(**self.data)
+
+        self.assertFalse(trader.active)
+        self.assertEqual(trader.timer.expiry, self.data['expiry'])
+
+        trader.update()
+
+        self.assertFalse(trader.active)
+        self.assertEqual(trader.timer.expiry, self.data['expiry'])
+
+    def test_change_active_and_timer_after_update(self):
+        """Test: change active and timer if timer is equal 0 after update."""
+        self.data['expiry'] = datetime.utcnow() + timedelta(milliseconds=500)
+        trader = VoidTrader(**self.data)
+        old_expiry = trader.timer.expiry
+
+        self.assertFalse(trader.active)
+
+        trader.update()
+
+        self.assertNotEqual(trader.timer.expiry, old_expiry)
+        self.assertLess(old_expiry, trader.timer.expiry)
+        self.assertTrue(trader.active)
+
 
 if __name__ == '__main__':
     unittest.main()
