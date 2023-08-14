@@ -49,6 +49,12 @@ class Inventory:
             raise TypeError('Each item in items list must be Item.')
         self._items += items
 
+    def get_index_item_by_item_name(self, value: str) -> int | None:
+        validate_is_not_empty_string(value)
+        for i, item in enumerate(self._items):
+            if value == item.name:
+                return i
+
     def clear(self):
         self._items.clear()
 
@@ -122,3 +128,56 @@ class VoidTrader(Trader):
             else:
                 self.timer.expiry += self.TIME_TO_DEPARTING
             self.active = not self.active
+
+
+class SteelTrader(Trader):
+    """SteelTrader"""
+
+    TIME_TO_CHANGING_OFFER = timedelta(weeks=1)
+
+    def __init__(self, expiry: datetime, offers: list[Item, ...], current_offer: str):
+        super().__init__(name=data.TRADER_NAMES[1], expiry=expiry)
+        self.inventory.add_items(offers)
+        self._set_current_offer_by_name(current_offer)
+
+    @property
+    def offers(self) -> list[Item, ...]:
+        return self.inventory.items
+
+    @property
+    def current_offer(self) -> Item:
+        return self.inventory.items[self._current_offer]
+
+    def _set_current_offer_by_name(self, value):
+        if offer := self.inventory.get_index_item_by_item_name(value) is None:
+            raise ValueError('No such a offer in offers.')
+        self._current_offer = offer
+        self._set_next_offer()
+
+    def _set_next_current_offers(self):
+        items = self.inventory.items
+        index = (self._current_offer + 1) % len(items)
+        self._current_offer = index
+        self._set_next_offer()
+
+    @property
+    def next_offer(self) -> Item:
+        return self.inventory.items[self._next_offer]
+
+    def _set_next_offer(self):
+        items = self.inventory.items
+        index = (self._current_offer + 1) % len(items)
+        self._next_offer = index
+
+    def update(self):
+        if self.timer.total_seconds == 0:
+            self._set_next_current_offers()
+            self.timer.expiry += self.TIME_TO_CHANGING_OFFER
+
+    def get_info(self) -> tuple[str, ...]:
+        return (
+            f'Name: {self.name}',
+            f'Current offer: {self.current_offer}',
+            f'Next offer: {self.next_offer}',
+            f'Left time: {self.timer.get_str_time()}',
+        )

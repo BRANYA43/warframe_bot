@@ -39,7 +39,7 @@ class TestInventory(unittest.TestCase):
     def test_add_correct_items_to_items(self):
         """Test: add_items add correct items to items."""
         inventory = Inventory()
-        items = [Item(f'name-{i}', cost=i*10) for i in range(1, 11)]
+        items = [Item(f'name-{i}', cost=i * 10) for i in range(1, 11)]
 
         self.assertEqual(len(inventory.items), 0)
 
@@ -72,6 +72,21 @@ class TestInventory(unittest.TestCase):
         inventory.clear()
 
         self.assertEqual(len(inventory.items), 0)
+
+    def test_get_index_item_by_item_name_returns_index(self):
+        """Test: get_index_item_by_item_name returns item index by its name."""
+        inventory = Inventory()
+        item = Item('name', 100)
+        inventory.add_item(item)
+        item_index = inventory.get_index_item_by_item_name('name')
+
+        self.assertEqual(item_index, 0)
+
+    def test_get_index_item_by_item_name_returns_none(self):
+        """Test: get_item returns None if no Item with such name."""
+        inventory = Inventory()
+
+        self.assertIsNone(inventory.get_index_item_by_item_name('name'))
 
     def test_get_info(self):
         """Test: get_info return correct info."""

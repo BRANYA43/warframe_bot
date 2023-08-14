@@ -53,6 +53,7 @@ CYCLE_NAMES = (
 
 TRADER_NAMES = (
     'Baro Ki\'teer',
+    'Teshin',
 )
 
 RELAY_NAMES = (

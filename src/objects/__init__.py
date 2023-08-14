@@ -5,4 +5,5 @@ from .trader import Item
 from .trader import Inventory
 from .trader import Trader
 from .trader import VoidTrader
+from .trader import SteelTrader
 from .manager import Manager
