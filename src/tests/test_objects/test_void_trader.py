@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, timedelta
 
 import data
-from objects import VoidTrader, Trader
+from objects import VoidTrader, Trader, Item
 
 
 class TestVoidTrader(unittest.TestCase):
@@ -124,6 +124,20 @@ class TestVoidTrader(unittest.TestCase):
         self.assertNotEqual(trader.timer.expiry, old_expiry)
         self.assertLess(old_expiry, trader.timer.expiry)
         self.assertTrue(trader.active)
+
+    def test_clear_inventory_if_active_is_switched_from_true_to_false(self):
+        """Test: clear inventory if active is switched from true to false."""
+        self.data['expiry'] = datetime.utcnow() + timedelta(milliseconds=500)
+        trader = VoidTrader(**self.data, active=True)
+        trader.inventory.add_item(Item('name', 100))
+
+        self.assertTrue(trader.active)
+        self.assertEqual(len(trader.inventory.items), 1)
+
+        trader.update()
+
+        self.assertFalse(trader.active)
+        self.assertEqual(len(trader.inventory.items), 0)
 
 
 if __name__ == '__main__':

@@ -125,6 +125,7 @@ class VoidTrader(Trader):
         if self.timer.total_seconds <= 0:
             if self.active:
                 self.timer.expiry += self.TIME_TO_ARRIVING
+                self.inventory.clear()
             else:
                 self.timer.expiry += self.TIME_TO_DEPARTING
             self.active = not self.active
