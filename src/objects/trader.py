@@ -121,7 +121,6 @@ class VoidTrader(Trader):
         return ret
 
     def update(self):
-        self.timer.reduce(60)
         if self.timer.total_seconds <= 0:
             if self.active:
                 self.timer.expiry += self.TIME_TO_ARRIVING

@@ -1,9 +1,10 @@
+import asyncio
 from datetime import datetime
 
 import requests
 
 import data
-from objects import Cycle, Place
+from objects import Cycle, Place, VoidTrader, Item, SteelTrader
 
 
 class Manager:
@@ -14,6 +15,8 @@ class Manager:
     def __init__(self):
         self._is_ready = False
         self._places = {}
+        self._void_trader = None
+        self._steel_trader = None
 
     @property
     def is_ready(self) -> bool:
@@ -27,9 +30,14 @@ class Manager:
     @staticmethod
     def get_response(url: str):
         return requests.get(url).json()
+    
+    @staticmethod
+    def get_item_list(items_data: list[dict]) -> list[Item, ...]:
+        return [Item(**data_) for data_ in items_data]
 
     def prepare(self):
         self.prepare_places()
+        self.prepare_traders()
         self._is_ready = True
 
     def update(self):
@@ -56,5 +64,54 @@ class Manager:
             place.update()
 
     def get_info_places(self):
-        return [place .get_info() for place in self._places.values()]
+        return [place.get_info() for place in self._places.values()]
+
+    def create_void_trader(self, response: dict) -> VoidTrader:
+        void_trader = VoidTrader(
+            expiry=self.format_expiry(response['expiry']),
+            relay=response['location'].replace(' Relay', ''),
+            active=response['active'],
+        )
+
+        if void_trader.active:
+            void_trader.inventory.add_items(self.get_item_list(response['inventory']))
+
+        self._void_trader = void_trader
+        return void_trader
+
+    def prepare_void_trader(self):
+        response = self.get_response(data.TRADERS_URLS[0])
+        self.create_void_trader(response)
+
+    def update_void_trader(self):
+        self._void_trader.timer.reduce(self.SEC_FOR_REDUCE)
+        self._void_trader.update()
+        if self._void_trader.active and not self._void_trader.inventory.items:
+            response = self.get_response(data.TRADERS_URLS[0])
+            if inventory := response['inventory']:
+                items = self.get_item_list(inventory)
+                self._void_trader.inventory.add_items(items)
+
+
+    def create_steel_trader(self, response: dict) -> SteelTrader:
+        steel_trader = SteelTrader(
+            expiry=self.format_expiry(response['expiry']),
+            offers=self.get_item_list(response['rotation']),
+            current_offer=response['currentReward']['name'],
+        )
+        self._steel_trader = steel_trader
+
+        return steel_trader
+
+    def prepare_traders(self):
+        self.create_void_trader(self.get_response(data.TRADERS_URLS[0]))
+        self.create_steel_trader(self.get_response(data.TRADERS_URLS[1]))
+
+    def update_traders(self):
+        self._void_trader.timer.reduce(self.SEC_FOR_REDUCE)
+        self._steel_trader.timer.reduce(self.SEC_FOR_REDUCE)
+
+        # self._void_trader.update()
+        # self._steel_trader.update()
+
 
