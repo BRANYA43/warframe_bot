@@ -1,10 +1,9 @@
-import asyncio
 from datetime import datetime
 
 import requests
 
 import data
-from objects import Cycle, Place, VoidTrader, Item, SteelTrader
+from objects import Place, VoidTrader, Item, SteelTrader
 
 
 class Manager:
@@ -17,6 +16,14 @@ class Manager:
         self._places = {}
         self._void_trader = None
         self._steel_trader = None
+
+    @property
+    def void_trader(self):
+        return self._void_trader.copy()
+
+    @property
+    def steel_trader(self):
+        return self._steel_trader.copy()
 
     @property
     def is_ready(self) -> bool:
@@ -37,11 +44,14 @@ class Manager:
 
     def prepare(self):
         self.prepare_places()
-        self.prepare_traders()
+        self.prepare_void_trader()
+        self.prepare_steel_trader()
         self._is_ready = True
 
     def update(self):
         self.update_places()
+        self.update_void_trader()
+        self.update_steel_trader()
 
     def create_place(self, response: dict, name: str, key: str) -> Place:
         place = Place(

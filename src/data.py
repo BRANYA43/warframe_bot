@@ -41,6 +41,10 @@ CYCLE_URLS = (
     MAIN_URL + 'zarimanCycle/',
     # MAIN_URL + 'duviriCycle/',
 )
+TRADERS_URLS = (
+    MAIN_URL + 'voidTrader/',
+    MAIN_URL + 'steelPath/',
+)
 
 CYCLE_NAMES = (
     'Earth',
