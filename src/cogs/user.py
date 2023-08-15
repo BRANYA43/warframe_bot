@@ -2,7 +2,7 @@ import disnake
 from disnake.ext import commands, tasks
 
 from objects import Manager
-from utils.formatter import get_table
+from utils.formatter import get_table, get_table_of_trader
 
 
 class UserCog(commands.Cog):
@@ -22,6 +22,8 @@ class UserCog(commands.Cog):
         """Get short menu."""
         components = [
             disnake.ui.Button(label='Place with Cycle', style=disnake.ButtonStyle.primary, custom_id='places'),
+            disnake.ui.Button(label='Baro Ke\'teer', style=disnake.ButtonStyle.primary, custom_id='void_trader'),
+            disnake.ui.Button(label='Teshin', style=disnake.ButtonStyle.primary, custom_id='steel_trader'),
         ]
         await inter.send(ephemeral=True, components=components)
 
@@ -32,6 +34,22 @@ class UserCog(commands.Cog):
                 embed = disnake.Embed(
                     title='',
                     description=get_table('Places with cycles', self.manager.get_info_places()),
+                )
+                await inter.send(embed=embed, ephemeral=True)
+
+            case 'void_trader':
+                embed = disnake.Embed(
+                    title='',
+                    description=get_table_of_trader(self.manager.void_trader.get_info(),
+                                                    self.manager.void_trader.inventory.get_info()),
+                )
+                await inter.send(embed=embed, ephemeral=True)
+
+            case 'steel_trader':
+                embed = disnake.Embed(
+                    title='',
+                    description=get_table_of_trader(self.manager.steel_trader.get_info(),
+                                                    self.manager.steel_trader.inventory.get_info(), 'Offers'),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
