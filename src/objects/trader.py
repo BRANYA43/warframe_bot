@@ -149,7 +149,7 @@ class SteelTrader(Trader):
         return self.inventory.items[self._current_offer]
 
     def _set_current_offer_by_name(self, value):
-        if offer := self.inventory.get_index_item_by_item_name(value) is None:
+        if (offer := self.inventory.get_index_item_by_item_name(value)) is None:
             raise ValueError('No such a offer in offers.')
         self._current_offer = offer
         self._set_next_offer()
@@ -177,7 +177,7 @@ class SteelTrader(Trader):
     def get_info(self) -> tuple[str, ...]:
         return (
             f'Name: {self.name}',
-            f'Current offer: {self.current_offer}',
-            f'Next offer: {self.next_offer}',
+            f'Current offer: {self.current_offer.name}',
+            f'Next offer: {self.next_offer.name}',
             f'Left time: {self.timer.get_str_time()}',
         )

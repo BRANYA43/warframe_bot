@@ -1,3 +1,4 @@
+from copy import copy
 from datetime import datetime
 
 import requests
@@ -19,11 +20,11 @@ class Manager:
 
     @property
     def void_trader(self):
-        return self._void_trader.copy()
+        return copy(self._void_trader)
 
     @property
     def steel_trader(self):
-        return self._steel_trader.copy()
+        return copy(self._steel_trader)
 
     @property
     def is_ready(self) -> bool:

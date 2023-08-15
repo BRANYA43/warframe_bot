@@ -83,8 +83,8 @@ class TestSteelTrader(unittest.TestCase):
         trader = SteelTrader(**self.data)
         correct_info = (
             f'Name: {data.TRADER_NAMES[1]}',
-            f'Current offer: {trader.current_offer}',
-            f'Next offer: {trader.next_offer}',
+            f'Current offer: {trader.current_offer.name}',
+            f'Next offer: {trader.next_offer.name}',
             f'Left time: {trader.timer.get_str_time()}',
         )
 
