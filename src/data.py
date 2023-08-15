@@ -12,17 +12,17 @@ CYCLES = {
         Cycle('night', timedelta(minutes=50))
     ),
     'vallisCycle': (
-            Cycle('cold', timedelta(minutes=20)),
-            Cycle('warm', timedelta(minutes=6, seconds=40))
-        ),
+        Cycle('cold', timedelta(minutes=20)),
+        Cycle('warm', timedelta(minutes=6, seconds=40))
+    ),
     'cambionCycle': (
-            Cycle('fass', timedelta(hours=1, minutes=40)),
-            Cycle('vome', timedelta(minutes=50))
-        ),
+        Cycle('fass', timedelta(hours=1, minutes=40)),
+        Cycle('vome', timedelta(minutes=50))
+    ),
     'zarimanCycle': (
-            Cycle('grineer', timedelta(hours=2, minutes=30)),
-            Cycle('corpus', timedelta(hours=2, minutes=30))
-        ),
+        Cycle('grineer', timedelta(hours=2, minutes=30)),
+        Cycle('corpus', timedelta(hours=2, minutes=30))
+    ),
     # 'duviriCycle': (
     #     Cycle('anger', timedelta(hours=2)),
     #     Cycle('joy', timedelta(hours=2)),
@@ -46,7 +46,7 @@ TRADERS_URLS = (
     MAIN_URL + 'steelPath/',
 )
 
-CYCLE_NAMES = (
+PLACES = (
     'Earth',
     'Cetus',
     'Fortune',
@@ -55,12 +55,12 @@ CYCLE_NAMES = (
     # 'Duviri',
 )
 
-TRADER_NAMES = (
+TRADERS = (
     'Baro Ki\'teer',
     'Teshin',
 )
 
-RELAY_NAMES = (
+RELAY = (
     'Larunda (Mercury)',
     'Strata (Earth)',
     'Kronia (Saturn)',

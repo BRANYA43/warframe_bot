@@ -88,7 +88,7 @@ class VoidTrader(Trader):
     TIME_TO_DEPARTING = timedelta(days=2)
 
     def __init__(self, expiry: datetime, relay: str, *, active: bool = False):
-        super().__init__(name=data.TRADER_NAMES[0], expiry=expiry)
+        super().__init__(name=data.TRADERS[0], expiry=expiry)
         self.relay = relay
         self.active = active
 
@@ -99,7 +99,7 @@ class VoidTrader(Trader):
     @relay.setter
     def relay(self, value: str):
         validate_is_not_empty_string(value)
-        if value not in data.RELAY_NAMES:
+        if value not in data.RELAY:
             raise ValueError('No such a relay name in data.')
         self._relay = value
 
@@ -136,7 +136,7 @@ class SteelTrader(Trader):
     TIME_TO_CHANGING_OFFER = timedelta(weeks=1)
 
     def __init__(self, expiry: datetime, offers: list[Item, ...], current_offer: str):
-        super().__init__(name=data.TRADER_NAMES[1], expiry=expiry)
+        super().__init__(name=data.TRADERS[1], expiry=expiry)
         self.inventory.add_items(offers)
         self._set_current_offer_by_name(current_offer)
 

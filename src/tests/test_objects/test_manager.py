@@ -137,7 +137,7 @@ class TestManagerWorkForTraders(unittest.TestCase):
             'voidTrader': {
                 'expiry': self.void_trader_expiry.isoformat(),
                 'active': False,
-                'location': data.RELAY_NAMES[0],
+                'location': data.RELAY[0],
                 'inventory': []
             },
             'steelPath': {

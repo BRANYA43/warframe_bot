@@ -65,7 +65,7 @@ class Manager:
         return place
 
     def prepare_places(self):
-        for url, key, name in zip(data.CYCLE_URLS, data.CYCLES.keys(), data.CYCLE_NAMES):
+        for url, key, name in zip(data.CYCLE_URLS, data.CYCLES.keys(), data.PLACES):
             response = self.get_response(url)
             self.create_place(response, name, key)
 

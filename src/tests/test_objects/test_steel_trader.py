@@ -26,7 +26,7 @@ class TestSteelTrader(unittest.TestCase):
         """Test: create SteelTrader with correct values."""
         trader = SteelTrader(**self.data)
 
-        self.assertEqual(trader.name, data.TRADER_NAMES[1])
+        self.assertEqual(trader.name, data.TRADERS[1])
         self.assertEqual(trader._current_offer, 0)
         self.assertEqual(trader._next_offer, 1)
         self.assertEqual(trader.current_offer, self.offers[0])
@@ -82,7 +82,7 @@ class TestSteelTrader(unittest.TestCase):
         """Test: get_info returns correct info."""
         trader = SteelTrader(**self.data)
         correct_info = (
-            f'Name: {data.TRADER_NAMES[1]}',
+            f'Name: {data.TRADERS[1]}',
             f'Current offer: {trader.current_offer.name}',
             f'Next offer: {trader.next_offer.name}',
             f'Left time: {trader.timer.get_str_time()}',

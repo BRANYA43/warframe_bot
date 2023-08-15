@@ -11,7 +11,7 @@ class TestVoidTrader(unittest.TestCase):
     def setUp(self) -> None:
         self.data = {
             'expiry': datetime.utcnow() + timedelta(days=1),
-            'relay': data.RELAY_NAMES[0],
+            'relay': data.RELAY[0],
         }
 
     def test_void_trader_inherit_trader(self):
@@ -22,8 +22,8 @@ class TestVoidTrader(unittest.TestCase):
         """Test: create VoidTrader with correct values."""
         trader = VoidTrader(**self.data)
 
-        self.assertEqual(trader.name, data.TRADER_NAMES[0])
-        self.assertEqual(trader.relay, data.RELAY_NAMES[0])
+        self.assertEqual(trader.name, data.TRADERS[0])
+        self.assertEqual(trader.relay, data.RELAY[0])
         self.assertFalse(trader.active)
 
     def test_not_create_void_trader_with_incorrect_relay(self):
@@ -58,11 +58,11 @@ class TestVoidTrader(unittest.TestCase):
         """Test: set correct value for relay."""
         trader = VoidTrader(**self.data)
 
-        self.assertEqual(trader.relay, data.RELAY_NAMES[0])
+        self.assertEqual(trader.relay, data.RELAY[0])
 
-        trader.relay = data.RELAY_NAMES[1]
+        trader.relay = data.RELAY[1]
 
-        self.assertEqual(trader.relay, data.RELAY_NAMES[1])
+        self.assertEqual(trader.relay, data.RELAY[1])
 
     def test_not_set_incorrect_value_for_relay(self):
         """Test: not set incorrect value for relay."""
@@ -81,8 +81,8 @@ class TestVoidTrader(unittest.TestCase):
         """Test: get_info returns correct info if active is True"""
         trader = VoidTrader(**self.data, active=True)
         correct_info = (
-            f'Name: {data.TRADER_NAMES[0]}',
-            f'Relay: {data.RELAY_NAMES[0]}',
+            f'Name: {data.TRADERS[0]}',
+            f'Relay: {data.RELAY[0]}',
             f'Left time: {trader.timer.get_str_time()}',
         )
 
@@ -92,7 +92,7 @@ class TestVoidTrader(unittest.TestCase):
         """Test get_info returns correct info if active is False."""
         trader = VoidTrader(**self.data)
         correct_info = (
-            f'Name: {data.TRADER_NAMES[0]}',
+            f'Name: {data.TRADERS[0]}',
             'Location: Void',
             f'Left time: {trader.timer.get_str_time()}',
         )
