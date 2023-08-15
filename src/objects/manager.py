@@ -30,7 +30,7 @@ class Manager:
     @staticmethod
     def get_response(url: str):
         return requests.get(url).json()
-    
+
     @staticmethod
     def get_item_list(items_data: list[dict]) -> list[Item, ...]:
         return [Item(**data_) for data_ in items_data]
@@ -92,7 +92,6 @@ class Manager:
                 items = self.get_item_list(inventory)
                 self._void_trader.inventory.add_items(items)
 
-
     def create_steel_trader(self, response: dict) -> SteelTrader:
         steel_trader = SteelTrader(
             expiry=self.format_expiry(response['expiry']),
@@ -103,15 +102,10 @@ class Manager:
 
         return steel_trader
 
-    def prepare_traders(self):
-        self.create_void_trader(self.get_response(data.TRADERS_URLS[0]))
-        self.create_steel_trader(self.get_response(data.TRADERS_URLS[1]))
+    def prepare_steel_trader(self):
+        response = self.get_response(data.TRADERS_URLS[1])
+        self.create_steel_trader(response)
 
-    def update_traders(self):
-        self._void_trader.timer.reduce(self.SEC_FOR_REDUCE)
+    def update_steel_trader(self):
         self._steel_trader.timer.reduce(self.SEC_FOR_REDUCE)
-
-        # self._void_trader.update()
-        # self._steel_trader.update()
-
-
+        self._steel_trader.update()

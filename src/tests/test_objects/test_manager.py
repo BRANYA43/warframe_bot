@@ -140,11 +140,21 @@ class TestManagerWorkForTraders(unittest.TestCase):
                 'location': data.RELAY_NAMES[0],
                 'inventory': []
             },
+            'steelPath': {
+                'currentReward':
+                    {
+                        'name': 'name-1',
+                        'cost': 10,
+                    },
+                'expiry': self.steel_path_trader_expiry.isoformat(),
+                'rotation': [{'name': f'name-{i}', 'cost': i * 10} for i in range(1, 9)]
+            },
         }
         self.manager = Manager()
 
     def test_manager_has_void_trader_and_steel_trader(self):
         """Test: Manager has void_trader and steel_trader."""
+        self.assertIsNone(self.manager._void_trader)
         self.assertIsNone(self.manager._steel_trader)
 
     def test_create_void_trader(self):
@@ -237,6 +247,61 @@ class TestManagerWorkForTraders(unittest.TestCase):
 
         self.assertTrue(self.manager._void_trader.active)
         self.assertNotEqual(len(self.manager._void_trader.inventory.items), 0)
+
+    def test_create_steel_trader(self):
+        """Test: create_steel_trader set steel_trader and returns SteelTrader."""
+        response = self.fake_response['steelPath']
+        steel_trader = self.manager.create_steel_trader(response)
+
+        self.assertIsNotNone(self.manager._steel_trader)
+        self.assertIsInstance(self.manager._steel_trader, SteelTrader)
+        self.assertEqual(steel_trader, self.manager._steel_trader)
+        self.assertEqual(steel_trader.timer.expiry, self.steel_path_trader_expiry)
+        self.assertEqual(steel_trader.current_offer.name, response['currentReward']['name'])
+        self.assertEqual(steel_trader.current_offer.cost, response['currentReward']['cost'])
+        self.assertEqual(steel_trader.next_offer.name, response['rotation'][1]['name'])
+        self.assertEqual(steel_trader.next_offer.cost, response['rotation'][1]['cost'])
+        for item, item_data in zip(steel_trader.offers, response['rotation']):
+            self.assertEqual(item.name, item_data['name'])
+            self.assertEqual(item.cost, item_data['cost'])
+
+    def test_prepare_steel_trader(self):
+        """Test: steel_trader is set after prepare_steel_trader."""
+        self.assertIsNone(self.manager._steel_trader)
+
+        self.manager.prepare_steel_trader()
+
+        self.assertIsNotNone(self.manager._steel_trader)
+
+    def test_reduce_timer_after_update_steel_trader(self):
+        """Test: reduce timer after update_steel_trader."""
+        self.manager.create_steel_trader(self.fake_response['steelPath'])
+        old_total_second = self.manager._steel_trader.timer.total_seconds
+
+        self.manager.update_steel_trader()
+
+        self.assertNotEqual(self.manager._steel_trader.timer.total_seconds, old_total_second)
+        self.assertLess(self.manager._steel_trader.timer.total_seconds, old_total_second)
+        self.assertEqual(self.manager._steel_trader.timer.total_seconds, old_total_second - 60)
+
+    def test_update_timer_if_timer_is_equal_0_and_update_trader_attrs_after_update_steel_trader(self):
+        """Test: update timer if timer is equal 0 and update trader attrs after update_steel_trader."""
+        expiry = datetime.utcnow() + timedelta(microseconds=500)
+        self.fake_response['steelPath']['expiry'] = expiry.isoformat()
+        self.manager.create_steel_trader(self.fake_response['steelPath'])
+        old_expiry = self.manager._steel_trader.timer.expiry
+
+        self.assertEqual(self.manager._steel_trader.current_offer.name, 'name-1')
+        self.assertEqual(self.manager._steel_trader.next_offer.name, 'name-2')
+
+        self.manager.update_steel_trader()
+
+        self.assertEqual(self.manager._steel_trader.current_offer.name, 'name-2')
+        self.assertEqual(self.manager._steel_trader.next_offer.name, 'name-3')
+        self.assertNotEqual(self.manager._steel_trader.timer.expiry, old_expiry)
+        self.assertLess(old_expiry, self.manager._steel_trader.timer.expiry)
+        self.assertEqual(self.manager._steel_trader.timer.expiry,
+                         old_expiry + self.manager._steel_trader.TIME_TO_CHANGING_OFFER)
 
 
 if __name__ == '__main__':
