@@ -66,3 +66,69 @@ RELAY = (
     'Kronia (Saturn)',
     'Orcus (Pluto)',
 )
+
+LOCATIONS = (
+    'Mercury',
+    'Venus',
+    'Fortune',
+    'Earth',
+    'Cetus',
+    'Mars',
+    'Phobos',
+    'Deimos',
+    'Cambion Drift',
+    'Ceres',
+    'Jupiter',
+    'Europa',
+    'Saturn',
+    'Uranus',
+    'Neptune',
+    'Pluto',
+    'Sedna',
+    'Eris',
+    'Void',
+    'Lua',
+    'Kuva Fortress',
+    'Zariman',
+    'Earth Proxima',
+    'Venus Proxima',
+    'Saturn Proxima',
+    'Neptune Proxima',
+    'Pluto Proxima',
+    'Veil Proxima',
+)
+
+ENEMIES = (
+    'Corpus',
+    'Grineer',
+    'Orokin',
+    'Infested',
+    'Crossfire',
+)
+
+TYPES = (
+    'Assault',
+    'Capture',
+    'Defense',
+    'Disruption',
+    'Excavation',
+    'Extermination',
+    'Interception',
+    'Mobile Defense',
+    'Rescue',
+    'Sabotage',
+    'Skirmish',
+    'Spy',
+    'Survival',
+    'Volatile',
+    'Orphix',
+    'Hive',
+)
+
+TIERS = (
+    'Lith',
+    'Meso',
+    'Neo',
+    'Axi',
+    'Requiem',
+)
