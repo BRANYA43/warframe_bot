@@ -7,4 +7,5 @@ from .trader import Trader
 from .trader import VoidTrader
 from .trader import SteelTrader
 from .mission import Mission
+from .fissure import Fissure
 from .manager import Manager
