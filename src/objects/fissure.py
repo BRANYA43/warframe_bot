@@ -66,3 +66,59 @@ class Fissure(Mission, TimerMixin):
             f'Tier: {self.tier}',
             f'Left time: {self.timer.get_str_time()}',
         )
+
+
+class FissureStorage:
+    """Fissure Storage"""
+
+    def __init__(self):
+        self._simple_fissures, \
+            self._storm_fissures, \
+            self._hard_fissures = ({tier.lower(): [] for tier in data.TIERS[:-1]} for i in range(3))
+        self._kuva_fissures = []
+
+    def add(self, fissure: Fissure):
+        if not fissure.is_storm and not fissure.is_hard and fissure.tier != data.TIERS[-1]:
+            self._simple_fissures[fissure.tier.lower()].append(fissure)
+        elif fissure.is_storm and fissure.tier != data.TIERS[-1]:
+            self._storm_fissures[fissure.tier.lower()].append(fissure)
+        elif fissure.is_hard and fissure.tier != data.TIERS[-1]:
+            self._hard_fissures[fissure.tier.lower()].append(fissure)
+        elif fissure.tier == data.TIERS[4] and fissure.location == data.LOCATIONS[-8]:
+            self._kuva_fissures.append(fissure)
+
+    def get_all_fissure_list(self) -> list[Fissure, ...]:
+        ret = []
+        for key in self._simple_fissures.keys():
+            ret += self._simple_fissures[key]
+            ret += self._storm_fissures[key]
+            ret += self._hard_fissures[key]
+        ret += self._kuva_fissures
+        return ret
+
+    def get_all_ids(self) -> list[str, ...]:
+        return [fissure.id for fissure in self.get_all_fissure_list()]
+
+    def delete_fissure(self, fissure: Fissure):
+        if not fissure.is_storm and not fissure.is_hard and fissure.tier != data.TIERS[-1]:
+            self._simple_fissures[fissure.tier.lower()].remove(fissure)
+        elif fissure.is_storm and fissure.tier != data.TIERS[-1]:
+            self._storm_fissures[fissure.tier.lower()].remove(fissure)
+        elif fissure.is_hard and fissure.tier != data.TIERS[-1]:
+            self._hard_fissures[fissure.tier.lower()].remove(fissure)
+        elif fissure.tier == data.TIERS[4] and fissure.location == data.LOCATIONS[-8]:
+            self._kuva_fissures.remove(fissure)
+
+    def get_fissures(self, type: str) -> dict[str: list[Fissure, ...], ...] | list[Fissure, ...]:
+        match type:
+            case 'simple':
+                ret = self._simple_fissures
+            case 'storm':
+                ret = self._storm_fissures
+            case 'hard':
+                ret = self._hard_fissures
+            case 'kuva':
+                ret = self._kuva_fissures
+            case _:
+                raise NameError('Type can be only simple, storm, hard or kuva.')
+        return ret
