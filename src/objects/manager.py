@@ -1,10 +1,12 @@
 from copy import copy
 from datetime import datetime
+from pprint import pprint
 
 import requests
 
 import data
-from objects import Place, VoidTrader, Item, SteelTrader
+from objects import Place, VoidTrader, Item, SteelTrader, Fissure, FissureStorage
+from validators import validate_type
 
 
 class Manager:
@@ -14,9 +16,20 @@ class Manager:
 
     def __init__(self):
         self._is_ready = False
+        self._is_delete_fissures = False
         self._places = {}
         self._void_trader = None
         self._steel_trader = None
+        self._fissure_storage = FissureStorage()
+
+    @property
+    def is_delete_fissures(self) -> bool:
+        return self._is_delete_fissures
+
+    @is_delete_fissures.setter
+    def is_delete_fissures(self, value: bool):
+        validate_type(value, bool)
+        self._is_delete_fissures = value
 
     @property
     def void_trader(self):
@@ -25,6 +38,10 @@ class Manager:
     @property
     def steel_trader(self):
         return copy(self._steel_trader)
+
+    @property
+    def fissure_storage(self) -> FissureStorage:
+        return self._fissure_storage
 
     @property
     def is_ready(self) -> bool:
@@ -47,12 +64,14 @@ class Manager:
         self.prepare_places()
         self.prepare_void_trader()
         self.prepare_steel_trader()
+        self.prepare_fissures()
         self._is_ready = True
 
     def update(self):
         self.update_places()
         self.update_void_trader()
         self.update_steel_trader()
+        self.update_fissures()
 
     def create_place(self, response: dict, name: str, key: str) -> Place:
         place = Place(
@@ -120,3 +139,51 @@ class Manager:
     def update_steel_trader(self):
         self._steel_trader.timer.reduce(self.SEC_FOR_REDUCE)
         self._steel_trader.update()
+
+    def create_fissure(self, response: dict) -> Fissure:
+        name, location = response['node'].split(' (')
+        location = location[:-1]
+
+        if response['isStorm']:
+            location += ' Proxima'
+
+        fissure = Fissure(
+            id=response['id'],
+            name=name,
+            location=location,
+            type=response['missionType'],
+            enemy=response['enemy'],
+            tier=response['tier'],
+            expiry=self.format_expiry(response['expiry']),
+            is_storm=response['isStorm'],
+            is_hard=response['isHard'],
+        )
+
+        self._fissure_storage.add(fissure)
+
+        return fissure
+
+    def prepare_fissures(self):
+        response = self.get_response(data.FISSURES_URL)
+
+        for fissure_response in response:
+            if fissure_response['active'] \
+                    and datetime.fromisoformat(fissure_response['expiry'].replace('Z', '')) > datetime.utcnow():
+                self.create_fissure(fissure_response)
+
+    def update_fissures(self):
+        fissures = self._fissure_storage.get_all_fissure_list()
+        for fissure in fissures:
+            fissure.timer.reduce(self.SEC_FOR_REDUCE)
+            fissure.update()
+
+            if not fissure.active:
+                self._fissure_storage.delete_fissure(fissure)
+                if not self._is_delete_fissures:
+                    self._is_delete_fissures = True
+
+    def get_fissures_info(self, type: str):
+        fissures_by_tier = self.fissure_storage.get_fissures(type)
+        if type == 'kuva':
+            return [fissure.get_info() for fissure in fissures_by_tier]
+        return [[fissure.get_info() for fissure in fissures] for fissures in fissures_by_tier.values()]

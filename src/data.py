@@ -45,6 +45,7 @@ TRADERS_URLS = (
     MAIN_URL + 'voidTrader/',
     MAIN_URL + 'steelPath/',
 )
+FISSURES_URL = MAIN_URL + 'fissures/'
 
 PLACES = (
     'Earth',

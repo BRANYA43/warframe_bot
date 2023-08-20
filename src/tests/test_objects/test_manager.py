@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime, timedelta
 
 import data
-from objects import Manager, Place, Item, VoidTrader, SteelTrader
+from objects import Manager, Place, Item, VoidTrader, SteelTrader, Fissure, FissureStorage
 
 
 class TestManager(unittest.TestCase):
@@ -302,6 +302,124 @@ class TestManagerWorkForTraders(unittest.TestCase):
         self.assertLess(old_expiry, self.manager._steel_trader.timer.expiry)
         self.assertEqual(self.manager._steel_trader.timer.expiry,
                          old_expiry + self.manager._steel_trader.TIME_TO_CHANGING_OFFER)
+
+
+class TestManagerWorkForFissures(unittest.TestCase):
+    """Test manager's work for fissures"""
+
+    def setUp(self) -> None:
+        expiry = datetime.utcnow() + timedelta(days=1)
+        self.fake_response = {
+            'id': 'some_id',
+            'expiry': expiry.isoformat(),
+            'active': True,
+            'node': 'node (Earth)',
+            'missionType': data.TYPES[0],
+            'enemy': data.ENEMIES[0],
+            'tier': data.TIERS[0],
+            'isStorm': False,
+            'isHard': False,
+        }
+
+        self.manager = Manager()
+
+    def test_manager_has_needed_attrs(self):
+        """Test: Manager has fissure_storage."""
+        self.assertIsInstance(self.manager.fissure_storage, FissureStorage)
+        self.assertFalse(self.manager.is_delete_fissures)
+
+    def test_create_fissure(self):
+        """Test: create_fissure add fissure to fissure_storage and has correct attrs."""
+        fissure = self.manager.create_fissure(self.fake_response)
+        name, location = self.fake_response['node'].split()
+        location = location[1:-1]
+
+        self.assertIsInstance(fissure, Fissure)
+        self.assertEqual(len(self.manager._fissure_storage.get_all_fissure_list()), 1)
+        self.assertIs(fissure, self.manager._fissure_storage.get_all_fissure_list()[0])
+        self.assertEqual(fissure.name, name)
+        self.assertEqual(fissure.location, location)
+        self.assertEqual(fissure.type, self.fake_response['missionType'])
+        self.assertEqual(fissure.enemy, self.fake_response['enemy'])
+        self.assertEqual(fissure.tier, self.fake_response['tier'])
+        self.assertFalse(fissure.is_storm)
+        self.assertFalse(fissure.is_hard)
+
+    def test_prepare_fissures(self):
+        """Test: prepare_fissures fill fissure_storage"""
+        self.assertEqual(len(self.manager._fissure_storage.get_all_fissure_list()), 0)
+
+        self.manager.prepare_fissures()
+
+        self.assertLess(0, len(self.manager._fissure_storage.get_all_fissure_list()))
+
+    def test_reduce_timer_after_update_fissures(self):
+        fissure = self.manager.create_fissure(self.fake_response)
+        old_total_seconds = fissure.timer.total_seconds
+
+        self.manager.update_fissures()
+
+        self.assertNotEqual(fissure.timer.total_seconds, old_total_seconds)
+        self.assertLess(fissure.timer.total_seconds, old_total_seconds)
+        self.assertEqual(fissure.timer.total_seconds, old_total_seconds - 60)
+
+    def test_update_attrs_fissures_after_update_fissures(self):
+        """Test: update fissure attrs after update_fissures if timer is equal 0."""
+        expiry = datetime.utcnow() + timedelta(milliseconds=500)
+        self.fake_response['expiry'] = expiry.isoformat()
+        fissure = self.manager.create_fissure(self.fake_response)
+
+        self.assertTrue(fissure.active)
+
+        self.manager.update_fissures()
+
+        self.assertFalse(fissure.active)
+
+    def test_delete_fissure_after_update_fissures(self):
+        """Test: delete fissure after update_fissures if active is False."""
+        expiry = datetime.utcnow() + timedelta(milliseconds=500)
+        self.fake_response['expiry'] = expiry.isoformat()
+        self.manager.create_fissure(self.fake_response)
+
+        self.assertFalse(self.manager.is_delete_fissures)
+        self.assertEqual(len(self.manager._fissure_storage.get_all_fissure_list()), 1)
+
+        self.manager.update_fissures()
+
+        self.assertTrue(self.manager.is_delete_fissures)
+        self.assertEqual(len(self.manager._fissure_storage.get_all_fissure_list()), 0)
+
+    def test_get_info_of_simple_fissures(self):
+        """Test: get_info_of_simple_fissures is correct info."""
+        self.manager.prepare_fissures()
+        fissures_by_tier = self.manager.fissure_storage.get_fissures('simple')
+        correct_info = [[fissure.get_info() for fissure in fissures] for fissures in fissures_by_tier.values()]
+
+        self.assertEqual(self.manager.get_fissures_info('simple'), correct_info)
+
+    def test_get_info_of_storm_fissures(self):
+        """Test: get_info_of_storm_fissures is correct info."""
+        self.manager.prepare_fissures()
+        fissures_by_tier = self.manager.fissure_storage.get_fissures('storm')
+        correct_info = [[fissure.get_info() for fissure in fissures] for fissures in fissures_by_tier.values()]
+
+        self.assertEqual(self.manager.get_fissures_info('storm'), correct_info)
+
+    def test_get_info_of_hard_fissures(self):
+        """Test: get_info_of_hard_fissures is correct info."""
+        self.manager.prepare_fissures()
+        fissures_by_tier = self.manager.fissure_storage.get_fissures('hard')
+        correct_info = [[fissure.get_info() for fissure in fissures] for fissures in fissures_by_tier.values()]
+
+        self.assertEqual(self.manager.get_fissures_info('hard'), correct_info)
+
+    def test_get_info_of_kuva_fissures(self):
+        """Test: get_info_of_kuva_fissures is correct info."""
+        self.manager.prepare_fissures()
+        fissures = self.manager.fissure_storage.get_fissures('kuva')
+        correct_info = [fissure.get_info() for fissure in fissures]
+
+        self.assertEqual(self.manager.get_fissures_info('kuva'), correct_info)
 
 
 if __name__ == '__main__':
