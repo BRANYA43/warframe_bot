@@ -187,3 +187,12 @@ class Manager:
         if type == 'kuva':
             return [fissure.get_info() for fissure in fissures_by_tier]
         return [[fissure.get_info() for fissure in fissures] for fissures in fissures_by_tier.values()]
+
+    def add_new_fissures(self):
+        response = self.get_response(data.FISSURES_URL)
+        existed_ids = self._fissure_storage.get_all_ids()
+        for fissure_response in response:
+            if fissure_response['id'] not in existed_ids \
+                    and fissure_response['active']\
+                    and self.format_expiry(fissure_response['expiry']) > datetime.utcnow():
+                self.create_fissure(fissure_response)
