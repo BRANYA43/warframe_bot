@@ -54,7 +54,7 @@ class Manager:
 
     @staticmethod
     def get_response(url: str):
-        return requests.get(url).json()
+        return requests.get(url, headers={'content-language': 'en'}).json()
 
     @staticmethod
     def get_item_list(items_data: list[dict]) -> list[Item, ...]:
