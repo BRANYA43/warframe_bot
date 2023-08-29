@@ -99,7 +99,7 @@ class VoidTrader(Trader):
     @relay.setter
     def relay(self, value: str):
         validate_is_not_empty_string(value)
-        if value not in data.RELAY:
+        if value not in data.RELAY and 'TennoCon' not in value:
             raise ValueError('No such a relay name in data.')
         self._relay = value
 

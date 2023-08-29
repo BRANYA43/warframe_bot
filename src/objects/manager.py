@@ -58,7 +58,9 @@ class Manager:
 
     @staticmethod
     def get_item_list(items_data: list[dict]) -> list[Item, ...]:
-        return [Item(**data_) for data_ in items_data]
+        if items_data[0].get('name') is not None and items_data[0].get('cost') is not None:
+            return [Item(**data_) for data_ in items_data]
+        return [Item(data_['item'], data_['ducats']) for data_ in items_data]
 
     def prepare(self):
         self.prepare_places()
@@ -193,6 +195,6 @@ class Manager:
         existed_ids = self._fissure_storage.get_all_ids()
         for fissure_response in response:
             if fissure_response['id'] not in existed_ids \
-                    and fissure_response['active']\
+                    and fissure_response['active'] \
                     and self.format_expiry(fissure_response['expiry']) > datetime.utcnow():
                 self.create_fissure(fissure_response)
