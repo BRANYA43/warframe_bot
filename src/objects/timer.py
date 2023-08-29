@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from validators import validate_type
+from utils.translater import get_text as _
 
 
 class Timer:
@@ -44,27 +45,27 @@ class Timer:
     def get_str_time(self):
         time = ''
         if (days := self._total_seconds // self.DAY) != 0:
-            time = f'{days}d'
+            time = _('{}d').format(days)
             remainder = self._total_seconds % self.DAY
         else:
             remainder = self._total_seconds
 
         if (hours := remainder // self.HOUR) != 0:
             if time == '':
-                time = f'{hours}h'
+                time = _('{}h').format(hours)
             else:
-                time += f' {hours}h'
+                time += _(' {}h').format(hours)
 
             remainder %= self.HOUR
 
         if (minutes := remainder // self.MINUTE) != 0:
             if time == '':
-                time = f'{minutes}m'
+                time = _('{}m').format(minutes)
             else:
-                time += f' {minutes}m'
+                time += _(' {}m').format(minutes)
 
         if time == '':
-            time = '0m'
+            time = _('0m')
 
         return f'[{time}]'
 

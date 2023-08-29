@@ -61,7 +61,7 @@ TRADERS = (
     'Teshin',
 )
 
-RELAY = (
+RELAYS = (
     'Larunda (Mercury)',
     'Strata (Earth)',
     'Kronia (Saturn)',

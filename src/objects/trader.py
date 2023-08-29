@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
 
 import data
+from locales import local_data
 from objects.mixins import TimerMixin, NameMixin
-from validators import validate_type, validate_types, validate_is_not_empty_string, validate_is_not_negative_number
+from validators import validate_type, validate_is_not_empty_string
+from utils.translater import get_text as _
 
 
 class Item(NameMixin):
@@ -22,8 +24,8 @@ class Item(NameMixin):
 
     def get_info(self) -> tuple[str, ...]:
         return (
-            f'Name: {self.name}',
-            f'Cost: {self.cost}',
+            _('Name: {}').format(self.name),
+            _('Cost: {}').format(self.cost),
         )
 
 
@@ -99,7 +101,7 @@ class VoidTrader(Trader):
     @relay.setter
     def relay(self, value: str):
         validate_is_not_empty_string(value)
-        if value not in data.RELAY and 'TennoCon' not in value:
+        if value not in data.RELAYS and 'TennoCon' not in value:
             raise ValueError('No such a relay name in data.')
         self._relay = value
 
@@ -115,9 +117,9 @@ class VoidTrader(Trader):
     def get_info(self):
         name, left_time = super().get_info()
         if self.active:
-            ret = (name, f'Relay: {self.relay}', left_time)
+            ret = (name, f'{_("Relay")}: {local_data.RELAYS[self.relay] if "TennoCon" not in self.relay else self.relay}', left_time)
         else:
-            ret = (name, 'Location: Void', left_time)
+            ret = (name, f'{_("Location")}: {local_data.LOCATIONS["Void"]}', left_time)
         return ret
 
     def update(self):
@@ -176,8 +178,8 @@ class SteelTrader(Trader):
 
     def get_info(self) -> tuple[str, ...]:
         return (
-            f'Name: {self.name}',
-            f'Current offer: {self.current_offer.name}',
-            f'Next offer: {self.next_offer.name}',
-            f'Left time: {self.timer.get_str_time()}',
+            _('Name: {}').format(self.name),
+            _('Current offer: {}').format(self.current_offer.name),
+            _('Next offer: {}').format(self.next_offer.name),
+            _('Left time: {}').format(self.timer.get_str_time()),
         )

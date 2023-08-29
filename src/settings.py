@@ -13,4 +13,4 @@ load_dotenv(BASE_DIR / '../.env')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 # Current language
-LANG = 'en'  # en, uk
+LANG = os.getenv('LANGUAGE')

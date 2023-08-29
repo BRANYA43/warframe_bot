@@ -1,8 +1,10 @@
 from datetime import datetime
 
+from locales import local_data
 from objects import Cycle
 from objects.mixins import TimerMixin, NameMixin
 from validators import validate_type, validate_is_not_empty_string
+from utils.translater import get_text as _
 
 
 class Place(NameMixin, TimerMixin):
@@ -60,8 +62,8 @@ class Place(NameMixin, TimerMixin):
 
     def get_info(self) -> tuple[str, ...]:
         return (
-            f'Name: {self.name}',
-            f'Current cycle: {self.current_cycle.capitalize()}',
-            f'Next cycle: {self.next_cycle.capitalize()}',
-            f'Left time: {self.timer.get_str_time()}',
+            _('Name: {}').format(local_data.PLACES[self.name]),
+            _('Current cycle: {}').format(local_data.CYCLES[self.current_cycle]),
+            _('Next cycle: {}').format(local_data.CYCLES[self.next_cycle]),
+            _('Left time: {}').format(self.timer.get_str_time()),
         )

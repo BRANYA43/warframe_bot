@@ -1,0 +1,340 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/cogs/user.py:26 src/cogs/user.py:43
+msgid "Places with Cycles"
+msgstr "Місця які мають цикл"
+
+#: src/cogs/user.py:29 src/cogs/user.py:66
+msgid "Void Fissures"
+msgstr "Розломи Безодні"
+
+#: src/cogs/user.py:30 src/cogs/user.py:73
+msgid "Storm Fissures"
+msgstr "Шторми Безодні"
+
+#: src/cogs/user.py:31 src/cogs/user.py:80
+msgid "Steel Path Void Fissures"
+msgstr "Розломи Безодні Стального Шляху"
+
+#: src/cogs/user.py:33 src/cogs/user.py:87
+msgid "Requiem Fissures"
+msgstr "Розломи Реквієму"
+
+#: src/cogs/user.py:51
+msgid "Inventory"
+msgstr "Інвентар"
+
+#: src/locales/local_data.py:4
+msgid "Day"
+msgstr "День"
+
+#: src/locales/local_data.py:5
+msgid "Night"
+msgstr "Ніч"
+
+#: src/locales/local_data.py:6
+msgid "Cold"
+msgstr "Холод"
+
+#: src/locales/local_data.py:7
+msgid "Warm"
+msgstr "Тепло"
+
+#: src/locales/local_data.py:8
+msgid "Fass"
+msgstr "Фез"
+
+#: src/locales/local_data.py:9
+msgid "Vome"
+msgstr "Воум"
+
+#: src/locales/local_data.py:10 src/locales/local_data.py:66
+msgid "Grineer"
+msgstr "Грінір"
+
+#: src/locales/local_data.py:11 src/locales/local_data.py:65
+msgid "Corpus"
+msgstr "Корпус"
+
+#: src/locales/local_data.py:20 src/locales/local_data.py:38
+msgid "Earth"
+msgstr "Земля"
+
+#: src/locales/local_data.py:21 src/locales/local_data.py:39
+msgid "Cetus"
+msgstr "Цетус"
+
+#: src/locales/local_data.py:22 src/locales/local_data.py:37
+msgid "Fortune"
+msgstr "Фортуна"
+
+#: src/locales/local_data.py:23 src/locales/local_data.py:43
+msgid "Cambion Drift"
+msgstr "Камбієвський Дрейф"
+
+#: src/locales/local_data.py:24 src/locales/local_data.py:56
+msgid "Zariman"
+msgstr "Заріман"
+
+#: src/locales/local_data.py:35
+msgid "Mercury"
+msgstr "Меркурій"
+
+#: src/locales/local_data.py:36
+msgid "Venus"
+msgstr "Венера"
+
+#: src/locales/local_data.py:40
+msgid "Mars"
+msgstr "Марс"
+
+#: src/locales/local_data.py:41
+msgid "Phobos"
+msgstr "Фобос"
+
+#: src/locales/local_data.py:42
+msgid "Deimos"
+msgstr "Деймос"
+
+#: src/locales/local_data.py:44
+msgid "Ceres"
+msgstr "Церера"
+
+#: src/locales/local_data.py:45
+msgid "Jupiter"
+msgstr "Юпитер"
+
+#: src/locales/local_data.py:46
+msgid "Europa"
+msgstr "Європа"
+
+#: src/locales/local_data.py:47
+msgid "Saturn"
+msgstr "Сатурн"
+
+#: src/locales/local_data.py:48
+msgid "Uranus"
+msgstr "Уран"
+
+#: src/locales/local_data.py:49
+msgid "Neptune"
+msgstr "Нептун"
+
+#: src/locales/local_data.py:50
+msgid "Pluto"
+msgstr "Плутон"
+
+#: src/locales/local_data.py:51
+msgid "Sedna"
+msgstr "Седна"
+
+#: src/locales/local_data.py:52
+msgid "Eris"
+msgstr "Еріда"
+
+#: src/locales/local_data.py:53
+msgid "Void"
+msgstr "Безодня"
+
+#: src/locales/local_data.py:54
+msgid "Lua"
+msgstr "Луа"
+
+#: src/locales/local_data.py:55
+msgid "Kuva Fortress"
+msgstr "Фортеця Куви"
+
+#: src/locales/local_data.py:57
+msgid "Earth Proxima"
+msgstr "Проксіма Землі"
+
+#: src/locales/local_data.py:58
+msgid "Venus Proxima"
+msgstr "Проксіма Венери"
+
+#: src/locales/local_data.py:59
+msgid "Saturn Proxima"
+msgstr "Проксіма Сатурну"
+
+#: src/locales/local_data.py:60
+msgid "Neptune Proxima"
+msgstr "Проксіма Нептуну"
+
+#: src/locales/local_data.py:61
+msgid "Pluto Proxima"
+msgstr "Проксіма Плутона"
+
+#: src/locales/local_data.py:62
+msgid "Veil Proxima"
+msgstr "Проксіма Вуалі"
+
+#: src/locales/local_data.py:67
+msgid "Orokin"
+msgstr "Орокін"
+
+#: src/locales/local_data.py:68
+msgid "Infested"
+msgstr "Інфіковані"
+
+#: src/locales/local_data.py:69
+msgid "Crossfire"
+msgstr "Перестрілка"
+
+#: src/locales/local_data.py:73
+msgid "Assault"
+msgstr "Напад"
+
+#: src/locales/local_data.py:74
+msgid "Capture"
+msgstr "Захоплення"
+
+#: src/locales/local_data.py:75
+msgid "Defense"
+msgstr "Захист"
+
+#: src/locales/local_data.py:76
+msgid "Disruption"
+msgstr "Збій"
+
+#: src/locales/local_data.py:77
+msgid "Excavation"
+msgstr "Розкопки"
+
+#: src/locales/local_data.py:78
+msgid "Extermination"
+msgstr "Винищення"
+
+#: src/locales/local_data.py:79
+msgid "Interception"
+msgstr "Перехоплення"
+
+#: src/locales/local_data.py:80
+msgid "Mobile Defense"
+msgstr "Мобільний Захист"
+
+#: src/locales/local_data.py:81
+msgid "Rescue"
+msgstr "Рятування"
+
+#: src/locales/local_data.py:82
+msgid "Sabotage"
+msgstr "Диверсія"
+
+#: src/locales/local_data.py:83
+msgid "Skirmish"
+msgstr "Сутичка"
+
+#: src/locales/local_data.py:84
+msgid "Spy"
+msgstr "Шпигування"
+
+#: src/locales/local_data.py:85
+msgid "Survival"
+msgstr "Виживання"
+
+#: src/locales/local_data.py:86
+msgid "Volatile"
+msgstr "Наліт"
+
+#: src/locales/local_data.py:87
+msgid "Orphix"
+msgstr "Орфікс"
+
+#: src/locales/local_data.py:88
+msgid "Hive"
+msgstr "Вулий"
+
+#: src/locales/local_data.py:91
+msgid "Lith"
+msgstr "Літ"
+
+#: src/locales/local_data.py:92
+msgid "Meso"
+msgstr "Мезо"
+
+#: src/locales/local_data.py:93
+msgid "Neo"
+msgstr "Нео"
+
+#: src/locales/local_data.py:94
+msgid "Axi"
+msgstr "Аксі"
+
+#: src/locales/local_data.py:95
+msgid "Requiem"
+msgstr "Реквієм"
+
+#: src/objects/fissure.py:64
+msgid "Node: {}"
+msgstr "Точка: {}"
+
+#: src/objects/fissure.py:65
+msgid "Location: {}"
+msgstr "Локація: {}"
+
+#: src/objects/fissure.py:66
+msgid "Type: {}"
+msgstr "Тип: {}"
+
+#: src/objects/fissure.py:67
+msgid "Enemy: {}"
+msgstr "Ворог: {}"
+
+#: src/objects/fissure.py:68
+msgid "Tier: {}"
+msgstr "Рівень: {}"
+
+#: src/objects/fissure.py:69 src/objects/place.py:68 src/objects/trader.py:184
+msgid "Left time: {}"
+msgstr "Залишилось часу: {}"
+
+#: src/objects/place.py:65 src/objects/trader.py:27 src/objects/trader.py:181
+msgid "Name: {}"
+msgstr "Назва: {}"
+
+#: src/objects/place.py:66
+msgid "Current cycle: {}"
+msgstr "Поточний цикл: {}"
+
+#: src/objects/place.py:67
+msgid "Next cycle: {}"
+msgstr "Наступний цикл: {}"
+
+#: src/objects/timer.py:48
+msgid "{}d"
+msgstr "{}д."
+
+#: src/objects/timer.py:55
+msgid "{}h"
+msgstr "{}год."
+
+#: src/objects/timer.py:57
+msgid " {}h"
+msgstr " {}год."
+
+#: src/objects/timer.py:63
+msgid "{}m"
+msgstr "{}хв."
+
+#: src/objects/timer.py:65
+msgid " {}m"
+msgstr " {}хв."
+
+#: src/objects/timer.py:68
+msgid "0m"
+msgstr "0хв."
+
+#: src/objects/trader.py:28
+msgid "Cost: {}"
+msgstr "Ціна: {}"
+
+#: src/objects/trader.py:182
+msgid "Current offer: {}"
+msgstr "Поточна пропозиція: {}"
+
+#: src/objects/trader.py:183
+msgid "Next offer: {}"
+msgstr "Наступна пропозиція: {}"

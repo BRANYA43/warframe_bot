@@ -1,9 +1,11 @@
 from datetime import datetime
 
 import data
+from locales import local_data
 from objects import Mission
 from objects.mixins import TimerMixin
 from validators import validate_is_not_empty_string, validate_type
+from utils.translater import get_text as _
 
 
 class Fissure(Mission, TimerMixin):
@@ -59,12 +61,12 @@ class Fissure(Mission, TimerMixin):
 
     def get_info(self):
         return (
-            f'Node: {self.name}',
-            f'Location: {self.location}',
-            f'Type: {self.type}',
-            f'Enemy: {self.enemy}',
-            f'Tier: {self.tier}',
-            f'Left time: {self.timer.get_str_time()}',
+            _('Node: {}').format(self.name),
+            _('Location: {}').format(local_data.LOCATIONS[self.location]),
+            _('Type: {}').format(local_data.TYPES[self.type]),
+            _('Enemy: {}').format(local_data.ENEMIES[self.enemy]),
+            _('Tier: {}').format(local_data.TIERS[self.tier]),
+            _('Left time: {}').format(self.timer.get_str_time()),
         )
 
 

@@ -5,7 +5,7 @@ from disnake.ext import commands, tasks
 
 from objects import Manager
 from utils.formatter import get_table, get_table_of_trader, get_table_fissures
-
+from utils.translater import get_text as _
 
 class UserCog(commands.Cog):
     """Work above cogs"""
@@ -23,14 +23,14 @@ class UserCog(commands.Cog):
     async def get_info(self, inter: disnake.ApplicationCommandInteraction):
         """Get short menu."""
         components = [
-            disnake.ui.Button(label='Place with Cycle', style=disnake.ButtonStyle.primary, custom_id='places'),
-            disnake.ui.Button(label='Baro Ke\'teer', style=disnake.ButtonStyle.primary, custom_id='void_trader'),
-            disnake.ui.Button(label='Teshin', style=disnake.ButtonStyle.primary, custom_id='steel_trader'),
-            disnake.ui.Button(label='Simple Fissures', style=disnake.ButtonStyle.primary, custom_id='simple_fissures'),
-            disnake.ui.Button(label='Storm Fissures', style=disnake.ButtonStyle.primary, custom_id='storm_fissures'),
-            disnake.ui.Button(label='Steel Path Fissures', style=disnake.ButtonStyle.primary,
+            disnake.ui.Button(label=_('Places with Cycles'), style=disnake.ButtonStyle.primary, custom_id='places'),
+            disnake.ui.Button(label=_('Baro Ke\'teer'), style=disnake.ButtonStyle.primary, custom_id='void_trader'),
+            disnake.ui.Button(label=_('Teshin'), style=disnake.ButtonStyle.primary, custom_id='steel_trader'),
+            disnake.ui.Button(label=_('Void Fissures'), style=disnake.ButtonStyle.primary, custom_id='simple_fissures'),
+            disnake.ui.Button(label=_('Storm Fissures'), style=disnake.ButtonStyle.primary, custom_id='storm_fissures'),
+            disnake.ui.Button(label=_('Steel Path Void Fissures'), style=disnake.ButtonStyle.primary,
                               custom_id='hard_fissures'),
-            disnake.ui.Button(label='Kuva Fissures', style=disnake.ButtonStyle.primary, custom_id='kuva_fissures'),
+            disnake.ui.Button(label=_('Requiem Fissures'), style=disnake.ButtonStyle.primary, custom_id='kuva_fissures'),
         ]
         await inter.send(ephemeral=True, components=components)
 
@@ -40,7 +40,7 @@ class UserCog(commands.Cog):
             case 'places':
                 embed = disnake.Embed(
                     title='',
-                    description=get_table('Places with cycles', self.manager.get_info_places()),
+                    description=get_table(_('Places with Cycles'), self.manager.get_info_places()),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
@@ -48,7 +48,7 @@ class UserCog(commands.Cog):
                 embed = disnake.Embed(
                     title='',
                     description=get_table_of_trader(self.manager.void_trader.get_info(),
-                                                    self.manager.void_trader.inventory.get_info()),
+                                                    self.manager.void_trader.inventory.get_info(), _('Inventory')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
@@ -56,35 +56,35 @@ class UserCog(commands.Cog):
                 embed = disnake.Embed(
                     title='',
                     description=get_table_of_trader(self.manager.steel_trader.get_info(),
-                                                    self.manager.steel_trader.inventory.get_info(), 'Offers'),
+                                                    self.manager.steel_trader.inventory.get_info(), _('Offers')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
             case 'simple_fissures':
                 embed = disnake.Embed(
                     title='',
-                    description=get_table_fissures('Simple Fissures', self.manager.get_fissures_info('simple')),
+                    description=get_table_fissures(_('Void Fissures'), self.manager.get_fissures_info('simple')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
             case 'storm_fissures':
                 embed = disnake.Embed(
                     title='',
-                    description=get_table_fissures('Storm Fissures', self.manager.get_fissures_info('storm')),
+                    description=get_table_fissures(_('Storm Fissures'), self.manager.get_fissures_info('storm')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
             case 'hard_fissures':
                 embed = disnake.Embed(
                     title='',
-                    description=get_table_fissures('Steel Path Fissures', self.manager.get_fissures_info('hard')),
+                    description=get_table_fissures(_('Steel Path Void Fissures'), self.manager.get_fissures_info('hard')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
             case 'kuva_fissures':
                 embed = disnake.Embed(
                     title='',
-                    description=get_table('Kuva Fissures', self.manager.get_fissures_info('kuva')),
+                    description=get_table(_('Requiem Fissures'), self.manager.get_fissures_info('kuva')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 

@@ -1,0 +1,340 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/cogs/user.py:26 src/cogs/user.py:43
+msgid "Places with Cycles"
+msgstr ""
+
+#: src/cogs/user.py:29 src/cogs/user.py:66
+msgid "Void Fissures"
+msgstr ""
+
+#: src/cogs/user.py:30 src/cogs/user.py:73
+msgid "Storm Fissures"
+msgstr ""
+
+#: src/cogs/user.py:31 src/cogs/user.py:80
+msgid "Steel Path Void Fissures"
+msgstr ""
+
+#: src/cogs/user.py:33 src/cogs/user.py:87
+msgid "Requiem Fissures"
+msgstr ""
+
+#: src/cogs/user.py:51
+msgid "Inventory"
+msgstr ""
+
+#: src/locales/local_data.py:4
+msgid "Day"
+msgstr ""
+
+#: src/locales/local_data.py:5
+msgid "Night"
+msgstr ""
+
+#: src/locales/local_data.py:6
+msgid "Cold"
+msgstr ""
+
+#: src/locales/local_data.py:7
+msgid "Warm"
+msgstr ""
+
+#: src/locales/local_data.py:8
+msgid "Fass"
+msgstr ""
+
+#: src/locales/local_data.py:9
+msgid "Vome"
+msgstr ""
+
+#: src/locales/local_data.py:10 src/locales/local_data.py:66
+msgid "Grineer"
+msgstr ""
+
+#: src/locales/local_data.py:11 src/locales/local_data.py:65
+msgid "Corpus"
+msgstr ""
+
+#: src/locales/local_data.py:20 src/locales/local_data.py:38
+msgid "Earth"
+msgstr ""
+
+#: src/locales/local_data.py:21 src/locales/local_data.py:39
+msgid "Cetus"
+msgstr ""
+
+#: src/locales/local_data.py:22 src/locales/local_data.py:37
+msgid "Fortune"
+msgstr ""
+
+#: src/locales/local_data.py:23 src/locales/local_data.py:43
+msgid "Cambion Drift"
+msgstr ""
+
+#: src/locales/local_data.py:24 src/locales/local_data.py:56
+msgid "Zariman"
+msgstr ""
+
+#: src/locales/local_data.py:35
+msgid "Mercury"
+msgstr ""
+
+#: src/locales/local_data.py:36
+msgid "Venus"
+msgstr ""
+
+#: src/locales/local_data.py:40
+msgid "Mars"
+msgstr ""
+
+#: src/locales/local_data.py:41
+msgid "Phobos"
+msgstr ""
+
+#: src/locales/local_data.py:42
+msgid "Deimos"
+msgstr ""
+
+#: src/locales/local_data.py:44
+msgid "Ceres"
+msgstr ""
+
+#: src/locales/local_data.py:45
+msgid "Jupiter"
+msgstr ""
+
+#: src/locales/local_data.py:46
+msgid "Europa"
+msgstr ""
+
+#: src/locales/local_data.py:47
+msgid "Saturn"
+msgstr ""
+
+#: src/locales/local_data.py:48
+msgid "Uranus"
+msgstr ""
+
+#: src/locales/local_data.py:49
+msgid "Neptune"
+msgstr ""
+
+#: src/locales/local_data.py:50
+msgid "Pluto"
+msgstr ""
+
+#: src/locales/local_data.py:51
+msgid "Sedna"
+msgstr ""
+
+#: src/locales/local_data.py:52
+msgid "Eris"
+msgstr ""
+
+#: src/locales/local_data.py:53
+msgid "Void"
+msgstr ""
+
+#: src/locales/local_data.py:54
+msgid "Lua"
+msgstr ""
+
+#: src/locales/local_data.py:55
+msgid "Kuva Fortress"
+msgstr ""
+
+#: src/locales/local_data.py:57
+msgid "Earth Proxima"
+msgstr ""
+
+#: src/locales/local_data.py:58
+msgid "Venus Proxima"
+msgstr ""
+
+#: src/locales/local_data.py:59
+msgid "Saturn Proxima"
+msgstr ""
+
+#: src/locales/local_data.py:60
+msgid "Neptune Proxima"
+msgstr ""
+
+#: src/locales/local_data.py:61
+msgid "Pluto Proxima"
+msgstr ""
+
+#: src/locales/local_data.py:62
+msgid "Veil Proxima"
+msgstr ""
+
+#: src/locales/local_data.py:67
+msgid "Orokin"
+msgstr ""
+
+#: src/locales/local_data.py:68
+msgid "Infested"
+msgstr ""
+
+#: src/locales/local_data.py:69
+msgid "Crossfire"
+msgstr ""
+
+#: src/locales/local_data.py:73
+msgid "Assault"
+msgstr ""
+
+#: src/locales/local_data.py:74
+msgid "Capture"
+msgstr ""
+
+#: src/locales/local_data.py:75
+msgid "Defense"
+msgstr ""
+
+#: src/locales/local_data.py:76
+msgid "Disruption"
+msgstr ""
+
+#: src/locales/local_data.py:77
+msgid "Excavation"
+msgstr ""
+
+#: src/locales/local_data.py:78
+msgid "Extermination"
+msgstr ""
+
+#: src/locales/local_data.py:79
+msgid "Interception"
+msgstr ""
+
+#: src/locales/local_data.py:80
+msgid "Mobile Defense"
+msgstr ""
+
+#: src/locales/local_data.py:81
+msgid "Rescue"
+msgstr ""
+
+#: src/locales/local_data.py:82
+msgid "Sabotage"
+msgstr ""
+
+#: src/locales/local_data.py:83
+msgid "Skirmish"
+msgstr ""
+
+#: src/locales/local_data.py:84
+msgid "Spy"
+msgstr ""
+
+#: src/locales/local_data.py:85
+msgid "Survival"
+msgstr ""
+
+#: src/locales/local_data.py:86
+msgid "Volatile"
+msgstr ""
+
+#: src/locales/local_data.py:87
+msgid "Orphix"
+msgstr ""
+
+#: src/locales/local_data.py:88
+msgid "Hive"
+msgstr ""
+
+#: src/locales/local_data.py:91
+msgid "Lith"
+msgstr ""
+
+#: src/locales/local_data.py:92
+msgid "Meso"
+msgstr ""
+
+#: src/locales/local_data.py:93
+msgid "Neo"
+msgstr ""
+
+#: src/locales/local_data.py:94
+msgid "Axi"
+msgstr ""
+
+#: src/locales/local_data.py:95
+msgid "Requiem"
+msgstr ""
+
+#: src/objects/fissure.py:64
+msgid "Node: {}"
+msgstr ""
+
+#: src/objects/fissure.py:65
+msgid "Location: {}"
+msgstr ""
+
+#: src/objects/fissure.py:66
+msgid "Type: {}"
+msgstr ""
+
+#: src/objects/fissure.py:67
+msgid "Enemy: {}"
+msgstr ""
+
+#: src/objects/fissure.py:68
+msgid "Tier: {}"
+msgstr ""
+
+#: src/objects/fissure.py:69 src/objects/place.py:68 src/objects/trader.py:184
+msgid "Left time: {}"
+msgstr ""
+
+#: src/objects/place.py:65 src/objects/trader.py:27 src/objects/trader.py:181
+msgid "Name: {}"
+msgstr ""
+
+#: src/objects/place.py:66
+msgid "Current cycle: {}"
+msgstr ""
+
+#: src/objects/place.py:67
+msgid "Next cycle: {}"
+msgstr ""
+
+#: src/objects/timer.py:48
+msgid "{}d"
+msgstr ""
+
+#: src/objects/timer.py:55
+msgid "{}h"
+msgstr ""
+
+#: src/objects/timer.py:57
+msgid " {}h"
+msgstr ""
+
+#: src/objects/timer.py:63
+msgid "{}m"
+msgstr ""
+
+#: src/objects/timer.py:65
+msgid " {}m"
+msgstr ""
+
+#: src/objects/timer.py:68
+msgid "0m"
+msgstr ""
+
+#: src/objects/trader.py:28
+msgid "Cost: {}"
+msgstr "Ціна: {}"
+
+#: src/objects/trader.py:182
+msgid "Current offer: {}"
+msgstr ""
+
+#: src/objects/trader.py:183
+msgid "Next offer: {}"
+msgstr ""

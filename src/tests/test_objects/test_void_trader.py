@@ -11,7 +11,7 @@ class TestVoidTrader(unittest.TestCase):
     def setUp(self) -> None:
         self.data = {
             'expiry': datetime.utcnow() + timedelta(days=1),
-            'relay': data.RELAY[0],
+            'relay': data.RELAYS[0],
         }
 
     def test_void_trader_inherit_trader(self):
@@ -23,7 +23,7 @@ class TestVoidTrader(unittest.TestCase):
         trader = VoidTrader(**self.data)
 
         self.assertEqual(trader.name, data.TRADERS[0])
-        self.assertEqual(trader.relay, data.RELAY[0])
+        self.assertEqual(trader.relay, data.RELAYS[0])
         self.assertFalse(trader.active)
 
     def test_not_create_void_trader_with_incorrect_relay(self):
@@ -58,11 +58,11 @@ class TestVoidTrader(unittest.TestCase):
         """Test: set correct value for relay."""
         trader = VoidTrader(**self.data)
 
-        self.assertEqual(trader.relay, data.RELAY[0])
+        self.assertEqual(trader.relay, data.RELAYS[0])
 
-        trader.relay = data.RELAY[1]
+        trader.relay = data.RELAYS[1]
 
-        self.assertEqual(trader.relay, data.RELAY[1])
+        self.assertEqual(trader.relay, data.RELAYS[1])
 
     def test_not_set_incorrect_value_for_relay(self):
         """Test: not set incorrect value for relay."""
@@ -82,7 +82,7 @@ class TestVoidTrader(unittest.TestCase):
         trader = VoidTrader(**self.data, active=True)
         correct_info = (
             f'Name: {data.TRADERS[0]}',
-            f'Relay: {data.RELAY[0]}',
+            f'Relay: {data.RELAYS[0]}',
             f'Left time: {trader.timer.get_str_time()}',
         )
 

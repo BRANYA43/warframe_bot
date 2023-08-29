@@ -20,7 +20,7 @@ def get_table(header: str, list_of_text_blocks: list[tuple[str, ...]]) -> str:
 
 
 def get_table_of_trader(list_of_header_block: tuple[str, ...], list_of_text_blocks: list[tuple[str, ...]],
-                        inventory_header='Inventory') -> str:
+                        inventory_header: str) -> str:
     len_ = len(list_of_text_blocks)
     text = [TOP_BORDER]
 
