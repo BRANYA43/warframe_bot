@@ -8,11 +8,11 @@ msgid "Places with Cycles"
 msgstr ""
 
 #: src/cogs/user.py:27
-msgid "Baro Ke'teer"
+msgid "Void Trader"
 msgstr ""
 
 #: src/cogs/user.py:28
-msgid "Teshin"
+msgid "Steel Trader"
 msgstr ""
 
 #: src/cogs/user.py:29 src/cogs/user.py:66
@@ -24,7 +24,7 @@ msgid "Storm Fissures"
 msgstr ""
 
 #: src/cogs/user.py:31 src/cogs/user.py:80
-msgid "Steel Path Void Fissures"
+msgid "Void Fissures of Steel Path"
 msgstr ""
 
 #: src/cogs/user.py:33 src/cogs/user.py:87

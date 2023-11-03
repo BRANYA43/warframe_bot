@@ -78,8 +78,8 @@ class Trader(NameMixin, TimerMixin):
 
     def get_info(self) -> tuple[str, ...]:
         return (
-            f'Name: {self.name}',
-            f'Left time: {self.timer.get_str_time()}',
+            _('Name: {}').format(self.name),
+            _('Left time: {}').format(self.timer.get_str_time()),
         )
 
 
@@ -117,9 +117,17 @@ class VoidTrader(Trader):
     def get_info(self):
         name, left_time = super().get_info()
         if self.active:
-            ret = (name, f'{_("Relay")}: {local_data.RELAYS[self.relay] if "TennoCon" not in self.relay else self.relay}', left_time)
+            ret = (
+                name,
+                _('Relay: {}').format(local_data.RELAYS[self.relay]),
+                left_time,
+            )
         else:
-            ret = (name, f'{_("Location")}: {local_data.LOCATIONS["Void"]}', left_time)
+            ret = (
+                name,
+                _('Location: {}').format(local_data.LOCATIONS['Void']),
+                left_time,
+            )
         return ret
 
     def update(self):
@@ -177,9 +185,10 @@ class SteelTrader(Trader):
             self.timer.expiry += self.TIME_TO_CHANGING_OFFER
 
     def get_info(self) -> tuple[str, ...]:
+        name, left_time = super().get_info()
         return (
-            _('Name: {}').format(self.name),
+            name,
             _('Current offer: {}').format(self.current_offer.name),
             _('Next offer: {}').format(self.next_offer.name),
-            _('Left time: {}').format(self.timer.get_str_time()),
+            left_time,
         )

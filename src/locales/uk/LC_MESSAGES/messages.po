@@ -5,14 +5,14 @@ msgstr ""
 
 #: src/cogs/user.py:26 src/cogs/user.py:43
 msgid "Places with Cycles"
-msgstr "Місця з циклом"
+msgstr "Місця с циклом"
 
 #: src/cogs/user.py:27
-msgid "Baro Ke'teer"
+msgid "Void Trader"
 msgstr "Торговець Безодні"
 
 #: src/cogs/user.py:28
-msgid "Teshin"
+msgid "Steel Trader"
 msgstr "Торговець Стального Шляху"
 
 #: src/cogs/user.py:29 src/cogs/user.py:66
@@ -24,7 +24,7 @@ msgid "Storm Fissures"
 msgstr "Шторми Безодні"
 
 #: src/cogs/user.py:31 src/cogs/user.py:80
-msgid "Steel Path Void Fissures"
+msgid "Void Fissures of Steel Path"
 msgstr "Розломи Безодні Стального Шляху"
 
 #: src/cogs/user.py:33 src/cogs/user.py:87
@@ -34,6 +34,10 @@ msgstr "Розломи Реквієму"
 #: src/cogs/user.py:51
 msgid "Inventory"
 msgstr "Інвентар"
+
+#: src/cogs/user.py:59
+msgid "Offers"
+msgstr "Пропозиції"
 
 #: src/locales/local_data.py:4
 msgid "Day"
@@ -61,7 +65,7 @@ msgstr "Воум"
 
 #: src/locales/local_data.py:10 src/locales/local_data.py:66
 msgid "Grineer"
-msgstr "Грінір"
+msgstr ""
 
 #: src/locales/local_data.py:11 src/locales/local_data.py:65
 msgid "Corpus"
@@ -137,7 +141,7 @@ msgstr "Плутон"
 
 #: src/locales/local_data.py:51
 msgid "Sedna"
-msgstr "Седна"
+msgstr "Сендна"
 
 #: src/locales/local_data.py:52
 msgid "Eris"
@@ -165,11 +169,11 @@ msgstr "Проксіма Венери"
 
 #: src/locales/local_data.py:59
 msgid "Saturn Proxima"
-msgstr "Проксіма Сатурну"
+msgstr "Проксіма Сатурна"
 
 #: src/locales/local_data.py:60
 msgid "Neptune Proxima"
-msgstr "Проксіма Нептуну"
+msgstr "Проксіма Нептуна"
 
 #: src/locales/local_data.py:61
 msgid "Pluto Proxima"
@@ -350,3 +354,4 @@ msgstr "Поточна пропозиція: {}"
 #: src/objects/trader.py:183
 msgid "Next offer: {}"
 msgstr "Наступна пропозиція: {}"
+

@@ -24,11 +24,11 @@ class UserCog(commands.Cog):
         """Get short menu."""
         components = [
             disnake.ui.Button(label=_('Places with Cycles'), style=disnake.ButtonStyle.primary, custom_id='places'),
-            disnake.ui.Button(label=_('Baro Ke\'teer'), style=disnake.ButtonStyle.primary, custom_id='void_trader'),
-            disnake.ui.Button(label=_('Teshin'), style=disnake.ButtonStyle.primary, custom_id='steel_trader'),
+            disnake.ui.Button(label=_('Void Trader'), style=disnake.ButtonStyle.primary, custom_id='void_trader'),
+            disnake.ui.Button(label=_('Steel Trader'), style=disnake.ButtonStyle.primary, custom_id='steel_trader'),
             disnake.ui.Button(label=_('Void Fissures'), style=disnake.ButtonStyle.primary, custom_id='simple_fissures'),
             disnake.ui.Button(label=_('Storm Fissures'), style=disnake.ButtonStyle.primary, custom_id='storm_fissures'),
-            disnake.ui.Button(label=_('Steel Path Void Fissures'), style=disnake.ButtonStyle.primary,
+            disnake.ui.Button(label=_('Void Fissures of Steel Path'), style=disnake.ButtonStyle.primary,
                               custom_id='hard_fissures'),
             disnake.ui.Button(label=_('Requiem Fissures'), style=disnake.ButtonStyle.primary, custom_id='kuva_fissures'),
         ]
@@ -77,7 +77,7 @@ class UserCog(commands.Cog):
             case 'hard_fissures':
                 embed = disnake.Embed(
                     title='',
-                    description=get_table_fissures(_('Steel Path Void Fissures'), self.manager.get_fissures_info('hard')),
+                    description=get_table_fissures(_('Void Fissures of Steel Path'), self.manager.get_fissures_info('hard')),
                 )
                 await inter.send(embed=embed, ephemeral=True)
 
