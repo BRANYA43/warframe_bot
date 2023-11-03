@@ -5,7 +5,15 @@ msgstr ""
 
 #: src/cogs/user.py:26 src/cogs/user.py:43
 msgid "Places with Cycles"
-msgstr "Місця які мають цикл"
+msgstr "Місця з циклом"
+
+#: src/cogs/user.py:27
+msgid "Baro Ke'teer"
+msgstr "Торговець Безодні"
+
+#: src/cogs/user.py:28
+msgid "Teshin"
+msgstr "Торговець Стального Шляху"
 
 #: src/cogs/user.py:29 src/cogs/user.py:66
 msgid "Void Fissures"
@@ -271,7 +279,7 @@ msgstr "Реквієм"
 msgid "Node: {}"
 msgstr "Точка: {}"
 
-#: src/objects/fissure.py:65
+#: src/objects/fissure.py:65 src/objects/trader.py:128
 msgid "Location: {}"
 msgstr "Локація: {}"
 
@@ -287,11 +295,11 @@ msgstr "Ворог: {}"
 msgid "Tier: {}"
 msgstr "Рівень: {}"
 
-#: src/objects/fissure.py:69 src/objects/place.py:68 src/objects/trader.py:184
+#: src/objects/fissure.py:69 src/objects/place.py:68 src/objects/trader.py:82
 msgid "Left time: {}"
 msgstr "Залишилось часу: {}"
 
-#: src/objects/place.py:65 src/objects/trader.py:27 src/objects/trader.py:181
+#: src/objects/place.py:65 src/objects/trader.py:27 src/objects/trader.py:81
 msgid "Name: {}"
 msgstr "Назва: {}"
 
@@ -330,6 +338,10 @@ msgstr "0хв."
 #: src/objects/trader.py:28
 msgid "Cost: {}"
 msgstr "Ціна: {}"
+
+#: src/objects/trader.py:122
+msgid "Relay: {}"
+msgstr "Реле"
 
 #: src/objects/trader.py:182
 msgid "Current offer: {}"

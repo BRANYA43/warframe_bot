@@ -7,6 +7,14 @@ msgstr ""
 msgid "Places with Cycles"
 msgstr ""
 
+#: src/cogs/user.py:27
+msgid "Baro Ke'teer"
+msgstr ""
+
+#: src/cogs/user.py:28
+msgid "Teshin"
+msgstr ""
+
 #: src/cogs/user.py:29 src/cogs/user.py:66
 msgid "Void Fissures"
 msgstr ""
@@ -25,6 +33,10 @@ msgstr ""
 
 #: src/cogs/user.py:51
 msgid "Inventory"
+msgstr ""
+
+#: src/cogs/user.py:59
+msgid "Offers"
 msgstr ""
 
 #: src/locales/local_data.py:4
@@ -271,7 +283,7 @@ msgstr ""
 msgid "Node: {}"
 msgstr ""
 
-#: src/objects/fissure.py:65
+#: src/objects/fissure.py:65 src/objects/trader.py:128
 msgid "Location: {}"
 msgstr ""
 
@@ -287,11 +299,11 @@ msgstr ""
 msgid "Tier: {}"
 msgstr ""
 
-#: src/objects/fissure.py:69 src/objects/place.py:68 src/objects/trader.py:184
+#: src/objects/fissure.py:69 src/objects/place.py:68 src/objects/trader.py:82
 msgid "Left time: {}"
 msgstr ""
 
-#: src/objects/place.py:65 src/objects/trader.py:27 src/objects/trader.py:181
+#: src/objects/place.py:65 src/objects/trader.py:27 src/objects/trader.py:81
 msgid "Name: {}"
 msgstr ""
 
@@ -329,12 +341,16 @@ msgstr ""
 
 #: src/objects/trader.py:28
 msgid "Cost: {}"
-msgstr "Ціна: {}"
+msgstr ""
 
-#: src/objects/trader.py:182
+#: src/objects/trader.py:122
+msgid "Relay: {}"
+msgstr ""
+
+#: src/objects/trader.py:191
 msgid "Current offer: {}"
 msgstr ""
 
-#: src/objects/trader.py:183
+#: src/objects/trader.py:192
 msgid "Next offer: {}"
 msgstr ""
