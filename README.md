@@ -1,3 +1,11 @@
+![Static Badge](https://img.shields.io/badge/Python-%23?style=for-the-badge&logo=python&logoColor=white&labelColor=%230a0a0a&color=%233776AB)
+![Static Badge](https://img.shields.io/badge/asinsio-%23?style=for-the-badge&logo=python&logoColor=white&labelColor=%230a0a0a&color=%23C70D2C)
+![Static Badge](https://img.shields.io/badge/request-%23?style=for-the-badge&logo=python&logoColor=white&labelColor=%230a0a0a&color=%23FFFF66)
+![Static Badge](https://img.shields.io/badge/Disnake-%23?style=for-the-badge&logo=discord&logoColor=white&labelColor=%230a0a0a&color=%235865F2)
+
+
+***
+
 # Warframe Information Bot
 ![logo.png](readme_imgs%2Flogo.png)
 
